@@ -1,0 +1,460 @@
+/*  GLOBAL CONTAINER */
+
+.context_data_container {
+    width: 100%;
+    margin:20px auto;
+    padding:10px;
+    position:relative;
+    display:table;
+}
+
+.context_data_container_row {
+    display:table-row;
+}
+
+
+.context_data_container_col_left {
+    width: 80%;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+    display:table-cell;
+   
+}
+.context_data_container_col_right {
+    width: 20%;
+    min-height: 1px;
+    padding-right: 10px;
+    padding-left: 10px;
+    display:table-cell;
+}
+
+
+/*  OTHER CONTAINERS  */
+
+.context_data_container{
+	padding-top:3px;
+	margin-bottom:25px;
+	float:left;
+}
+
+.context_data_list{ 
+    font-family: Arial, Helvetica, Verdana, sans-serif;
+    color: #cccccC;
+    text-align: left;
+    font-size: 13px;
+    color: #58595B;
+}
+
+.context_data_container{ 
+	font-family: Arial, Helvetica, Verdana, sans-serif;
+	font-size:10pt;
+	/**border: 1px solid #D6D6D6;**/
+	margin: 10px 10px 0px 10px;
+	padding: 10px 10px 10px 10px;
+}
+
+/* DATA ASPECT  */
+/* not used
+.context_data_title{
+    font-family: Arial, Helvetica, Verdana,sans-serif;
+    text-decoration: none;
+    font-size: 1.23em;
+    color:#20699c;
+}
+
+.context_data_title a{
+	 color:#20699c;
+}
+
+.context_data_title a:hover{
+	 color:#77bc67;
+	 text-decoration:underline;
+}
+
+
+.context_data_link
+{
+	text-decoration:none;
+	
+}
+
+
+.context_data_topics{ 
+    font-family: Arial, Helvetica, Verdana, sans-serif;
+    text-align: left;
+    font-size:13px;
+    color: #58595B;
+    padding: 4px 0;
+}
+
+.context_data_topics a{ 
+	color: #58595B;
+	font-size: 13px;
+}
+
+.context_data_topics a:hover{
+	 color:#77bc67;
+	 text-decoration:underline;
+}*/
+
+
+/* Maybe we are not going to show 'more_results'
+.context_more_resuts {
+    float: left;
+    padding-top: 2px;
+    text-align: right;
+    width: 100%;
+}*/
+
+
+
+
+/* PAGE MANAGER */
+
+/* Page manager components  list */
+p.page_manager_container{
+    text-align:center;
+}
+
+p.page_manager_container .pageManagerComponent {
+	margin: 10;
+	padding: 0;
+}
+
+
+
+/* Sizes */
+/* small */
+a.button.small,
+.button.small a {
+	width: 26px;
+	height: 26px;
+	font-size: 90%;
+}
+
+
+/* BUTTONS */
+
+a.button,
+.button a {
+	width: 32px;
+	height: 32px;
+	background-repeat: no-repeat;
+	background-position: center center;
+	text-indent: -900em;
+	color: #333;
+	text-decoration: none;
+	line-height: 100%;
+	white-space: nowrap;
+	display: inline-block;
+	position: relative;
+	vertical-align: middle;
+	margin: 0 2px 5px 0;
+	
+	/* default button color */
+	background-color: #ececec;
+	border: solid 1px #b8b8b9;
+	
+	/* default box shadow */
+	-webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,.3), 0 1px 0 rgba(0,0,0,.1);
+	-moz-box-shadow: inset 0 1px 0 rgba(255,255,255,.3), 0 1px 0 rgba(0,0,0,.1);
+	box-shadow: inset 0 1px 0 rgba(255,255,255,.3), 0 1px 0 rgba(0,0,0,.1);
+
+	/* default border radius */
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	
+}
+/* for IE */
+*:first-child+html a.button,
+*:first-child+html .button a {
+	text-indent: 0;
+	line-height: 0;
+	font-size: 0;
+	overflow: hidden;
+}
+
+
+
+/* Button list */
+p.button_container{
+    text-align:center;
+}
+
+.button {
+	margin: 0;
+	padding: 0;
+}
+.button li {
+	margin: 0;
+	padding: 0;
+	display: inline;
+}
+
+
+/* Sizes */
+/* small */
+a.button.small,
+.button.small a {
+	width: 26px;
+	height: 26px;
+	font-size: 90%;
+}
+
+/* large */
+a.button.large,
+.button.large a {
+	width: 40px;
+	height: 40px;
+	font-size: 120%;
+}
+
+/* extra large */
+a.button.xl,
+.button.xl a {
+	width: 72px;
+	height: 72px;
+	font-size: 130%;
+}
+
+/* embossed style */
+a.button.embossed,
+.button.embossed a {
+	-webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,.5), inset 0 -2px 0 rgba(0,0,0,.25), inset 0 -3px 0 rgba(255,255,255,.2), 0 1px 0 rgba(0,0,0,.1);
+	-moz-box-shadow: inset 0 1px 0 rgba(255,255,255,.5), inset 0 -2px 0 rgba(0,0,0,.25), inset 0 -3px 0 rgba(255,255,255,.2), 0 1px 0 rgba(0,0,0,.1);
+	box-shadow: inset 0 1px 0 rgba(255,255,255,.5), inset 0 -2px 0 rgba(0,0,0,.25), inset 0 -3px 0 rgba(255,255,255,.2), 0 1px 0 rgba(0,0,0,.1);
+
+}
+
+/* pressed style */
+a.button.pressed,
+.button.pressed a {
+	-webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,.35);
+	-moz-box-shadow: inset 0 1px 2px rgba(0,0,0,.35);
+	box-shadow: inset 0 1px 2px rgba(0,0,0,.35);
+}
+
+
+
+/* default hover */
+a.button:hover:after,
+.button a:button:after {
+	background-image: none;
+}
+a.button:button,
+.button a:button,
+a.button:button:after,
+.button a:button:after {
+	background-color: #f3f3f3;
+}
+
+
+/* button icons */
+
+a.button.database,
+.button a.database {
+	background-image: url(../img/data_base_s.png);
+}
+
+a.button.events,
+.button a.events {
+	background-image: url(../img/events_s.png);
+}
+
+a.button.tools,
+.button a.tools {
+	background-image: url(../img/tools_s.png);
+}
+
+a.button.training_material,
+.button a.training_material {
+	background-image: url(../img/training_material_s.png);
+}
+
+a.button.workflow,
+.button a.workflow {
+	background-image: url(../img/workflow_s.png);
+}
+
+
+/*  resource type details
+Based on:
+CSS Social Icons
+By: Nick La (@nickla)
+http://webdesignerwall.com/tutorials/css-social-buttons
+*/
+
+span.resource_type,
+.resource_type span {
+	width: 36px;
+	height: 36px;
+	background-repeat: no-repeat;
+	background-position: center center;
+	text-indent: -900em;
+	color: #333;
+	text-decoration: none;
+	line-height: 100%;
+	white-space: nowrap;
+	display: inline-block;
+	position: relative;
+	vertical-align: middle;
+	margin: 0 2px 5px 0;
+	
+	/* default button color */
+	background-color: #ececec;
+	border: solid 1px #b8b8b9;
+	
+	/* default box shadow */
+	-webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,.3), 0 1px 0 rgba(0,0,0,.1);
+	-moz-box-shadow: inset 0 1px 0 rgba(255,255,255,.3), 0 1px 0 rgba(0,0,0,.1);
+	box-shadow: inset 0 1px 0 rgba(255,255,255,.3), 0 1px 0 rgba(0,0,0,.1);
+
+	/* default border radius */
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	
+}
+/* for IE */
+*:first-child+html span.resource_type,
+*:first-child+html .resource_type span {
+	text-indent: 0;
+	line-height: 0;
+	font-size: 0;
+	overflow: hidden;
+}
+
+
+/* circle style */
+span.resource_type.circle,
+.resource_type.circle span,
+span.resource_type.circle:before,
+.resource_type.circle span:before,
+span.resource_type.circle:after,
+.resource_type.circle span:after {
+	-webkit-border-radius: 10em;
+	-moz-border-radius: 10em;
+	border-radius: 10em;
+}
+
+
+/* resource type icons */
+
+
+span.resource_type.database,
+.resource_type span.database {
+	background-image: url(../img/data_base_s.png);
+}
+
+span.resource_type.events,
+.resource_type span.events {
+	background-image: url(../img/events_s.png);
+}
+
+span.resource_type.tools,
+.resource_type span.tools {
+	background-image: url(../img/tools_s.png);
+}
+
+span.resource_type.training_material,
+.resource_type span.training_material {
+	background-image: url(../img/training_material_s.png);
+}
+
+span.resource_type.workflow,
+.resource_type span.workflow {
+	background-image: url(../img/workflow_s.png);
+}
+
+
+/* flat resource type details */
+
+
+span.flat_resource_type,
+.flat_resource_type span {
+	width: 36px;
+	height: 36px;
+	background-repeat: no-repeat;
+	background-position: center center;
+	text-indent: -900em;
+	color: #333;
+	text-decoration: none;
+	line-height: 100%;
+	white-space: nowrap;
+	display: inline-block;
+	position: relative;
+	vertical-align: middle;
+	margin: 0 2px 5px 0;
+	
+}
+/* for IE */
+*:first-child+html span.flat_resource_type,
+*:first-child+html .flat_resource_type span {
+	text-indent: 0;
+	line-height: 0;
+	font-size: 0;
+	overflow: hidden;
+}
+
+span.flat_resource_type.database,
+.flat_resource_type span.database {
+	background-image: url(../img/data_base_s.png);
+}
+
+span.flat_resource_type.events,
+.flat_resource_type span.events {
+	background-image: url(../img/events_s.png);
+}
+
+span.flat_resource_type.tools,
+.flat_resource_type span.tools {
+	background-image: url(../img/tools_s.png);
+}
+
+span.flat_resource_type.training_material,
+.flat_resource_type span.training_material {
+	background-image: url(../img/training_material_s.png);
+}
+
+span.flat_resource_type.workflow,
+.flat_resource_type span.workflow {
+	background-image: url(../img/workflow_s.png);
+}
+
+/*  Gray filters
+Based on:
+http://www.oloblogger.com/2012/09/imagenes-escala-grises-css.html
+*/
+
+.gray {
+filter: url('#grayscale'); /* Versi—n SVG para IE10, Chrome 17, FF3.5, Safari 5.2 and Opera 11.6 */
+-webkit-filter: grayscale(100%);
+-moz-filter: grayscale(100%);
+-ms-filter: grayscale(100%);
+-o-filter: grayscale(100%);
+filter: grayscale(100%); /* Para cuando es est‡ndar funcione en todos */
+filter: Gray(); /* IE4-8 and 9 */
+
+-webkit-transition: all 0.5s ease;
+-moz-transition: all 0.5s ease;
+-ms-transition: all 0.5s ease;
+-o-transition: all 0.5s ease;
+transition: all 0.5s ease;
+}
+.gray hover { 
+-webkit-filter: grayscale(0%);
+-moz-filter: grayscale(0%);
+-ms-filter: grayscale(0%);
+-o-filter: grayscale(0%);
+filter: none;
+
+-webkit-transition: all 0.5s ease;
+-moz-transition: all 0.5s ease;
+-ms-transition: all 0.5s ease;
+-o-transition: all 0.5s ease;
+transition: all 0.5s ease;
+}
+
+
