@@ -94,6 +94,9 @@ ContextDataList.prototype = {
 		if (elementsContainer != null && elementsContainer.length > 0) {
 			var myFirstElement = elementsContainer[0];
 			userText = myFirstElement.innerText;
+			if (userText == undefined || userText == null) {
+				userText = myFirstElement.innerHTML;
+			}
 		}
 		return userText;
 	},
