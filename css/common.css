@@ -1,11 +1,16 @@
-/*  GLOBAL CONTAINER */
+/*  Containers */
+
+.global_container{
+    padding:20px;
+}
 
 .context_data_container {
     width: 100%;
-    margin:20px auto;
-    padding:10px;
+    margin: 5px 5px 5px 5px;
     position:relative;
     display:table;
+    padding-top:3px;
+    float:left;
 }
 
 .context_data_container_row {
@@ -14,90 +19,36 @@
 
 
 .context_data_container_col_left {
-    width: 80%;
+    width: 85%;
     min-height: 1px;
-    padding-right: 15px;
-    padding-left: 15px;
     display:table-cell;
-   
-}
-.context_data_container_col_right {
-    width: 20%;
-    min-height: 1px;
-    padding-right: 10px;
-    padding-left: 10px;
-    display:table-cell;
-}
-
-
-/*  OTHER CONTAINERS  */
-
-.context_data_container{
-	padding-top:3px;
-	margin-bottom:25px;
-	float:left;
-}
-
-.context_data_list{ 
-    font-family: Arial, Helvetica, Verdana, sans-serif;
-    color: #cccccC;
     text-align: left;
-    font-size: 13px;
-    color: #58595B;
 }
 
-.context_data_container{ 
-	font-family: Arial, Helvetica, Verdana, sans-serif;
-	font-size:10pt;
-	/**border: 1px solid #D6D6D6;**/
-	margin: 10px 10px 0px 10px;
-	padding: 10px 10px 10px 10px;
+.context_data_container_col_right {
+    width: 15%;
+    min-height: 1px;
+    display:table-cell;
+}
+
+div.context_data_list{ 
+    text-align: left;
+    margin: 5px 0px 0px 5px;
+    display:inline-block;
+    width: 100%;
+}
+
+
+/** Normal elements */
+
+div.context_data_topics{ 
+    font-size: 85%;
+}
+
+a.context_data_title{ 
 }
 
 /* DATA ASPECT  */
-/* not used
-.context_data_title{
-    font-family: Arial, Helvetica, Verdana,sans-serif;
-    text-decoration: none;
-    font-size: 1.23em;
-    color:#20699c;
-}
-
-.context_data_title a{
-	 color:#20699c;
-}
-
-.context_data_title a:hover{
-	 color:#77bc67;
-	 text-decoration:underline;
-}
-
-
-.context_data_link
-{
-	text-decoration:none;
-	
-}
-
-
-.context_data_topics{ 
-    font-family: Arial, Helvetica, Verdana, sans-serif;
-    text-align: left;
-    font-size:13px;
-    color: #58595B;
-    padding: 4px 0;
-}
-
-.context_data_topics a{ 
-	color: #58595B;
-	font-size: 13px;
-}
-
-.context_data_topics a:hover{
-	 color:#77bc67;
-	 text-decoration:underline;
-}*/
-
 
 /* Maybe we are not going to show 'more_results'
 .context_more_resuts {
@@ -112,27 +63,22 @@
 
 /* PAGE MANAGER */
 
-/* Page manager components  list */
-p.page_manager_container{
+
+div.page_manager_container{
     text-align:center;
+    margin: 10px 5px 5px 5px;
 }
 
-p.page_manager_container .pageManagerComponent {
-	margin: 10;
-	padding: 0;
+div.page_manager_status{
+    font-style: italic;
 }
 
-
-
-/* Sizes */
-/* small */
-a.button.small,
-.button.small a {
-	width: 26px;
-	height: 26px;
-	font-size: 90%;
+div.page_manager_nav{
 }
 
+.page_manager_component{
+    padding: 0px 5px 0px 5px;
+}
 
 /* BUTTONS */
 
