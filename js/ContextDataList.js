@@ -266,10 +266,6 @@ ContextDataList.prototype = {
 		while (target.firstChild) {
 			target.removeChild(target.firstChild);
 		}
-
-		var contextDataDiv = document.createElement("div");
-		contextDataDiv.className = "contextualisedDataDiv";
-		target.appendChild(contextDataDiv);
 		
 		var index = 0;
 		var dataObject;
@@ -289,7 +285,7 @@ ContextDataList.prototype = {
 			}else{
 				drawableObject.classList.add("views-row-even");
 			}
-			contextDataDiv.appendChild(drawableObject);
+			target.appendChild(drawableObject);
 			index++;
 		}
 		
