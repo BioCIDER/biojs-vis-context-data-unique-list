@@ -57,20 +57,26 @@ PageManager.prototype = {
 			var statusText = this.getCurrentStatus();
 			target.appendChild(statusText);
 		}else if (this.contextDataList.currentStatus == this.contextDataList.LOADED){
-			var previousButton = this.createPreviousButton();
-			target.appendChild(previousButton);
-			
-			var textSeparator = this.createTextSeparator();
-			target.appendChild(textSeparator);
-			
 			var statusText = this.getCurrentStatus();
 			target.appendChild(statusText);
 			
+			var navDiv = document.createElement('div');
+			navDiv.classList.add('page_manager_nav');
+			
+			var previousButton = this.createPreviousButton();
+			navDiv.appendChild(previousButton);
+			
 			var textSeparator = this.createTextSeparator();
-			target.appendChild(textSeparator);
+			navDiv.appendChild(textSeparator);
 			
 			var nextButton = this.createNextButton();
-			target.appendChild(nextButton);
+			navDiv.appendChild(nextButton);
+			
+			
+			target.appendChild(navDiv);
+			
+			console.log(this.existPreviousResults());
+			console.log(this.existNextResults());
 		}
 		
 	},
@@ -80,62 +86,107 @@ PageManager.prototype = {
         */  
 	createTextSeparator : function(){
 		var element = document.createElement('span');
-		var text = document.createTextNode('|');
+		var text = document.createTextNode('-');
 		element.appendChild(text);
-		element.classList.add('pageManagerComponent');
+		element.classList.add('page_manager_component');
 		return element;
 	},
-        
-        /**
-        * Function that creates one button to get previous results
+	
+	/**
+        * Function that evaluates if it's possible to retrieve previous results.
         */  
-        createPreviousButton : function(){
-            var button = document.createElement('a');
-            var linkText = document.createTextNode('Previous');
-            button.appendChild(linkText);
-            button.title = 'Previous';
-            button.href = "#";
-            var myPageManager = this;
-            button.onclick = function (){
-		var maxRows = myPageManager.contextDataList.getMaxRows();
-		var totalResults = myPageManager.contextDataList.currentTotalResults;
-		var startResult = myPageManager.contextDataList.currentStartResult;
-		var newStartResult = 0;
-		if (startResult-maxRows<=0) {
-			newStartResult = 0;	
-		}else{
-			newStartResult = startResult-maxRows;
-		}
-		myPageManager._changePage(newStartResult);
-                return false;
-            }
-            return button;    
+        existPreviousResults : function(){
+		var startResult = this.contextDataList.currentStartResult;
+		if (startResult == 0) {
+			return false;
+		}else
+			return true;
         },
 	
 	/**
-        * Function that creates one button to get previous results
+        * Function that evaluates if it's possible to retrieve next results.
+        */  
+        existNextResults : function(){
+		var startResult = this.contextDataList.currentStartResult;
+		var maxRows = this.contextDataList.getMaxRows();
+		var totalResults = this.contextDataList.currentTotalResults;
+
+		if (startResult+maxRows<totalResults) {
+			return true;
+		}else
+			return false;
+        },
+        
+        /**
+        * Function that creates one button to get previous results.Only text if there aren't previous results.
+        */  
+        createPreviousButton : function(){
+		if (this.existPreviousResults()) {
+			var button = document.createElement('a');
+			button.classList.add('page_manager_component');
+			var linkText = document.createTextNode('Previous');
+			button.appendChild(linkText);
+			button.title = 'Previous';
+			button.href = "#";
+			var myPageManager = this;
+			button.onclick = function (){
+			    var maxRows = myPageManager.contextDataList.getMaxRows();
+			    var totalResults = myPageManager.contextDataList.currentTotalResults;
+			    var startResult = myPageManager.contextDataList.currentStartResult;
+			    var newStartResult = 0;
+			    if (startResult-maxRows<=0) {
+				    newStartResult = 0;	
+			    }else{
+				    newStartResult = startResult-maxRows;
+			    }
+			    myPageManager._changePage(newStartResult);
+			    return false;
+			}
+			return button;  
+		}else{
+			var previousSpan = document.createElement('span');
+			var previousText = document.createTextNode('Previous');
+			previousSpan.appendChild(previousText);
+			previousSpan.classList.add('page_manager_component');
+			return previousSpan;
+		}
+              
+        },
+	
+	/**
+        * Function that creates one button to get previous results.Only text if there aren't more results.
         */  
         createNextButton : function(){
-            var button = document.createElement('a');
-            var linkText = document.createTextNode('Next');
-            button.appendChild(linkText);
-            button.title = 'Next';
-            button.href = "#";
-            var myPageManager = this;
-            button.onclick = function (){
-		var maxRows = myPageManager.contextDataList.getMaxRows();
-		var totalResults = myPageManager.contextDataList.currentTotalResults;
-		var startResult = myPageManager.contextDataList.currentStartResult;
-		var newStartResult = 0;
-		if (startResult+maxRows<totalResults) {
-			newStartResult = startResult+maxRows;	
+		if (this.existNextResults()) {
+			var button = document.createElement('a');
+			button.classList.add('page_manager_component');
+			var linkText = document.createTextNode('Next');
+			button.appendChild(linkText);
+			button.title = 'Next';
+			button.href = "#";
+			var myPageManager = this;
+			button.onclick = function (){
+			    var maxRows = myPageManager.contextDataList.getMaxRows();
+			    var totalResults = myPageManager.contextDataList.currentTotalResults;
+			    var startResult = myPageManager.contextDataList.currentStartResult;
+			    var newStartResult = 0;
+			    if (startResult+maxRows<totalResults) {
+				    newStartResult = startResult+maxRows;	
+			    }else{
+				    newStartResult = startResult;
+			    }
+			    myPageManager._changePage(newStartResult);
+			    return false;
+			}
+			return button;
 		}else{
-			newStartResult = startResult;
+			var nextSpan = document.createElement('span');
+			var nextText = document.createTextNode('Next');
+			nextSpan.appendChild(nextText);
+			nextSpan.classList.add('page_manager_component');
+			return nextSpan;
 		}
-		myPageManager._changePage(newStartResult);
-                return false;
-            }
-            return button;    
+              
         },
         
         /**
@@ -153,8 +204,8 @@ PageManager.prototype = {
         * total number of results.
         */  
 	getCurrentStatus : function(){
-		var element = document.createElement('span');
-		
+		var element = document.createElement('div');
+		element.classList.add('page_manager_status');
 		var startingResult = null;
 		var endingResult = null;
 		var totalResults = null;
@@ -170,7 +221,7 @@ PageManager.prototype = {
 			var numRowsLoaded = this.contextDataList.currentNumberLoadedResults;
 			
 			endingResult = startingResult + numRowsLoaded;
-			resultText = "Showing records "+startingResult+" to "+endingResult+" of a total of "+currentTotalResults
+			resultText = "Records "+startingResult+" to "+endingResult+" of "+currentTotalResults
 			
 		}
 		element.innerHTML = resultText;
