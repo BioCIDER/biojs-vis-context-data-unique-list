@@ -243,38 +243,57 @@ CommonData.prototype = {
 };
 
 
-
+/**
+ *          ElixirRegistryData constructor
+ *          jsonData {Object} JSON data structure with the original data retrieved by our data server.
+ *
+ */
 function ElixirRegistryData (jsonData) {
             this.jsonData = jsonData;
             this.SOURCE_FIELD_VALUE = "elixir_registry" ;   
 };
 
-
+/**
+ *          ElixirRegistryData child class with specific information of this kind of registries.
+ */
 ElixirRegistryData.prototype = {
             constructor: ElixirRegistryData
 };
 
 
-
+/**
+ *          ElixirTrainingData constructor
+ *          jsonData {Object} JSON data structure with the original data retrieved by our data server.
+ *
+ */
 function ElixirTrainingData (jsonData) {
             this.jsonData = jsonData;
             this.SOURCE_FIELD_VALUE = "ckan"; 
 };
 
-
+/**
+ *          ElixirTrainingData child class with specific information of this kind of registries.
+ */
 ElixirTrainingData.prototype = {
             constructor: ElixirTrainingData
       
 };
 
 
-
+/**
+ *          ElixirEventData constructor
+ *          jsonData {Object} JSON data structure with the original data retrieved by our data server.
+ *
+ */
 function ElixirEventData (jsonData) {
             this.jsonData = jsonData;
             this.SOURCE_FIELD_VALUE = "iann";
    
 };
 
+/**
+ *          ElixirEventData child class with specific information of this kind of registries.
+ */
 ElixirEventData.prototype = {
             constructor: ElixirEventData     
 };
