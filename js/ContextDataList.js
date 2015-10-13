@@ -288,6 +288,9 @@ ContextDataList.prototype = {
 			target.appendChild(drawableObject);
 			index++;
 		}
+		if (contextualisedData.length == 0) {
+			target.appendChild(this.getEmptyRecord());
+		}
 		
 		this.currentNumberLoadedResults = contextualisedData.length;
 		this.updateGlobalStatus(this.LOADED);
@@ -302,6 +305,24 @@ ContextDataList.prototype = {
 		console.log(this.currentFilters);
 		*/
 		
+	},
+	
+	/**
+	 * 	Returns one row explaining the absence of real results.
+	 * 	{HTML Object} - Empty result.
+	 */
+	getEmptyRecord : function(){
+		var mainContainer = document.createElement('div');
+		mainContainer.classList.add("context_data_container");
+		var trContainer = document.createElement('div');
+		trContainer.classList.add("context_data_container_row");
+		
+		var spanText = document.createElement('span');
+		var text = 'Cannot be found any related result';
+		spanText.innerHTML = text;
+		trContainer.appendChild(spanText);
+		mainContainer.appendChild(trContainer);
+		return mainContainer;
 	},
 	
 	/**
