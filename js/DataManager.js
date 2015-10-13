@@ -20,7 +20,6 @@ DataManager.prototype = {
     sourceField: 'source',
     
     getSourceField : function(jsonEntry){
-        console.log(jsonEntry);
         if (jsonEntry !== null && jsonEntry !== undefined) {
             return jsonEntry[this.sourceField];
         }else return null;
