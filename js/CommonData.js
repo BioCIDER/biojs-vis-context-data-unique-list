@@ -50,8 +50,7 @@ CommonData.prototype = {
             /**
              *          Auxiliar function to get easily any kind of data present in the internal
              *          data structure of this entity.
-             *          fieldName {String} - Name of the field to be retrieved.
-             *          
+             *          @param fieldName {String} - Name of the field to be returned.
              */
             getParameterisedValue : function(fieldName){
                         if (this.jsonData !== undefined && this.jsonData !== null){
@@ -60,6 +59,10 @@ CommonData.prototype = {
             },
             
             // mandatory fields
+            /**
+             *          Returns source field value of this entity.
+             *          {String} - String literal with the source value of this entity.
+             */
             getSourceValue : function(){
                         return this.getParameterisedValue(this.SOURCE_FIELD);      
             },
@@ -123,7 +126,7 @@ CommonData.prototype = {
             /**
              *          Returns one kind of CommonData transformed into a HTML component in a way that
              *          depends on what kind of style you want it will be drawn.
-             *          displayStyle {String} - One drawing style. Currently ContextDataList.COMMON_STYLE or ContextDataList.FULL_STYLE.
+             *          @param displayStyle {String} - One drawing style. Currently ContextDataList.COMMON_STYLE or ContextDataList.FULL_STYLE.
              *          {Object} - Array with HTML structured converted from this entity's original JSON status.
              */
             getDrawableObject : function(displayStyle){
@@ -245,7 +248,7 @@ CommonData.prototype = {
 
 /**
  *          ElixirRegistryData constructor
- *          jsonData {Object} JSON data structure with the original data retrieved by our data server.
+ *          @param jsonData {Object} JSON data structure with the original data retrieved by our data server.
  *
  */
 function ElixirRegistryData (jsonData) {
@@ -263,7 +266,7 @@ ElixirRegistryData.prototype = {
 
 /**
  *          ElixirTrainingData constructor
- *          jsonData {Object} JSON data structure with the original data retrieved by our data server.
+ *          @param jsonData {Object} JSON data structure with the original data retrieved by our data server.
  *
  */
 function ElixirTrainingData (jsonData) {
@@ -282,7 +285,7 @@ ElixirTrainingData.prototype = {
 
 /**
  *          ElixirEventData constructor
- *          jsonData {Object} JSON data structure with the original data retrieved by our data server.
+ *          @param jsonData {Object} JSON data structure with the original data retrieved by our data server.
  *
  */
 function ElixirEventData (jsonData) {

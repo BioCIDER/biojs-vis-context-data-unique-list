@@ -1,4 +1,8 @@
 
+/*
+ *  Use case example of ContextDataList widget.
+ */
+
 document.addEventListener("DOMContentLoaded", function(e) {
     
     var contextDataListInstance = new ContextDataList({

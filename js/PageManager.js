@@ -1,16 +1,13 @@
 
 
 /** 
- * PageManager functionality.
- * 
- * @class PageManager
+ * PageManager constructor.
  *
+ * @param {ContextDataList Object} Reference to ContextDataList object in order to manage its filters.
  * @param {Object} options An object with the options for PageManager component.
- * 
  * @option {string} [target='YourOwnDivId']
  *    Identifier of the DIV tag where the component should be displayed.
  */
-
 function PageManager (contextDataList, options) {
 	var consts = {
 	};
@@ -31,7 +28,12 @@ function PageManager (contextDataList, options) {
 	this.contextDataList.registerOnLoadedFunction(this, this.build);
 }
 
-
+/** 
+ * PageManager functionality.
+ * 
+ * @class PageManager
+ * 
+ */
 PageManager.prototype = {
 	constructor: PageManager,
         
@@ -72,11 +74,7 @@ PageManager.prototype = {
 			var nextButton = this.createNextButton();
 			navDiv.appendChild(nextButton);
 			
-			
 			target.appendChild(navDiv);
-			
-			console.log(this.existPreviousResults());
-			console.log(this.existNextResults());
 		}
 		
 	},
@@ -192,7 +190,7 @@ PageManager.prototype = {
         /**
         * Internal function that executes the redrawn of the ContextDataList object having into account
         * previously chosen filters.
-        * PageManager {Integer} startResult - number of the first result to be shown
+        * @param startResult {Integer} - number of the first result to be shown
         */  
         _changePage: function (startResult){
 	    this.contextDataList.currentStartResult = startResult;

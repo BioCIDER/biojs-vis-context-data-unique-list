@@ -1,16 +1,15 @@
 
 
 /** 
- * Buttons functionality.
+ * Buttons' filtering constructor.
  * 
  * @class ButtonsManager
  *
- * @param {Object} options An object with the options for ButtonsManager component.
- * 
+ * @param {ContextDataList Object} Reference to ContextDataList object in order to manage its filters.
+ * @param {Array} options An object with the options for ButtonsManager component.
  * @option {string} [target='YourOwnDivId']
  *    Identifier of the DIV tag where the component should be displayed.
  */
-
 function ButtonsManager (contextDataList, options) {
 	var consts = {
 	};
@@ -29,16 +28,21 @@ function ButtonsManager (contextDataList, options) {
         this.contextDataList = contextDataList;
 }
 
-
+/**
+ *      ButtonsManager class. Represents a set of filters selectable via buttons by users.
+ * 
+ *      @class ButtonsManager
+ *      
+ */
 ButtonsManager.prototype = {
 	constructor: ButtonsManager,
         buttons : [],
         
         
       
-/**
- * Creates the buttons and draw them into the element with id 'targetId'
- */        
+        /**
+         * Creates buttons and draw them into the element with id 'targetId'
+         */        
 	buildButtons : function (){
 		var target = document.getElementById(this.targetId);
 		if (target == undefined || target == null){
@@ -81,6 +85,9 @@ ButtonsManager.prototype = {
         
         /**
         * Function that creates one button with 'embossed' aspect.
+        * @param label {String} - Title to be used into the ANCHOR element.
+        * @param internalClass {String} - Specific className to be used into the ANCHOR element.
+        * @param internalName {String} - Name to be used into the ANCHOR element. It should be a filter name.
         */  
         createEmbossedButton : function(label, internalClass, internalName){
             var button = document.createElement('a');
@@ -102,7 +109,9 @@ ButtonsManager.prototype = {
         },
         
         /**
-        * Function that executes the redrawn of the ContextDataList object having into account chosen filters.
+        * Function that changes the status of the button and executes the redrawn of the ContextDataList
+        * object having into account chosen filters.
+        * @param myButton {Button} - Button to be pressed/unpressed.
         */  
         filter: function (myButton){
             this.showButtonClick(myButton);
@@ -112,6 +121,7 @@ ButtonsManager.prototype = {
         
         /**
         * Function that changes the aspect of one button from pressed to embossed, or vice versa.
+        * @param myButton {Button} - Button to be pressed/unpressed.
         */ 
         showButtonClick: function (myButton){
             myButton.classList.toggle("embossed");
@@ -119,7 +129,9 @@ ButtonsManager.prototype = {
         },
         
         /**
-        * Function that retrieves if the button passed as argument is pressed or not.
+        * Function that returns if the button passed as argument is pressed or not.
+        * @param myButton {Button} - Button to check its status.
+        * {Boolean} - Returns if myButton is pressed or not.
         */
         isButtonPressed: function (myButton){
             if (!myButton.classList.contains("pressed")) {
@@ -128,7 +140,8 @@ ButtonsManager.prototype = {
         },
         
         /**
-        * Function that retrieves active filters related with pressed buttons.
+        * Function that returns active filters related with pressed buttons.
+        * {Array} - Current applicable filters.
         */
         getPresentFiltersByButtons : function(){
             var pressedButtons = this.getPressedButtons();
@@ -140,7 +153,8 @@ ButtonsManager.prototype = {
         },
         
         /**
-        * Function that retrieves all pressed buttons.
+        * Function that returns all pressed buttons.
+        * {Array} - Current pressed buttons.
         */
         getPressedButtons : function(){
             var pressedButtons = [];

@@ -1,12 +1,19 @@
+/** 
+ * Resource contextualisation widget.
+ *
+ * Purpose of this widget is showing to the user, without any direct action by himself,
+ * information of his interest related with the content that is being shown currently to him .
+ * To achieve this, we collect in a Solr system information of different repositories
+ * (Elixir Service Registry, Elixir Training Portal, and Elixir Events Portal, until now), so
+ * we can search into this information which is related with content accesed by user.
+ * 
+ */
 
 
 /** 
- * Resource contextualisation viewer (http://www.europepmc.org).
+ * Resource contextualisation Constructor.
  * 
- * @class ContextDataList
- *
  * @param {Object} options An object with the options for ContextDataList component.
- * 
  * @option {string} [target='YourOwnDivId']
  *    Identifier of the DIV tag where the component should be displayed.
  * @option {string} [displayStyle= ContextDataList.FULL_STYLE, ContextDataList.COMMON_STYLE]
@@ -58,7 +65,13 @@ function ContextDataList (options) {
 	this.dataManager = new DataManager();
 }
 
-
+/** 
+ * Resource contextualisation widget.
+ * 
+ * 
+ * @class ContextDataList
+ *
+ */
 ContextDataList.prototype = {
 	constructor: ContextDataList,
 	// global current status
@@ -80,7 +93,8 @@ ContextDataList.prototype = {
 	},
 	
 	/**
-	 * Retrieves the text to contextualise.
+	 * Returns User's text to contextualise, if it exists.
+         * {String} - Text found into the client document that contains Contextualisation widget.
 	 */
 	getUserSearch : function() {
 		var userText = '';
@@ -115,6 +129,7 @@ ContextDataList.prototype = {
 	
 	/**
 	 * Retrieves the maximum number of results that can be shown into the widget.
+         * {Integer} - Maximum amount of results that can be shown at the same time.
 	 */
 	getMaxRows : function(){
 		var maxRows = this.MAX_ROWS;
@@ -129,10 +144,10 @@ ContextDataList.prototype = {
 
 	/**
 	 * Create a url to the SolR database with all parameters generated from these arguments.
-	 * fieldText {string} Text to search.
-	 * filters {Array} Array of filters - Only results with one of these resource types will be get.
-	 * start {integer} Position of the first result to retrieve.
-	 * rowsNumber {integer} Indicates the maximum number of results that will be shown on the screen;
+	 * @param fieldText {string} Text to search.
+	 * @param filters {Array} Array of filters - Only results with one of these resource types will be get.
+	 * @param start {integer} Position of the first result to retrieve.
+	 * @param rowsNumber {integer} Indicates the maximum number of results that will be shown on the screen;
 	 */
 	_getNewUrl : function(fieldText, filters, start, rowsNumber){
 		//console.log('_getNewUrl, fieldText: '+fieldText+', filters: '+filters+', start: '+start+', rowsNumber: '+rowsNumber);
@@ -199,7 +214,7 @@ ContextDataList.prototype = {
 	
 	/**
 	 * Makes an asynchronous request to the Contextualisation data server and process its reply.
-	 * url {string} url - Uniform Resource Locator
+	 * @param url {string} - Uniform Resource Locator
 	 */
 	processDataFromUrl: function(url){
 		//console.log('processDataFromUrl: '+url);
@@ -227,7 +242,7 @@ ContextDataList.prototype = {
 	/**
 	 * Manages some errors and process each result to be get in a proper way.
 	 * data {Object} - The full data list to be processed and shown
-	 * {Array} - Array with objects converted from their original JSON status
+	 * @param {Array} - Array with objects converted from their original JSON status
 	 */
 	processContextualisedData : function(data) {
 		var myContextDataList = this;
@@ -256,7 +271,7 @@ ContextDataList.prototype = {
          
 	/**
 	 * Draw a entire list of contextualised resources
-	 * contextualisedData {object Object} - All the data to be drawn into the widget.
+	 * @param contextualisedData {object Object} - All the data to be drawn into the widget.
 	 */
 	drawContextualisedData : function(contextualisedData){
 		var target = document.getElementById(this.targetId);
@@ -328,7 +343,7 @@ ContextDataList.prototype = {
 	/**
 	 * Updates, depending on the new status, internal variables of the component and, if
 	 * new status is 'LOADED', executes the 'onLoaded' functions registered. 
-	 * newStatus {string} newStatus - ContextDataList.LOADING or ContextDataList.ERROR or ContextDataList.LOADED 
+	 * @param newStatus {string} - ContextDataList.LOADING or ContextDataList.ERROR or ContextDataList.LOADED 
 	 */
 	updateGlobalStatus : function(newStatus){
 		// new status must be one of the posible status
