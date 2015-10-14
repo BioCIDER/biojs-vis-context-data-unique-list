@@ -178,12 +178,7 @@ ContextDataList.prototype = {
 			}
 
 		}
-	      //  url = this.contextDataServer+"/select/?q="+urlText+"&rows="+rowsNumber+"&fl=start,title,notes,link&wt=json&json.wrf=?&sort=start%20asc";     
-	       // url = this.contextDataServer+"/select?q=_text_:"+fieldText+"&rows="+rowsNumber+"&fl=start,title,notes,link&wt=json&json.wrf=?&sort=start%20asc";     
-		
-		//url = this.contextDataServer+"/select?q=title:"+fieldText+"&wt=json&indent=true&rows="+rowsNumber+"&fl=start,title,notes,link&sort=start%20asc";     
-
-		//url = this.contextDataServer+"/select?defType=edismax&q="+searchPhrase+"&qf=title^20.0+field^10.0+notes^1.0&wt=json&rows="+rowsNumber+"&fl=start,title,notes,link&sort=start%20asc";
+	      
 		url = this.contextDataServer+"/select?defType=edismax&q="+searchPhrase;
 		if (fq!=null) {
 			url = url+"&fq="+fq;
@@ -207,6 +202,9 @@ ContextDataList.prototype = {
 				
 		// wt
 		url = url+"&wt=json";
+		
+		// maybe we could also filter fields that we return
+		// &fl=start,title,notes,link
 
 		return url;
 	},
