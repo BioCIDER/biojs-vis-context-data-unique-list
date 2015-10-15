@@ -82,7 +82,6 @@ CommonData.prototype = {
                         var resourceTypes = this.getResourceTypeValues();
                         var uniqueResourceTypes = [];
                         for(var i=0;i<resourceTypes.length;i++){
-                                    console.log(i);
                                     if (! (uniqueResourceTypes.indexOf(resourceTypes[i]) > -1)){
                                                 uniqueResourceTypes.push(resourceTypes[i]);   
                                     }
