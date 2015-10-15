@@ -133,7 +133,7 @@ ContextDataList.prototype = {
 	 */
 	getMaxRows : function(){
 		var maxRows = this.MAX_ROWS;
-		if (this.numberResults != "undefined" && Number.isInteger(this.numberResults) ) {
+		if (this.numberResults != "undefined" && !isNaN(this.numberResults) && typeof this.numberResults === 'number' && (this.numberResults % 1 === 0) ) {
 			if (this.numberResults < this.MAX_ROWS) {
 				maxRows = this.numberResults;
 			}
@@ -188,7 +188,7 @@ ContextDataList.prototype = {
 		url = url+"&qf=title^10.0+field^10.0+description^1.0";
 		
 		// start row
-		if (start !== "undefined" && start!=null && Number.isInteger(start)) {
+		if (start !== "undefined" && start!=null && !isNaN(start) && typeof start === 'number' && (start % 1 === 0) ) {
 			url = url+"&start="+start;
 			this.currentStartResult = start;
 		}else{
@@ -196,7 +196,7 @@ ContextDataList.prototype = {
 		}
 		
 		// num rows
-		if (rowsNumber !== "undefined" && rowsNumber!=null && Number.isInteger(rowsNumber)) {
+		if (rowsNumber !== "undefined" && rowsNumber!=null && rowsNumber!=null && !isNaN(rowsNumber) && typeof rowsNumber === 'number' && (rowsNumber % 1 === 0) ) {
 			url = url+"&rows="+rowsNumber;
 		}
 				
@@ -209,13 +209,11 @@ ContextDataList.prototype = {
 		return url;
 	},
 	
-	
 	/**
 	 * Makes an asynchronous request to the Contextualisation data server and process its reply.
 	 * @param url {string} - Uniform Resource Locator
 	 */
 	processDataFromUrl: function(url){
-		//console.log('processDataFromUrl: '+url);
 		var myContextDataList = this;
 		reqwest({
 			url: url ,
@@ -225,6 +223,7 @@ ContextDataList.prototype = {
 			crossOrigin: true,
 			timeout: 1000 * 5,
 			withCredentials: true,  // We will have to include more security in our Solr server
+			
 			error: function (err) {
 				myContextDataList.processError(err);
 				myContextDataList.updateGlobalStatus(myContextDataList.ERROR);
@@ -235,7 +234,7 @@ ContextDataList.prototype = {
 			}
 		});
 	},
-
+	
 
 	/**
 	 * Manages some errors and process each result to be get in a proper way.
