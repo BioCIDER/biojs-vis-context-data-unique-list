@@ -4,18 +4,16 @@
  * @param {Array} options An object with the options for DataManager component. For future improvements.
  */
 function DataManager (options) {
-    var consts = {       
-    };
-    
+ 
     var default_options_values = {      
     };
+    for(var key in default_options_values){
+        this[key] = default_options_values[key];
+    }
     for(var key in options){
      this[key] = options[key];
     }
     
-    for(var key in consts){
-     this[key] = consts[key];
-    }
 }
 
 /** 
@@ -65,7 +63,10 @@ DataManager.prototype = {
     }
 
 }
+/*
+var consts = {       
+};
 
-
-
-  
+for(var key in consts){
+    this[key] = consts[key];
+}*/
