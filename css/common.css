@@ -58,6 +58,25 @@ a.context_data_title{
     width: 100%;
 }*/
 
+div.expandable_div_internaldiv{
+    /*border: 1px dotted;*/
+    padding: 1px 5px 1px 5px;
+}
+
+a.expandable_div_title{
+    font-size: 85%;
+    font-style: italic;
+}
+
+p.expandable_detail{
+    font-size: 85%;
+    margin: 1px 0px 0px 3px;
+}
+
+span.training_material,span.elixir_registry{
+    font-size: 80%;
+}
+
 
 
 

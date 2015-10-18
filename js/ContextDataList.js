@@ -26,43 +26,29 @@
  *    Integer that restricts the results number that should be shown.
  */
 function ContextDataList (options) {
-	var consts = {
-		//List of possible context data sources 
-		SOURCE_ELIXIR_REGISTRY:"ESR",
-		SOURCE_ELIXIR_TESS:"TSS",
-		SOURCE_ELIXIR_EVENTS:"EEV",
-		//style of visualization
-		FULL_STYLE:"FULL_STYLE",
-		COMMON_STYLE:"COMMON_STYLE",
-		//max number of rows to retrieve from the server, whatever 'numberResults' can be
-		MAX_ROWS:100,
-		//Events 
-		EVT_ON_RESULTS_LOADED: "onResultsLoaded",
-		EVT_ON_REQUEST_ERROR: "onRequestError",
-		//Different widget status
-		LOADING: "LOADING",
-		LOADED: "LOADED",
-		ERROR: "ERROR"
-		
-	};
-	
 	
 	var default_options_values = {        
 	     displayStyle: ContextDataList.COMMON_STYLE
 	};
-	for(var key in options){
-	     this[key] = options[key];
-	}
 	for(var key in default_options_values){
 	     this[key] = default_options_values[key];
 	}
-	
-	for(var key in consts){
-	     this[key] = consts[key];
+	for(var key in options){
+	     this[key] = options[key];
 	}
-	
 	this.contextDataServer = "http://176.58.119.235:8983/solr/contextData";
 	this.dataManager = new DataManager();
+	
+	
+	// global current status
+	this.currentTotalResults= null;
+	this.currentStartResult= null;
+	this.currentNumberLoadedResults= null;
+	this.currentStatus= ContextDataList.LOADING;
+	this.currentFilters= null;
+	
+	this._onLoadedFunctions= [];
+      
 }
 
 /** 
@@ -74,21 +60,12 @@ function ContextDataList (options) {
  */
 ContextDataList.prototype = {
 	constructor: ContextDataList,
-	// global current status
-	currentTotalResults : null,
-	currentStartResult : null,
-	currentNumberLoadedResults : null,
-	currentStatus : ContextDataList.LOADING,
-	currentFilters : null,
 	
-	_onLoadedFunctions : [],
-      
-      
 	/**
 	 * Shows the contextualised data into the widget, updating the whole internal status of the widget.
 	 */
 	totalDrawContextDataList : function (){
-		this.updateGlobalStatus(this.LOADING);
+		this.updateGlobalStatus(ContextDataList.LOADING);
 		this.drawContextDataList();
 	},
 	
@@ -132,9 +109,9 @@ ContextDataList.prototype = {
          * {Integer} - Maximum amount of results that can be shown at the same time.
 	 */
 	getMaxRows : function(){
-		var maxRows = this.MAX_ROWS;
+		var maxRows = ContextDataList.MAX_ROWS;
 		if (this.numberResults != "undefined" && !isNaN(this.numberResults) && typeof this.numberResults === 'number' && (this.numberResults % 1 === 0) ) {
-			if (this.numberResults < this.MAX_ROWS) {
+			if (this.numberResults < ContextDataList.MAX_ROWS) {
 				maxRows = this.numberResults;
 			}
 		}
@@ -290,7 +267,7 @@ ContextDataList.prototype = {
 				oddRow = true;
 			}
 			dataObject = contextualisedData[index];
-			drawableObject = dataObject.getDrawableObject(this.displayStyle);
+			drawableObject = dataObject.getDrawableObjectByStyle(this.displayStyle);
 			drawableObject.classList.add('views-row');
 			if(oddRow == true){
 				drawableObject.classList.add("views-row-odd");
@@ -305,7 +282,7 @@ ContextDataList.prototype = {
 		}
 		
 		this.currentNumberLoadedResults = contextualisedData.length;
-		this.updateGlobalStatus(this.LOADED);
+		this.updateGlobalStatus(ContextDataList.LOADED);
 		/*
 		console.log('currentTotalResults');
 		console.log(this.currentTotalResults);
@@ -344,16 +321,16 @@ ContextDataList.prototype = {
 	 */
 	updateGlobalStatus : function(newStatus){
 		// new status must be one of the posible status
-		if (newStatus != this.LOADING && newStatus != this.ERROR && newStatus != this.LOADED ){
+		if (newStatus != ContextDataList.LOADING && newStatus != ContextDataList.ERROR && newStatus != ContextDataList.LOADED ){
 			return;
 		}
 		this.currentStatus = newStatus;
 		
-		if (this.currentStatus == this.LOADING){
+		if (this.currentStatus == ContextDataList.LOADING){
 			this.currentTotalResults = null;
 			this.currentStartResult = null;
 			this.currentNumberLoadedResults = null;
-		}else if (this.currentStatus == this.ERROR){
+		}else if (this.currentStatus == ContextDataList.ERROR){
 			this.currentTotalResults = null;
 			this.currentStartResult = null;
 			this.currentNumberLoadedResults = null;
@@ -365,7 +342,7 @@ ContextDataList.prototype = {
 		}*/
 		
 		// Finally we execute registered 'onLoaded' functions
-		if (this.currentStatus == this.LOADED || this.currentStatus == this.ERROR ){
+		if (this.currentStatus == ContextDataList.LOADED || this.currentStatus == ContextDataList.ERROR ){
 			this.executeOnLoadedFunctions();
 		}
 	},
@@ -410,6 +387,30 @@ ContextDataList.prototype = {
 	}
       
 
+}
+
+// STATIC ATTRIBUTES
+var CONSTS = {
+	//List of possible context data sources 
+	SOURCE_ELIXIR_REGISTRY:"ESR",
+	SOURCE_ELIXIR_TESS:"TSS",
+	SOURCE_ELIXIR_EVENTS:"EEV",
+	//style of visualization
+	FULL_STYLE:"FULL_STYLE",
+	COMMON_STYLE:"COMMON_STYLE",
+	//max number of rows to retrieve from the server, whatever 'numberResults' can be
+	MAX_ROWS:100,
+	//Events 
+	EVT_ON_RESULTS_LOADED: "onResultsLoaded",
+	EVT_ON_REQUEST_ERROR: "onRequestError",
+	//Different widget status
+	LOADING: "LOADING",
+	LOADED: "LOADED",
+	ERROR: "ERROR"
+};
+
+for(var key in CONSTS){
+     ContextDataList[key] = CONSTS[key];
 }
 
 

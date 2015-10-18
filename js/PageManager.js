@@ -51,14 +51,13 @@ PageManager.prototype = {
 			target.removeChild(target.firstChild);
 		}
 		
-		
-		if (this.contextDataList.currentStatus == this.contextDataList.LOADING){
+		if (this.contextDataList.currentStatus == ContextDataList.LOADING){
 			var statusText = this.getCurrentStatus();
 			target.appendChild(statusText);
-		}else if (this.contextDataList.currentStatus == this.contextDataList.ERROR){
+		}else if (this.contextDataList.currentStatus == ContextDataList.ERROR){
 			var statusText = this.getCurrentStatus();
 			target.appendChild(statusText);
-		}else if (this.contextDataList.currentStatus == this.contextDataList.LOADED){
+		}else if (this.contextDataList.currentStatus == ContextDataList.LOADED){
 			var statusText = this.getCurrentStatus();
 			target.appendChild(statusText);
 			
@@ -75,6 +74,8 @@ PageManager.prototype = {
 			navDiv.appendChild(nextButton);
 			
 			target.appendChild(navDiv);
+		}else{
+			console.log("ERROR: Unknown status: "+this.contextDataList.currentStatus);
 		}
 		
 	},
@@ -209,9 +210,9 @@ PageManager.prototype = {
 		var totalResults = null;
 		var resultText = "";
 		
-		if (this.contextDataList.currentStatus == this.contextDataList.LOADING){
+		if (this.contextDataList.currentStatus == ContextDataList.LOADING){
 			resultText = "Loading resources...";
-		}else if (this.contextDataList.currentStatus == this.contextDataList.ERROR){
+		}else if (this.contextDataList.currentStatus == ContextDataList.ERROR){
 			resultText = "";
 		}else{
 			startingResult = this.contextDataList.currentStartResult;
