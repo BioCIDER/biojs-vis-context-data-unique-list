@@ -4,14 +4,15 @@
  */
 
 document.addEventListener("DOMContentLoaded", function(e) {
-    
+
     var contextDataListInstance = new ContextDataList({
       targetId: 'context_data_list',
       //userTextClassContainer: 'contextualisation_text',
       userTextTagContainer: 'h1',
       numberResults: 5,
-      displayStyle: ContextDataList.COMMON_STYLE
-    });	
+      //displayStyle: ContextDataList.COMMON_STYLE
+      displayStyle: ContextDataList.FULL_STYLE
+    });
     
     // before initialising the main component, we should initialise its 'plugins'.
     var buttonsInstance = new ButtonsManager(contextDataListInstance,{
