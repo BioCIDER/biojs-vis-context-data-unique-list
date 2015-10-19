@@ -152,8 +152,9 @@ ContextDataList.prototype = {
 		// we exclude only the same record than user is
 		}else{*/
 			var excludingPhrase = "";
-			excludingPhrase = " NOT("+this.currentURL+")";
+			excludingPhrase = " NOT(\""+this.currentURL+"\")";
 			searchPhrase = "("+searchPhrase+") AND "+excludingPhrase;
+		
 		//}	
 		
 		url = this.contextDataServer+"/select?defType=edismax&q="+searchPhrase;
