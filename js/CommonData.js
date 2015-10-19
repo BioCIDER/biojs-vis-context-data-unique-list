@@ -507,7 +507,11 @@ ElixirEventData.prototype.getCountryValue = function(){
  *          {String} - String literal with the starting date value of this entity.
  */
 ElixirEventData.prototype.getStartDateValue = function(){
-            return this.getParameterisedValue(this.START_DATE);      
+            var value= this.getParameterisedValue(this.START_DATE);
+            // we remove weird characters if they exists
+            value = value.replace('T00:00:00Z','');
+            return value;
+            
 };
 
 /**
@@ -515,7 +519,10 @@ ElixirEventData.prototype.getStartDateValue = function(){
  *          {String} - String literal with the ending date value of this entity.
  */
 ElixirEventData.prototype.getEndDateValue = function(){
-            return this.getParameterisedValue(this.END_DATE);      
+            var value = this.getParameterisedValue(this.END_DATE);
+            // we remove weird characters if they exists
+            value = value.replace('T00:00:00Z','');
+            return value;
 };
 
 /**
