@@ -502,16 +502,39 @@ ElixirEventData.prototype.getCountryValue = function(){
             return this.getParameterisedValue(this.COUNTRY);      
 };
 
+
+/**
+ *          Auxiliar function that returns one date adapted to user's locale.
+ *          @param sourceDate {String} - String date in UTF format to be converted into a locale format.
+ *          {String} - String literal with the curated date.
+ */
+ElixirEventData.prototype.getCuratedDate = function(sourceDate){
+            var dateValue = new Date(sourceDate);
+            if ( Object.prototype.toString.call(dateValue) === "[object Date]" ) {
+                        // it is a date
+                        if ( isNaN( dateValue.getTime() ) ) { 
+                                    // date is not valid
+                                    return sourceDate;  
+                        }
+                        else {
+                                    // date is valid
+                                    return dateValue.toLocaleDateString();
+                        }
+            }
+            else {
+                        // not a date
+                        return sourceDate;
+            }
+            
+};
+
 /**
  *          Returns starting date field value of this entity.
  *          {String} - String literal with the starting date value of this entity.
  */
 ElixirEventData.prototype.getStartDateValue = function(){
             var value= this.getParameterisedValue(this.START_DATE);
-            // we remove weird characters if they exists
-            value = value.replace('T00:00:00Z','');
-            return value;
-            
+            return this.getCuratedDate(value);
 };
 
 /**
@@ -520,9 +543,7 @@ ElixirEventData.prototype.getStartDateValue = function(){
  */
 ElixirEventData.prototype.getEndDateValue = function(){
             var value = this.getParameterisedValue(this.END_DATE);
-            // we remove weird characters if they exists
-            value = value.replace('T00:00:00Z','');
-            return value;
+            return this.getCuratedDate(value);
 };
 
 /**
