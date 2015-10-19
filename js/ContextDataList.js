@@ -24,11 +24,13 @@
  *    Tag name that contains user's text to search.
  * @option {int} [numberResults=number ]
  *    Integer that restricts the results number that should be shown.
- */
+ * @option {boolean} [includeSameSiteResults=If you want to see records of your present site. Temporary disabled. ]
+ *    Boolean that avoids or not results from the same site you are seeing. */
 function ContextDataList (options) {
 	
 	var default_options_values = {        
-	     displayStyle: ContextDataList.COMMON_STYLE
+	     displayStyle: ContextDataList.COMMON_STYLE,
+	     includeSameSiteResults : true
 	};
 	for(var key in default_options_values){
 	     this[key] = default_options_values[key];
@@ -46,8 +48,11 @@ function ContextDataList (options) {
 	this.currentNumberLoadedResults= null;
 	this.currentStatus= ContextDataList.LOADING;
 	this.currentFilters= null;
+	this.currentURL = window.location.href;
+	this.currentDomain = window.location.hostname;
 	
 	this._onLoadedFunctions= [];
+	
       
 }
 
@@ -138,6 +143,21 @@ ContextDataList.prototype = {
 			count++;
 			if(count < words.length){searchPhrase += '+'}
 		}
+		// we exclude all results from this domain: disabled until reindexing
+		/*if (!this.includeSameSiteResults) {
+			var excludingPhrase = "";
+			//excludingPhrase = " NOT("+this.currentDomain+")";
+			excludingPhrase = "-\"*tgac.ac.uk*\"";
+			searchPhrase = "("+searchPhrase+excludingPhrase+")";
+		// we exclude only the same record than user is
+		}else{*/
+			var excludingPhrase = "";
+			excludingPhrase = " NOT("+this.currentURL+")";
+			searchPhrase = "("+searchPhrase+") AND "+excludingPhrase;
+		//}	
+		
+		url = this.contextDataServer+"/select?defType=edismax&q="+searchPhrase;
+		
 		var fq = null;
 		if (filters !== "undefined" && filters!=null ) {
 			if (filters instanceof Array && filters.length>0) {
@@ -156,7 +176,6 @@ ContextDataList.prototype = {
 
 		}
 	      
-		url = this.contextDataServer+"/select?defType=edismax&q="+searchPhrase;
 		if (fq!=null) {
 			url = url+"&fq="+fq;
 		}
@@ -182,7 +201,7 @@ ContextDataList.prototype = {
 		
 		// maybe we could also filter fields that we return
 		// &fl=start,title,notes,link
-
+		
 		return url;
 	},
 	
