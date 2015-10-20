@@ -240,12 +240,11 @@ CommonData.prototype = {
              *          @param shortText {String} - Text link to hide or expand the long text.
              *          @param longText {String, HTML ELEMENT or Array of both} - Long description or HTML field with a long description of the record.
              *          @param longTextClasses {Array} - Classes to modify the aspect of the expandable text.
-             *          {HTML Object} - FIELDSET element with both short and field descriptions.
+             *          {HTML Object} - DIV element with both short and field descriptions.
              */
             getExpandableText: function(shortText, longText, longTextClasses){
                         var container = document.createElement('div');
                         container.classList.add('expandable_div');
-
                         var randomIntNumber = Math.floor(Math.random() * (100000 - 0)) + 0;
                         
                         // Creates the link to hide and show the description
@@ -329,6 +328,37 @@ CommonData.prototype = {
                         container.appendChild(internalDiv);
                         return container;
             },
+            
+            /**
+             *          Returns a div container with a link to an alert to show a long description.
+             *          @param shortText {String} - Text link to show the long text.
+             *          @param longText {String, HTML ELEMENT or Array of both} - Long description or HTML field with a long description of the record.
+             *          {HTML Object} - DIV element with both short and field descriptions.
+             */
+            getLongFloatingText: function(shortText, longText){
+                        var container = document.createElement('div');
+                        container.classList.add('expandable_div');
+                        var randomIntNumber = Math.floor(Math.random() * (100000 - 0)) + 0;
+
+                        // Creates the link to hide and show the description
+                        var link = document.createElement("a");
+                        link.classList.add("expandable_div_title");
+                        link.setAttribute('href',"#");
+                        link.setAttribute('id',"expandable_div_title_"+randomIntNumber);
+                        var toexpandsignal = " ";
+                        link.innerHTML = shortText+" "+toexpandsignal;
+                        link.title = "Click here to see the long text into a new little window";
+                        
+                        link.onclick = function (){
+                            var expandableTitle = document.getElementById('expandable_div_title_'+randomIntNumber);
+                            var expandableDiv = document.getElementById('expandable_div_internaldiv_'+randomIntNumber);
+                            alert(longText);
+                            return false;
+                        }
+                        
+                        container.appendChild(link);
+                        return container;
+            }
          
 };
 
@@ -374,8 +404,13 @@ ElixirRegistryData.prototype.getFullDrawableObject = function(){
             leftContainer.appendChild(title);
             leftContainer.appendChild(topics);
             if (description != undefined && description != null) {
-                        var expandableDescription = this.getExpandableText("Description",description,['elixir_registry']);
-                        leftContainer.appendChild(expandableDescription);
+                        if (description.length>CommonData.MIN_LENGTH_LONG_DESCRIPTION) {
+                                    var longDescriptionContainer = this.getLongFloatingText("Long description",description);
+                                    leftContainer.appendChild(longDescriptionContainer);
+                        }else{
+                                    var expandableDescription = this.getExpandableText("Description",description,['elixir_registry']);
+                                    leftContainer.appendChild(expandableDescription);
+                        }
             }
             
             rightContainer.appendChild(resourceTypes);
@@ -428,8 +463,13 @@ ElixirTrainingData.prototype.getFullDrawableObject = function(){
             leftContainer.appendChild(title);
             leftContainer.appendChild(topics);
             if (description != undefined && description != null) {
-                        var expandableDescription = this.getExpandableText("Description",description,['training_material']);
-                        leftContainer.appendChild(expandableDescription);
+                        if (description.length>CommonData.MIN_LENGTH_LONG_DESCRIPTION) {
+                                    var longDescriptionContainer = this.getLongFloatingText("Long description",description);
+                                    leftContainer.appendChild(longDescriptionContainer);
+                        }else{
+                                    var expandableDescription = this.getExpandableText("Description",description,['training_material']);
+                                    leftContainer.appendChild(expandableDescription);
+                        }
             }
             
             rightContainer.appendChild(resourceTypes);
@@ -677,3 +717,15 @@ ElixirEventData.prototype.getExpandableDetails = function(){
             var expandableDetails = this.getExpandableText("Details",detailsArray);
             return expandableDetails;
 };
+
+
+// STATIC ATTRIBUTES
+var CONSTS = {
+	MIN_LENGTH_LONG_DESCRIPTION: 500
+};
+
+for(var key in CONSTS){
+     CommonData[key] = CONSTS[key];
+}
+
+
