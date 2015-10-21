@@ -721,7 +721,7 @@ ElixirEventData.prototype.getExpandableDetails = function(){
 
 // STATIC ATTRIBUTES
 var CONSTS = {
-	MIN_LENGTH_LONG_DESCRIPTION: 500
+	MIN_LENGTH_LONG_DESCRIPTION: 1000
 };
 
 for(var key in CONSTS){
