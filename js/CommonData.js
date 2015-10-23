@@ -171,10 +171,11 @@ CommonData.prototype = {
                         element.classList.add("context_data_title");
                         element.setAttribute('href',this.getLinkValue());
                         element.innerHTML = this.getTitleValue();
-                        var description = this.getDescriptionValue();
+                        // Sometimes description have long values and it seems more like errors!
+                        /*var description = this.getDescriptionValue();
                         if (description != undefined && description != null) {
                                     element.title = description;
-                        }
+                        }*/
                         element.setAttribute('target','_blank');
                         return element;
             },
