@@ -151,9 +151,15 @@ ContextDataList.prototype = {
 			searchPhrase = "("+searchPhrase+excludingPhrase+")";
 		// we exclude only the same record than user is
 		}else{*/
+			
+		if (this.currentURL !== "undefined" && this.currentURL != null) {
 			var excludingPhrase = "";
-			excludingPhrase = " NOT(\""+this.currentURL+"\")";
+			// There are some characters that can break the full URL; we remove them.
+			var curatedURL = this.currentURL.replace('#','');
+			excludingPhrase = " NOT(\""+curatedURL+"\")";
 			searchPhrase = "("+searchPhrase+") AND "+excludingPhrase;
+		}
+			
 		
 		//}	
 		

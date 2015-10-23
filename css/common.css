@@ -85,7 +85,7 @@ span.training_material,span.elixir_registry{
 
 div.page_manager_container{
     text-align:center;
-    margin: 10px 5px 5px 5px;
+    margin: 3px 0px 3px 0px;
 }
 
 div.page_manager_status{
@@ -146,6 +146,7 @@ a.button,
 /* Button list */
 p.button_container{
     text-align:center;
+    margin: 5px 5px 5px 5px;
 }
 
 .button {

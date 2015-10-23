@@ -220,6 +220,10 @@ PageManager.prototype = {
 			var numRowsLoaded = this.contextDataList.currentNumberLoadedResults;
 			
 			endingResult = startingResult + numRowsLoaded;
+			if (currentTotalResults>0) {
+				// only to show it to the user
+				startingResult = startingResult+1;
+			}
 			resultText = "Records "+startingResult+" to "+endingResult+" of "+currentTotalResults
 			
 		}

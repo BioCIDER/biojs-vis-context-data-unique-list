@@ -171,10 +171,11 @@ CommonData.prototype = {
                         element.classList.add("context_data_title");
                         element.setAttribute('href',this.getLinkValue());
                         element.innerHTML = this.getTitleValue();
-                        var description = this.getDescriptionValue();
+                        // Sometimes description have long values and it seems more like errors!
+                        /*var description = this.getDescriptionValue();
                         if (description != undefined && description != null) {
                                     element.title = description;
-                        }
+                        }*/
                         element.setAttribute('target','_blank');
                         return element;
             },
@@ -252,9 +253,10 @@ CommonData.prototype = {
                         link.classList.add("expandable_div_title");
                         link.setAttribute('href',"#");
                         link.setAttribute('id',"expandable_div_title_"+randomIntNumber);
-                        var toexpandsignal = "[+]";
-                        var tohidesignal = "[-]";
-                        link.innerHTML = shortText+" "+toexpandsignal;
+                        //var toexpandsignal = "[+]";
+                        //var tohidesignal = "[-]";
+                        //link.innerHTML = shortText+" "+toexpandsignal;
+                        link.innerHTML = shortText;
                         link.title = "Click here to see more information";
                         
                         link.onclick = function (){
@@ -262,11 +264,11 @@ CommonData.prototype = {
                             var expandableDiv = document.getElementById('expandable_div_internaldiv_'+randomIntNumber);
                             if (expandableDiv.style.display == 'none') {
                                     expandableDiv.style.display = 'block';
-                                    expandableTitle.innerHTML =expandableTitle.innerHTML.replace(toexpandsignal,tohidesignal);
+                                    //expandableTitle.innerHTML =expandableTitle.innerHTML.replace(toexpandsignal,tohidesignal);
                                     expandableTitle.title = "Click here to hide the information";
                             }else{
                                     expandableDiv.style.display = 'none';
-                                    expandableTitle.innerHTML = expandableTitle.innerHTML.replace(tohidesignal,toexpandsignal);
+                                    //expandableTitle.innerHTML = expandableTitle.innerHTML.replace(tohidesignal,toexpandsignal);
                                     expandableTitle.title = "Click here to see more information";
                             }
                             return false;
@@ -404,13 +406,13 @@ ElixirRegistryData.prototype.getFullDrawableObject = function(){
             leftContainer.appendChild(title);
             leftContainer.appendChild(topics);
             if (description != undefined && description != null) {
+                        var expandableDescription = "";
                         if (description.length>CommonData.MIN_LENGTH_LONG_DESCRIPTION) {
-                                    var longDescriptionContainer = this.getLongFloatingText("Long description",description);
-                                    leftContainer.appendChild(longDescriptionContainer);
+                                    expandableDescription = this.getExpandableText("More...",description.substring(0, CommonData.MIN_LENGTH_LONG_DESCRIPTION)+" [...]",['elixir_registry']);
                         }else{
-                                    var expandableDescription = this.getExpandableText("Description",description,['elixir_registry']);
-                                    leftContainer.appendChild(expandableDescription);
+                                    expandableDescription = this.getExpandableText("More...",description,['elixir_registry']);
                         }
+                        leftContainer.appendChild(expandableDescription);
             }
             
             rightContainer.appendChild(resourceTypes);
@@ -463,13 +465,13 @@ ElixirTrainingData.prototype.getFullDrawableObject = function(){
             leftContainer.appendChild(title);
             leftContainer.appendChild(topics);
             if (description != undefined && description != null) {
+                        var expandableDescription = "";
                         if (description.length>CommonData.MIN_LENGTH_LONG_DESCRIPTION) {
-                                    var longDescriptionContainer = this.getLongFloatingText("Long description",description);
-                                    leftContainer.appendChild(longDescriptionContainer);
+                                    expandableDescription = this.getExpandableText("More...",description.substring(0, CommonData.MIN_LENGTH_LONG_DESCRIPTION)+" [...]",['training_material']);
                         }else{
-                                    var expandableDescription = this.getExpandableText("Description",description,['training_material']);
-                                    leftContainer.appendChild(expandableDescription);
+                                    expandableDescription = this.getExpandableText("More...",description,['training_material']);           
                         }
+                        leftContainer.appendChild(expandableDescription);
             }
             
             rightContainer.appendChild(resourceTypes);
@@ -714,7 +716,7 @@ ElixirEventData.prototype.getExpandableDetails = function(){
                         detailsArray.push(spanDates);
             }
             // maybe we can add later 'category' or 'keywords'
-            var expandableDetails = this.getExpandableText("Details",detailsArray);
+            var expandableDetails = this.getExpandableText("More...",detailsArray);
             return expandableDetails;
 };
 
