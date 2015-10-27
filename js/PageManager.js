@@ -44,7 +44,6 @@ PageManager.prototype = {
 	build : function (){
 		var target = document.getElementById(this.targetId);
 		if (target == undefined || target == null){
-			console.log('target null!');
 			return;	
 		}
 		while (target.firstChild) {
