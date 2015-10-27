@@ -99,7 +99,23 @@ div.page_manager_nav{
     padding: 0px 5px 0px 5px;
 }
 
+
+
 /* BUTTONS */
+
+
+div.button_container{
+    text-align:center;
+    display:table;
+    margin: 0 auto;
+}
+
+div.buttons_row_container {
+    display : table-row;
+}
+div.buttons_cell_container {
+    display : table-cell;
+}
 
 a.button,
 .button a {
@@ -141,6 +157,9 @@ a.button,
 	overflow: hidden;
 }
 
+
+
+
 /* helps */
 span.button_help,
 .button_help span {
@@ -148,9 +167,11 @@ span.button_help,
 	height: 34px;
 	font-size: 70%;
 	font-style: italic;
+	line-height: 100%;
+	display: table-cell;
 	
 	text-decoration: none;
-	display: inline-table;
+	/*display: inline-table;*/
 	position: relative;
 	vertical-align: middle;
 	margin: 2px 2px 2px 2px;
@@ -166,27 +187,12 @@ span.button_help,
 }
 
 
-/* Button list */
-p.button_container{
-    text-align:center;
-    margin: 5px 5px 5px 5px;
-}
-
-.button {
-	margin: 0;
-	padding: 0;
-}
-.button li {
-	margin: 0;
-	padding: 0;
-	display: inline;
-}
-
 /* helps */
-p.button_help_container{
+/*p.button_help_container{
     text-align:center;
     margin: 2px 5px 0px 5px;
-}
+    display: inline-block;
+}*/
 
 .button_help {
 	margin: 0;
