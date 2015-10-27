@@ -192,6 +192,12 @@ a.button.embossed,
 	-moz-box-shadow: inset 0 1px 0 rgba(255,255,255,.5), inset 0 -2px 0 rgba(0,0,0,.25), inset 0 -3px 0 rgba(255,255,255,.2), 0 1px 0 rgba(0,0,0,.1);
 	box-shadow: inset 0 1px 0 rgba(255,255,255,.5), inset 0 -2px 0 rgba(0,0,0,.25), inset 0 -3px 0 rgba(255,255,255,.2), 0 1px 0 rgba(0,0,0,.1);
 
+	
+	-webkit-transition: all 0.5s ease;
+	-moz-transition: all 0.5s ease;
+	-ms-transition: all 0.5s ease;
+	-o-transition: all 0.5s ease;
+	transition: all 0.5s ease;
 }
 
 /* pressed style */
@@ -200,6 +206,13 @@ a.button.pressed,
 	-webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,.35);
 	-moz-box-shadow: inset 0 1px 2px rgba(0,0,0,.35);
 	box-shadow: inset 0 1px 2px rgba(0,0,0,.35);
+	
+	
+	-webkit-transition: all 0.5s ease;
+	-moz-transition: all 0.5s ease;
+	-ms-transition: all 0.5s ease;
+	-o-transition: all 0.5s ease;
+	transition: all 0.5s ease;
 }
 
 
@@ -221,27 +234,27 @@ a.button:button:after,
 
 a.button.database,
 .button a.database {
-	background-image: url(../img/data_base_s.png);
+	background-image: url(../img/data_base_gray_s.png);
 }
 
 a.button.events,
 .button a.events {
-	background-image: url(../img/events_s.png);
+	background-image: url(../img/events_gray_s.png);
 }
 
 a.button.tools,
 .button a.tools {
-	background-image: url(../img/tools_s.png);
+	background-image: url(../img/tools_gray_s.png);
 }
 
 a.button.training_material,
 .button a.training_material {
-	background-image: url(../img/training_material_s.png);
+	background-image: url(../img/training_material_gray_s.png);
 }
 
 a.button.workflow,
 .button a.workflow {
-	background-image: url(../img/workflow_s.png);
+	background-image: url(../img/workflow_gray_s.png);
 }
 
 
@@ -311,27 +324,27 @@ span.resource_type.circle:after,
 
 span.resource_type.database,
 .resource_type span.database {
-	background-image: url(../img/data_base_s.png);
+	background-image: url(../img/data_base_gray_s.png);
 }
 
 span.resource_type.events,
 .resource_type span.events {
-	background-image: url(../img/events_s.png);
+	background-image: url(../img/events_gray_s.png);
 }
 
 span.resource_type.tools,
 .resource_type span.tools {
-	background-image: url(../img/tools_s.png);
+	background-image: url(../img/tools_gray_s.png);
 }
 
 span.resource_type.training_material,
 .resource_type span.training_material {
-	background-image: url(../img/training_material_s.png);
+	background-image: url(../img/training_material_gray_s.png);
 }
 
 span.resource_type.workflow,
 .resource_type span.workflow {
-	background-image: url(../img/workflow_s.png);
+	background-image: url(../img/workflow_gray_s.png);
 }
 
 
@@ -366,61 +379,92 @@ span.flat_resource_type,
 
 span.flat_resource_type.database,
 .flat_resource_type span.database {
-	background-image: url(../img/data_base_s.png);
+	background-image: url(../img/data_base_gray_s.png);
 }
 
 span.flat_resource_type.events,
 .flat_resource_type span.events {
-	background-image: url(../img/events_s.png);
+	background-image: url(../img/events_gray_s.png);
 }
 
 span.flat_resource_type.tools,
 .flat_resource_type span.tools {
-	background-image: url(../img/tools_s.png);
+	background-image: url(../img/tools_gray_s.png);
 }
 
 span.flat_resource_type.training_material,
 .flat_resource_type span.training_material {
-	background-image: url(../img/training_material_s.png);
+	background-image: url(../img/training_material_gray_s.png);
 }
 
 span.flat_resource_type.workflow,
 .flat_resource_type span.workflow {
-	background-image: url(../img/workflow_s.png);
+	background-image: url(../img/workflow_gray_s.png);
 }
 
 /*  Gray filters
 Based on:
 http://www.oloblogger.com/2012/09/imagenes-escala-grises-css.html
 */
-
+/**
 .gray {
-filter: url('#grayscale'); /* Versi—n SVG para IE10, Chrome 17, FF3.5, Safari 5.2 and Opera 11.6 */
--webkit-filter: grayscale(100%);
--moz-filter: grayscale(100%);
--ms-filter: grayscale(100%);
--o-filter: grayscale(100%);
-filter: grayscale(100%); /* Para cuando es est‡ndar funcione en todos */
-filter: Gray(); /* IE4-8 and 9 */
-
--webkit-transition: all 0.5s ease;
--moz-transition: all 0.5s ease;
--ms-transition: all 0.5s ease;
--o-transition: all 0.5s ease;
-transition: all 0.5s ease;
-}
+    filter: url('#grayscale');*/ /* Versi—n SVG para IE10, Chrome 17, FF3.5, Safari 5.2 and Opera 11.6 */
+ /*   -webkit-filter: grayscale(100%);
+    -moz-filter: grayscale(100%);
+    -ms-filter: grayscale(100%);
+    -o-filter: grayscale(100%);
+    filter: grayscale(100%); */ /* Para cuando es est‡ndar funcione en todos */
+ /*   filter: Gray(); */ /* IE4-8 and 9 */
+ /*   
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -ms-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}*/
+ /*
 .gray hover { 
--webkit-filter: grayscale(0%);
--moz-filter: grayscale(0%);
--ms-filter: grayscale(0%);
--o-filter: grayscale(0%);
-filter: none;
+    -webkit-filter: grayscale(0%);
+    -moz-filter: grayscale(0%);
+    -ms-filter: grayscale(0%);
+    -o-filter: grayscale(0%);
+    filter: none;
+    
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -ms-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}*/
 
--webkit-transition: all 0.5s ease;
--moz-transition: all 0.5s ease;
--ms-transition: all 0.5s ease;
--o-transition: all 0.5s ease;
-transition: all 0.5s ease;
+.empty {
+    filter: url('#opacity'); /* Versi—n SVG para IE10, Chrome 17, FF3.5, Safari 5.2 and Opera 11.6 */
+    -webkit-filter: opacity(0.5);
+    -moz-filter: opacity(0.5);
+    -ms-filter: opacity(0.5);
+    -o-filter: opacity(0.5);
+    filter: opacity(0.5); /* Para cuando es est‡ndar funcione en todos */
+    /*filter: Gray(); */ /* IE4-8 and 9 */
 }
 
 
+/*
+img.context_help_img {
+	background-image: url(../img/question.png);
+	background-repeat: no-repeat;
+	background-position: center center;
+	
+	width: 36px;
+	height: 36px;
+
+	text-indent: -900em;
+	text-decoration: none;
+	line-height: 100%;
+	white-space: nowrap;
+	display: inline-block;
+	position: relative;
+	vertical-align: middle;
+	margin: 0 5px 5px 0;
+	
+}
+*/

@@ -22,6 +22,8 @@
  *    Class name that contains user's text to search.
  * @option {string} [userTextTagContainer=One stablished tag name, for example h1. It's not used if userTextClassContainer is defined ]
  *    Tag name that contains user's text to search.
+ * @option {string} [userHelpClassContainer=Your own class name ]
+ *    Class name that will contains help icon.
  * @option {int} [numberResults=number ]
  *    Integer that restricts the results number that should be shown.
  * @option {boolean} [includeSameSiteResults=If you want to see records of your present site. Temporary disabled. ]
@@ -48,10 +50,16 @@ function ContextDataList (options) {
 	this.currentNumberLoadedResults= null;
 	this.currentStatus= ContextDataList.LOADING;
 	this.currentFilters= null;
+	this.totalFilters=null;
+	this.numInitialResultsByResourceType= null;
+	this.numResultsByResourceType= null;
+	
 	this.currentURL = window.location.href;
 	this.currentDomain = window.location.hostname;
 	
 	this._onLoadedFunctions= [];
+	
+	//this.drawHelpImage();
 	
       
 }
@@ -65,6 +73,19 @@ function ContextDataList (options) {
  */
 ContextDataList.prototype = {
 	constructor: ContextDataList,
+	
+	
+	/**
+	 * Shows the contextualised data into the widget.
+	 */
+	drawContextDataList : function (){
+		this.currentStatus = ContextDataList.LOADING;
+		//this.updateGlobalStatus(this.LOADING);
+		var userText = this.getUserSearch();
+		var maxRows = this.getMaxRows();
+		var newUrl = this._getNewUrl(userText, this.currentFilters, this.currentStartResult, maxRows);
+		this.processDataFromUrl(newUrl);	
+	},
 	
 	/**
 	 * Shows the contextualised data into the widget, updating the whole internal status of the widget.
@@ -97,17 +118,6 @@ ContextDataList.prototype = {
 		return userText;
 	},
 	
-	/**
-	 * Shows the contextualised data into the widget.
-	 */
-	drawContextDataList : function (){
-		this.currentStatus = ContextDataList.LOADING;
-		//this.updateGlobalStatus(this.LOADING);
-		var userText = this.getUserSearch();
-		var maxRows = this.getMaxRows();
-		var newUrl = this._getNewUrl(userText, this.currentFilters, this.currentStartResult, maxRows);
-		this.processDataFromUrl(newUrl);	
-	},
 	
 	/**
 	 * Retrieves the maximum number of results that can be shown into the widget.
@@ -202,6 +212,11 @@ ContextDataList.prototype = {
 		if (rowsNumber !== "undefined" && rowsNumber!=null && rowsNumber!=null && !isNaN(rowsNumber) && typeof rowsNumber === 'number' && (rowsNumber % 1 === 0) ) {
 			url = url+"&rows="+rowsNumber;
 		}
+			
+			
+		// Stats. We count all the different results by resource type
+		url = url+"&facet=true&facet.method=enum&facet.limit=-1&facet.field=resource_type"
+		
 				
 		// wt
 		url = url+"&wt=json";
@@ -209,8 +224,11 @@ ContextDataList.prototype = {
 		// maybe we could also filter fields that we return
 		// &fl=start,title,notes,link
 		
+		
 		return url;
 	},
+	
+	
 	
 	/**
 	 * Makes an asynchronous request to the Contextualisation data server and process its reply.
@@ -241,8 +259,8 @@ ContextDataList.prototype = {
 
 	/**
 	 * Manages some errors and process each result to be get in a proper way.
-	 * data {Object} - The full data list to be processed and shown
-	 * @param {Array} - Array with objects converted from their original JSON status
+	 * @param data {Object} - The full data list to be processed and shown
+	 * {Array} - Array with objects converted from their original JSON status
 	 */
 	processContextualisedData : function(data) {
 		var myContextDataList = this;
@@ -250,6 +268,12 @@ ContextDataList.prototype = {
 		if(data.response != undefined){
 			if(data.response.docs != undefined){
 				this.currentTotalResults = data.response.numFound;
+				
+				this.numResultsByResourceType = this.getNumResultsByResourceType(data);
+				if (this.numInitialResultsByResourceType == null) {
+					this.numInitialResultsByResourceType = this.numResultsByResourceType;
+				}
+				
 				data.response.docs.forEach(function(entry) {
 					var typedData = myContextDataList.dataManager.getDataEntity(entry);
 					contextualisedData.push(typedData);
@@ -267,6 +291,42 @@ ContextDataList.prototype = {
 		return contextualisedData;
 	},
 	
+	/**
+	 * Returns the number of data of each resource type.
+	 * @param  data {Object} - The full data list to be processed
+	 * data {Object} - Object with one property by each resource type and value of its ocurrences.
+	 */
+	getNumResultsByResourceType : function(data) {
+		var facet_counts = data.facet_counts;
+		var resource_types_count = null;
+		if (facet_counts != undefined || facet_counts != null ) {
+			var facet_fields = facet_counts.facet_fields;
+			if (facet_fields != undefined || facet_fields != null ) {
+				resource_types_count = facet_fields.resource_type;	
+			}	
+		}
+		if (resource_types_count == null) {
+			return null;
+		}
+		
+		var numResultsByResourceType = {};
+		if (this.totalFilters != null) {
+			var currentFilter = null;
+			for (var i=0;i<this.totalFilters.length;i++) {
+				currentFilter = this.totalFilters[i];
+				var current_count = null;
+				for (var j=0;j<resource_types_count.length;j++) {
+					current_count = resource_types_count[j];
+					if ( (typeof current_count === 'string' || current_count instanceof String)
+					    && currentFilter.toLowerCase().indexOf(current_count) > -1 ) {
+						numResultsByResourceType[currentFilter] = resource_types_count[j+1];
+						break;
+					}
+				}
+			}
+		}
+		return numResultsByResourceType;
+	},
 	
          
 	/**
@@ -372,6 +432,44 @@ ContextDataList.prototype = {
 			this.executeOnLoadedFunctions();
 		}
 	},
+	
+	/**
+	*          Returns one standard way of representing 'title' data transformed into a HTML component.
+	*          {HTML Object} - ANCHOR element with 'title' information linking to the original source.
+	*/
+	/*drawHelpImage: function(){
+		var helpContainer = null;
+		if (this.userHelpClassContainer != undefined && this.userHelpClassContainer != null) {
+			var helpContainers = document.getElementsByClassName(this.userHelpClassContainer);
+			if (helpContainers != null && helpContainers.length>0) helpContainer = helpContainers[0];
+		}else if (this.userHelpTagContainer != undefined && this.userHelpTagContainer != null){
+			var helpContainers = document.getElementsByTagName(this.userHelpTagContainer);
+			if (helpContainers != null && helpContainers.length>0) helpContainer = helpContainers[0];
+		}
+		console.log(helpContainer);
+		if (helpContainer != null) {
+			var helpImage = this.getHelpImage();
+			if (helpImage != null) {
+				helpContainer.classList.add("tooltip");
+				helpContainer.appendChild(this.getHelpImage());
+				//helpContainer.appendChild(this.getHelpText());
+				//helpContainer.appendChild(helpImage);
+			}
+		}
+	},*/
+	
+	/**
+	*          Returns one standard way of representing 'title' data transformed into a HTML component.
+	*          {HTML Object} - ANCHOR element with 'title' information linking to the original source.
+	*/
+        /*getHelpImage: function(){
+		var imgElement = document.createElement('img');
+		imgElement.classList.add("context_help_img");
+
+		return imgElement;
+        },*/
+	
+	
 	
 	/**
 	 * Register new functions to be executed when status component is updated to 'LOADED'
