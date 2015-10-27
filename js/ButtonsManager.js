@@ -26,6 +26,7 @@ function ButtonsManager (contextDataList, options) {
 	     this[key] = consts[key];
 	}
         this.contextDataList = contextDataList;
+	this.contextDataList.registerOnLoadedFunction(this, this.updateButtonsStatus);
 }
 
 /**
@@ -39,6 +40,25 @@ ButtonsManager.prototype = {
         buttons : [],
         
         
+
+        /**
+         * Update buttons status having into account ContextDataList status
+         */        
+	updateButtonsStatus : function (){
+		
+		// We draw slightly softer buttons of resource types without any results
+		if (this.contextDataList.numInitialResultsByResourceType != null) {
+			for(var property in this.contextDataList.numInitialResultsByResourceType){
+				if (this.contextDataList.numInitialResultsByResourceType.hasOwnProperty(property)) {
+					var propertyCount = this.contextDataList.numInitialResultsByResourceType[property];
+					var myButton = document.getElementById(property);
+					this.setButtonAspectAsResults(myButton,propertyCount );
+				}
+			}
+				
+		}
+	},
+        
       
         /**
          * Creates buttons and draw them into the element with id 'targetId'
@@ -48,6 +68,7 @@ ButtonsManager.prototype = {
 		if (target == undefined || target == null){
 			return;	
 		}
+		
                 var databaseButton = this.createEmbossedButton('Database','database','database');
                 target.appendChild(databaseButton);
                 var eventsButton = this.createEmbossedButton('Events','events','Event');
@@ -56,17 +77,14 @@ ButtonsManager.prototype = {
                 target.appendChild(toolsButton);
                 var trainingMaterialButton = this.createEmbossedButton('Training materials','training_material','Training Material');
                 target.appendChild(trainingMaterialButton);
-                var workflowButton = this.createEmbossedButton('Workflow','workflow','workflow');
-                target.appendChild(workflowButton);
                 
 		this.buttons.push(databaseButton);
                 this.buttons.push(eventsButton);
                 this.buttons.push(toolsButton);
                 this.buttons.push(trainingMaterialButton);
-                this.buttons.push(workflowButton);
                 
-                // mirar como se ejecuta esto para que no devuelva ningun resultado
                 this.contextDataList.currentFilters = this.getPresentFiltersByButtons();
+		this.contextDataList.totalFilters = ['database','Event','Tool','Training Material'];
 	},
         
         /**
@@ -95,6 +113,7 @@ ButtonsManager.prototype = {
             button.appendChild(linkText);
             button.title = label;
             button.name = internalName;
+	    button.id = internalName;
             button.href = "#";
             var myButtonsManager = this;
             button.onclick = function (){
@@ -103,7 +122,6 @@ ButtonsManager.prototype = {
             }
             button.classList.add('button');
             button.classList.add('embossed');
-            button.classList.add('gray');
             button.classList.add(internalClass);
             return button;    
         },
@@ -117,6 +135,21 @@ ButtonsManager.prototype = {
             this.showButtonClick(myButton);
             this.contextDataList.currentFilters = this.getPresentFiltersByButtons();
             this.contextDataList.totalDrawContextDataList();
+        },
+	
+	/**
+        * Function that changes the aspect of one button from pressed to embossed, or vice versa.
+        * @param myButton {Button} - Button to be pressed/unpressed.
+        */ 
+        setButtonAspectAsResults: function (myButton, numberResults){
+		if (myButton == undefined || myButton == null) {
+			return;	    
+		}
+		if (numberResults == 0) {
+			myButton.classList.add('empty');
+		}else{
+			myButton.classList.remove('empty');
+		}
         },
         
         /**
