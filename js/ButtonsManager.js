@@ -145,10 +145,18 @@ ButtonsManager.prototype = {
 		if (myButton == undefined || myButton == null) {
 			return;	    
 		}
+		var emptyTitleSuffix = ' (no results)';
 		if (numberResults == 0) {
 			myButton.classList.add('empty');
+			if (myButton.title.indexOf(emptyTitleSuffix)==-1) {
+				myButton.title = myButton.title + emptyTitleSuffix;
+			}
+			
 		}else{
 			myButton.classList.remove('empty');
+			if (myButton.title.indexOf(emptyTitleSuffix)>-1) {
+				myButton.title.replace(emptyTitleSuffix,'');
+			}
 		}
         },
         
