@@ -76,16 +76,35 @@ ButtonsManager.prototype = {
 			var helpTextContainer = this.createButtonsHelpText();
 			target.appendChild(helpTextContainer);
 		}
+		var rowContainer = document.createElement('div');
+		rowContainer.classList.add('buttons_row_container');
 		
                 var databaseButton = this.createEmbossedButton('Database','database','database');
-                target.appendChild(databaseButton);
+		var databaseButtonContainer = document.createElement('div');
+		databaseButtonContainer.classList.add('buttons_cell_container');
+		databaseButtonContainer.appendChild(databaseButton);
+                rowContainer.appendChild(databaseButtonContainer);
+		
                 var eventsButton = this.createEmbossedButton('Events','events','Event');
-                target.appendChild(eventsButton);
+		var eventsButtonContainer = document.createElement('div');
+		eventsButtonContainer.classList.add('buttons_cell_container');
+		eventsButtonContainer.appendChild(eventsButton);
+                rowContainer.appendChild(eventsButtonContainer);
+		
                 var toolsButton = this.createEmbossedButton('Tools','tools','Tool');
-                target.appendChild(toolsButton);
+		var toolsButtonContainer = document.createElement('div');
+		toolsButtonContainer.classList.add('buttons_cell_container');
+                toolsButtonContainer.appendChild(toolsButton);
+		rowContainer.appendChild(toolsButtonContainer);
+		
                 var trainingMaterialButton = this.createEmbossedButton('Training materials','training_material','Training Material');
-                target.appendChild(trainingMaterialButton);
-                
+                var trainingMaterialButtonContainer = document.createElement('div');
+		trainingMaterialButtonContainer.classList.add('buttons_cell_container');
+		trainingMaterialButtonContainer.appendChild(trainingMaterialButton);
+		rowContainer.appendChild(trainingMaterialButtonContainer);
+		
+                target.appendChild(rowContainer);
+		
 		this.buttons.push(databaseButton);
                 this.buttons.push(eventsButton);
                 this.buttons.push(toolsButton);
@@ -220,8 +239,8 @@ ButtonsManager.prototype = {
 	*   {HTML Object} - P element with help related to each resource type buttons.
         */
 	createButtonsHelpText : function(){
-		var help_container = document.createElement('p');
-		help_container.classList.add('button_help_container');
+		var help_container = document.createElement('div');
+		help_container.classList.add('buttons_row_container');
 		
 		var databaseText = document.createElement('span');
 		databaseText.innerHTML = 'Database';
