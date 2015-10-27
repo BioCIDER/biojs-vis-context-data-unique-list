@@ -103,8 +103,8 @@ div.page_manager_nav{
 
 a.button,
 .button a {
-	width: 32px;
-	height: 32px;
+	width: 34px;
+	height: 34px;
 	background-repeat: no-repeat;
 	background-position: center center;
 	text-indent: -900em;
@@ -115,7 +115,7 @@ a.button,
 	display: inline-block;
 	position: relative;
 	vertical-align: middle;
-	margin: 0 2px 5px 0;
+	margin: 2px 2px 2px 2px;
 	
 	/* default button color */
 	background-color: #ececec;
@@ -141,6 +141,29 @@ a.button,
 	overflow: hidden;
 }
 
+/* helps */
+span.button_help,
+.button_help span {
+	width: 34px;
+	height: 34px;
+	font-size: 70%;
+	font-style: italic;
+	
+	text-decoration: none;
+	display: inline-table;
+	position: relative;
+	vertical-align: middle;
+	margin: 2px 2px 2px 2px;
+	
+}
+/* for IE */
+*:first-child+html span.button_help,
+*:first-child+html .button_help span {
+	text-indent: 0;
+	line-height: 0;
+	font-size: 0;
+	overflow: hidden;
+}
 
 
 /* Button list */
@@ -158,6 +181,18 @@ p.button_container{
 	padding: 0;
 	display: inline;
 }
+
+/* helps */
+p.button_help_container{
+    text-align:center;
+    margin: 2px 5px 0px 5px;
+}
+
+.button_help {
+	margin: 0;
+	padding: 0;
+}
+
 
 
 /* Sizes */

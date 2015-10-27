@@ -9,21 +9,24 @@
  * @param {Array} options An object with the options for ButtonsManager component.
  * @option {string} [target='YourOwnDivId']
  *    Identifier of the DIV tag where the component should be displayed.
+ * @option {boolean} [helpText]
+ *    True if you want to show a help text over the buttons.
  */
 function ButtonsManager (contextDataList, options) {
 	var consts = {
 	};
-	var default_options_values = {        
+	var default_options_values = {
+		helpText: true
 	};
-	for(var key in options){
-	     this[key] = options[key];
-	}
 	for(var key in default_options_values){
-	     this[key] = default_options_values[key];
+		this[key] = default_options_values[key];
+	}
+	for(var key in options){
+		this[key] = options[key];
 	}
 	
 	for(var key in consts){
-	     this[key] = consts[key];
+		this[key] = consts[key];
 	}
         this.contextDataList = contextDataList;
 	this.contextDataList.registerOnLoadedFunction(this, this.updateButtonsStatus);
@@ -67,6 +70,11 @@ ButtonsManager.prototype = {
 		var target = document.getElementById(this.targetId);
 		if (target == undefined || target == null){
 			return;	
+		}
+		
+		if (this.helpText){
+			var helpTextContainer = this.createButtonsHelpText();
+			target.appendChild(helpTextContainer);
 		}
 		
                 var databaseButton = this.createEmbossedButton('Database','database','database');
@@ -205,7 +213,38 @@ ButtonsManager.prototype = {
                 }
             }
             return pressedButtons;
-        }
+        },
+	
+	/**
+        * Function that returns a paragraph element with specific text about each resource type button
+	*   {HTML Object} - P element with help related to each resource type buttons.
+        */
+	createButtonsHelpText : function(){
+		var help_container = document.createElement('p');
+		help_container.classList.add('button_help_container');
+		
+		var databaseText = document.createElement('span');
+		databaseText.innerHTML = 'Database';
+		databaseText.classList.add('button_help');
+		help_container.appendChild(databaseText);
+		
+		var eventsText = document.createElement('span');
+		eventsText.innerHTML = 'Events';
+		eventsText.classList.add('button_help');
+		help_container.appendChild(eventsText);
+		
+		var toolsText = document.createElement('span');
+		toolsText.innerHTML = 'Tools';
+		toolsText.classList.add('button_help');
+		help_container.appendChild(toolsText);
+		
+		var trainingText = document.createElement('span');
+		trainingText.innerHTML = 'Training materials';
+		trainingText.classList.add('button_help');
+		help_container.appendChild(trainingText);
+		
+		return help_container;
+	}
 }
       
       
