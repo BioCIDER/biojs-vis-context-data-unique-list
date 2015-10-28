@@ -26,7 +26,8 @@ document.addEventListener("DOMContentLoaded", function(e) {
     // before initialising the main component, we should initialise its 'plugins'.
     var buttonsInstance = new ButtonsManager(contextDataListInstance,{
       targetId: 'buttons_manager_container',
-      helpText: true
+      helpText: true,
+      buttonsStyle:ButtonsManager.SQUARED_3D
     });
     
     buttonsInstance.buildPressedButtons();

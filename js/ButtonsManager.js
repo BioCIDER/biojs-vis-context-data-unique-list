@@ -11,22 +11,19 @@
  *    Identifier of the DIV tag where the component should be displayed.
  * @option {boolean} [helpText]
  *    True if you want to show a help text over the buttons.
+ * @option {string} [buttonsStyle='SQUARED_3D' or 'ROUND_FLAT'. SQUARED_3D by default.]
+ *    Identifier of the buttons visualisation type.
  */
 function ButtonsManager (contextDataList, options) {
-	var consts = {
-	};
 	var default_options_values = {
-		helpText: true
+		helpText: true,
+		buttonsStyle: ButtonsManager.SQUARED_3D
 	};
 	for(var key in default_options_values){
-		this[key] = default_options_values[key];
+		this[key] = default_options_values[key];	
 	}
 	for(var key in options){
 		this[key] = options[key];
-	}
-	
-	for(var key in consts){
-		this[key] = consts[key];
 	}
         this.contextDataList = contextDataList;
 	this.buttonsBasicData = [];
@@ -49,8 +46,6 @@ ButtonsManager.prototype = {
 	constructor: ButtonsManager,
         buttons : [],
 	
-        
-        
 
         /**
          * Update buttons status having into account ContextDataList status
@@ -79,7 +74,7 @@ ButtonsManager.prototype = {
 		if (target == undefined || target == null){
 			return;	
 		}
-		
+		console.log(this.buttonsStyle);
 		if (this.helpText){
 			var helpTextContainer = this.createButtonsHelpText();
 			target.appendChild(helpTextContainer);
@@ -93,12 +88,16 @@ ButtonsManager.prototype = {
 		
 		for(var i=0;i<this.buttonsBasicData.length;i++){
 			var buttonData = this.buttonsBasicData[i];
-			var myButton = this.createEmbossedButton(buttonData[0],buttonData[1],buttonData[2]);
+			var myButton = null;
+			if (ButtonsManager.ROUND_FLAT == this.buttonsStyle) {
+				myButton = this.createRoundFlatButton(buttonData[0],buttonData[1],buttonData[2]);
+			}else{
+				myButton = this.createSquared3DdButton(buttonData[0],buttonData[1],buttonData[2]);
+			}
 			var myButtonContainer = document.createElement('div');
 			myButtonContainer.classList.add('buttons_cell_container');
 			myButtonContainer.appendChild(myButton);
 			rowContainer.appendChild(myButtonContainer);
-			
 
 			this.buttons.push(myButton);
 			this.contextDataList.totalFilters.push(buttonData[2]);
@@ -122,14 +121,16 @@ ButtonsManager.prototype = {
             this.contextDataList.currentFilters = this.getPresentFiltersByButtons();
 
         },
-        
+	
+	
         /**
-        * Function that creates one button with 'embossed' aspect.
+        * Function that creates one button with 'ROUND_FLAT' aspect.
         * @param label {String} - Title to be used into the ANCHOR element.
         * @param internalClass {String} - Specific className to be used into the ANCHOR element.
         * @param internalName {String} - Name to be used into the ANCHOR element. It should be a filter name.
         */  
-        createEmbossedButton : function(label, internalClass, internalName){
+        createRoundFlatButton : function(label, internalClass, internalName){
+		console.log('createFlatButton');
             var button = document.createElement('a');
             var linkText = document.createTextNode(label);
             button.appendChild(linkText);
@@ -143,7 +144,34 @@ ButtonsManager.prototype = {
                 return false;
             }
             button.classList.add('button');
-            button.classList.add('embossed');
+	    button.classList.add('round_flat');
+            button.classList.add('unpressed');
+            button.classList.add(internalClass);
+            return button;    
+        },
+        
+        /**
+        * Function that creates one button with 'SQUARED_3D' aspect.
+        * @param label {String} - Title to be used into the ANCHOR element.
+        * @param internalClass {String} - Specific className to be used into the ANCHOR element.
+        * @param internalName {String} - Name to be used into the ANCHOR element. It should be a filter name.
+        */  
+        createSquared3DdButton : function(label, internalClass, internalName){
+            var button = document.createElement('a');
+            var linkText = document.createTextNode(label);
+            button.appendChild(linkText);
+            button.title = label;
+            button.name = internalName;
+	    button.id = internalName;
+            button.href = "#";
+            var myButtonsManager = this;
+            button.onclick = function (){
+                myButtonsManager.filter(this);
+                return false;
+            }
+            button.classList.add('button');
+	    button.classList.add('squared_3d');
+            button.classList.add('unpressed');
             button.classList.add(internalClass);
             return button;    
         },
@@ -160,7 +188,7 @@ ButtonsManager.prototype = {
         },
 	
 	/**
-        * Function that changes the aspect of one button from pressed to embossed, or vice versa.
+        * Function that changes the aspect of one button from pressed to non pressed, or vice versa.
         * @param myButton {Button} - Button to be pressed/unpressed.
         */ 
         setButtonAspectAsResults: function (myButton, numberResults){
@@ -183,12 +211,12 @@ ButtonsManager.prototype = {
         },
         
         /**
-        * Function that changes the aspect of one button from pressed to embossed, or vice versa.
+        * Function that changes the aspect of one button from pressed to unpressed, or vice versa.
         * @param myButton {Button} - Button to be pressed/unpressed.
         */ 
         showButtonClick: function (myButton){
-            myButton.classList.toggle("embossed");
-            myButton.classList.toggle("pressed");
+		myButton.classList.toggle("unpressed");
+		myButton.classList.toggle("pressed");
         },
         
         /**
@@ -249,6 +277,19 @@ ButtonsManager.prototype = {
 		return help_container;
 	}
 }
+
+// STATIC ATTRIBUTES
+
+var CONSTS = {
+	//style of visualization
+	SQUARED_3D:"SQUARED_3D",
+	ROUND_FLAT:"ROUND_FLAT",
+};
+
+for(var key in CONSTS){
+     ButtonsManager[key] = CONSTS[key];
+}
+
       
       
   
