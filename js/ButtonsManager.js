@@ -29,6 +29,13 @@ function ButtonsManager (contextDataList, options) {
 		this[key] = consts[key];
 	}
         this.contextDataList = contextDataList;
+	this.buttonsBasicData = [];
+	// BASIC BUTTON'S DATA: LABEL, INTERNAL CLASS NAME, AND INTERNAL NAME
+	this.buttonsBasicData.push(['Database','database','database'],
+				   ['Events','events','Event'],
+				   ['Tools','tools','Tool'],
+				   ['Training materials','training_material','Training Material']
+	);
 	this.contextDataList.registerOnLoadedFunction(this, this.updateButtonsStatus);
 }
 
@@ -41,6 +48,7 @@ function ButtonsManager (contextDataList, options) {
 ButtonsManager.prototype = {
 	constructor: ButtonsManager,
         buttons : [],
+	
         
         
 
@@ -79,39 +87,26 @@ ButtonsManager.prototype = {
 		var rowContainer = document.createElement('div');
 		rowContainer.classList.add('buttons_row_container');
 		
-                var databaseButton = this.createEmbossedButton('Database','database','database');
-		var databaseButtonContainer = document.createElement('div');
-		databaseButtonContainer.classList.add('buttons_cell_container');
-		databaseButtonContainer.appendChild(databaseButton);
-                rowContainer.appendChild(databaseButtonContainer);
+		if (this.buttonsBasicData.length>0) {
+			this.contextDataList.totalFilters = [];
+		}
 		
-                var eventsButton = this.createEmbossedButton('Events','events','Event');
-		var eventsButtonContainer = document.createElement('div');
-		eventsButtonContainer.classList.add('buttons_cell_container');
-		eventsButtonContainer.appendChild(eventsButton);
-                rowContainer.appendChild(eventsButtonContainer);
-		
-                var toolsButton = this.createEmbossedButton('Tools','tools','Tool');
-		var toolsButtonContainer = document.createElement('div');
-		toolsButtonContainer.classList.add('buttons_cell_container');
-                toolsButtonContainer.appendChild(toolsButton);
-		rowContainer.appendChild(toolsButtonContainer);
-		
-                var trainingMaterialButton = this.createEmbossedButton('Training materials','training_material','Training Material');
-                var trainingMaterialButtonContainer = document.createElement('div');
-		trainingMaterialButtonContainer.classList.add('buttons_cell_container');
-		trainingMaterialButtonContainer.appendChild(trainingMaterialButton);
-		rowContainer.appendChild(trainingMaterialButtonContainer);
+		for(var i=0;i<this.buttonsBasicData.length;i++){
+			var buttonData = this.buttonsBasicData[i];
+			var myButton = this.createEmbossedButton(buttonData[0],buttonData[1],buttonData[2]);
+			var myButtonContainer = document.createElement('div');
+			myButtonContainer.classList.add('buttons_cell_container');
+			myButtonContainer.appendChild(myButton);
+			rowContainer.appendChild(myButtonContainer);
+			
+
+			this.buttons.push(myButton);
+			this.contextDataList.totalFilters.push(buttonData[2]);
+		}
 		
                 target.appendChild(rowContainer);
 		
-		this.buttons.push(databaseButton);
-                this.buttons.push(eventsButton);
-                this.buttons.push(toolsButton);
-                this.buttons.push(trainingMaterialButton);
-                
                 this.contextDataList.currentFilters = this.getPresentFiltersByButtons();
-		this.contextDataList.totalFilters = ['database','Event','Tool','Training Material'];
 	},
         
         /**
@@ -236,31 +231,20 @@ ButtonsManager.prototype = {
 	
 	/**
         * Function that returns a paragraph element with specific text about each resource type button
-	*   {HTML Object} - P element with help related to each resource type buttons.
+	*   {HTML Object} - div element with help related to each resource type buttons.
         */
 	createButtonsHelpText : function(){
 		var help_container = document.createElement('div');
 		help_container.classList.add('buttons_row_container');
 		
-		var databaseText = document.createElement('span');
-		databaseText.innerHTML = 'Database';
-		databaseText.classList.add('button_help');
-		help_container.appendChild(databaseText);
-		
-		var eventsText = document.createElement('span');
-		eventsText.innerHTML = 'Events';
-		eventsText.classList.add('button_help');
-		help_container.appendChild(eventsText);
-		
-		var toolsText = document.createElement('span');
-		toolsText.innerHTML = 'Tools';
-		toolsText.classList.add('button_help');
-		help_container.appendChild(toolsText);
-		
-		var trainingText = document.createElement('span');
-		trainingText.innerHTML = 'Training materials';
-		trainingText.classList.add('button_help');
-		help_container.appendChild(trainingText);
+		for(var i=0;i<this.buttonsBasicData.length;i++){
+			var buttonData = this.buttonsBasicData[i];
+			
+			var myText = document.createElement('span');
+			myText.innerHTML = buttonData[2];
+			myText.classList.add('button_help');
+			help_container.appendChild(myText);	
+		}
 		
 		return help_container;
 	}
