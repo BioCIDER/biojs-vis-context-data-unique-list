@@ -99,6 +99,7 @@ div.page_manager_nav{
     padding: 0px 5px 0px 5px;
 }
 
+/* END PAGE MANAGER */
 
 
 /* BUTTONS */
@@ -108,6 +109,9 @@ div.button_container{
     text-align:center;
     display:table;
     margin: 0 auto;
+    
+    border-spacing: 5px;
+    border-collapse: separate;
 }
 
 div.buttons_row_container {
@@ -115,39 +119,23 @@ div.buttons_row_container {
 }
 div.buttons_cell_container {
     display : table-cell;
+    /* default size */
+    width: 42px;
+    height: 42px;
+}
+
+div.buttons_underline_cell_container {
+    display : table-cell;
+    height: 5px;
 }
 
 a.button,
 .button a {
+    /* default size */
 	width: 34px;
 	height: 34px;
-	background-repeat: no-repeat;
-	background-position: center center;
-	text-indent: -900em;
-	color: #333;
-	text-decoration: none;
-	line-height: 100%;
-	white-space: nowrap;
-	display: inline-block;
-	position: relative;
-	vertical-align: middle;
-	margin: 2px 2px 2px 2px;
-	
-	/* default button color */
-	background-color: #ececec;
-	border: solid 1px #b8b8b9;
-	
-	/* default box shadow */
-	-webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,.3), 0 1px 0 rgba(0,0,0,.1);
-	-moz-box-shadow: inset 0 1px 0 rgba(255,255,255,.3), 0 1px 0 rgba(0,0,0,.1);
-	box-shadow: inset 0 1px 0 rgba(255,255,255,.3), 0 1px 0 rgba(0,0,0,.1);
-
-	/* default border radius */
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	border-radius: 5px;
-	
 }
+
 /* for IE */
 *:first-child+html a.button,
 *:first-child+html .button a {
@@ -155,48 +143,6 @@ a.button,
 	line-height: 0;
 	font-size: 0;
 	overflow: hidden;
-}
-
-
-
-
-/* helps */
-span.button_help,
-.button_help span {
-	width: 34px;
-	height: 34px;
-	font-size: 70%;
-	font-style: italic;
-	line-height: 100%;
-	display: table-cell;
-	
-	text-decoration: none;
-	/*display: inline-table;*/
-	position: relative;
-	vertical-align: middle;
-	margin: 2px 2px 2px 2px;
-	
-}
-/* for IE */
-*:first-child+html span.button_help,
-*:first-child+html .button_help span {
-	text-indent: 0;
-	line-height: 0;
-	font-size: 0;
-	overflow: hidden;
-}
-
-
-/* helps */
-/*p.button_help_container{
-    text-align:center;
-    margin: 2px 5px 0px 5px;
-    display: inline-block;
-}*/
-
-.button_help {
-	margin: 0;
-	padding: 0;
 }
 
 
@@ -226,9 +172,40 @@ a.button.xl,
 	font-size: 130%;
 }
 
-/* embossed style */
-a.button.embossed,
-.button.embossed a {
+/* SQARED 3D STYLE */
+
+a.button.squared_3d,
+.button.squared_3d a {
+	display: inline-block;
+	position: relative;
+	vertical-align: middle;
+	background-repeat: no-repeat;
+	background-position: center center;
+	text-indent: -900em;
+	color: #333;
+	text-decoration: none;
+	line-height: 100%;
+	white-space: nowrap;
+	
+	/* default button color */
+	background-color: #ececec;
+	border: solid 1px #b8b8b9;
+	
+	/* default box shadow */
+	-webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,.3), 0 1px 0 rgba(0,0,0,.1);
+	-moz-box-shadow: inset 0 1px 0 rgba(255,255,255,.3), 0 1px 0 rgba(0,0,0,.1);
+	box-shadow: inset 0 1px 0 rgba(255,255,255,.3), 0 1px 0 rgba(0,0,0,.1);
+
+	/* default border radius */
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	
+}
+
+/* unpressed (embossed) style */
+a.button.squared_3d.unpressed,
+.button.squared_3d.unpressed a {
 	-webkit-box-shadow: inset 0 2px 0 rgba(255,255,255,.5), inset 0 -2px 0 rgba(0,0,0,.25), inset 0 -3px 0 rgba(255,255,255,.2), 0 2px 0 rgba(0,0,0,.1);
 	-moz-box-shadow: inset 0 2px 0 rgba(255,255,255,.5), inset 0 -2px 0 rgba(0,0,0,.25), inset 0 -3px 0 rgba(255,255,255,.2), 0 2px 0 rgba(0,0,0,.1);
 	box-shadow: inset 0 2px 0 rgba(255,255,255,.5), inset 0 -2px 0 rgba(0,0,0,.25), inset 0 -3px 0 rgba(255,255,255,.2), 0 2px 0 rgba(0,0,0,.1);
@@ -242,8 +219,8 @@ a.button.embossed,
 }
 
 /* pressed style */
-a.button.pressed,
-.button.pressed a {
+a.button.squared_3d.pressed,
+.button.squared_3d.pressed a {
 	-webkit-box-shadow: inset 0 2px 3px rgba(0,0,0,.35);
 	-moz-box-shadow: inset 0 2px 3px rgba(0,0,0,.35);
 	box-shadow: inset 0 2px 3px rgba(0,0,0,.35);
@@ -255,7 +232,51 @@ a.button.pressed,
 	-o-transition: all 0.5s ease;
 	transition: all 0.5s ease;
 }
+/* END SQARED 3D STYLE */
 
+
+/* ROUND FLAT STYLE */
+
+a.button.round_flat,
+.button.round_flat a {
+	display: inline-block;
+	position: relative;
+	vertical-align: middle;
+	background-repeat: no-repeat;
+	background-position: center center;
+	text-indent: -900em;
+	color: #333;
+	text-decoration: none;
+	line-height: 100%;
+	white-space: nowrap;
+	background-color: #ececec;
+	
+	-webkit-border-radius: 10em;
+	-moz-border-radius: 10em;
+	border-radius: 10em;
+	
+	border: solid 2px #b8b8b9;
+
+	/* no shadow*/
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+}
+
+
+/* unpressed style */
+a.button.round_flat.unpressed,
+.button.round_flat.unpressed a {
+    border: solid 2px #E8E8E8;
+}
+
+/* pressed style */
+a.button.round_flat.pressed,
+.button.round_flat.pressed a {
+    border: solid 2px #B0B0B0;
+}
+
+/* END ROUND FLAT STYLE */
 
 
 /* default hover */
@@ -299,53 +320,70 @@ a.button.workflow,
 }
 
 
-/*  resource type details
-Based on:
-CSS Social Icons
-By: Nick La (@nickla)
-http://webdesignerwall.com/tutorials/css-social-buttons
-*/
 
-span.resource_type,
-.resource_type span {
-	width: 36px;
-	height: 36px;
-	background-repeat: no-repeat;
-	background-position: center center;
-	text-indent: -900em;
-	color: #333;
-	text-decoration: none;
+
+
+/* helps */
+span.button_help,
+.button_help span {
+	width: 34px;
+	height: 34px;
+	font-size: 70%;
+	font-style: italic;
 	line-height: 100%;
-	white-space: nowrap;
-	display: inline-block;
+	display: table-cell;
+	
+	text-decoration: none;
+	/*display: inline-table;*/
 	position: relative;
 	vertical-align: middle;
-	margin: 0 2px 5px 0;
-	
-	/* default button color */
-	background-color: #ececec;
-	border: solid 1px #b8b8b9;
-	
-	/* default box shadow */
-	-webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,.3), 0 1px 0 rgba(0,0,0,.1);
-	-moz-box-shadow: inset 0 1px 0 rgba(255,255,255,.3), 0 1px 0 rgba(0,0,0,.1);
-	box-shadow: inset 0 1px 0 rgba(255,255,255,.3), 0 1px 0 rgba(0,0,0,.1);
-
-	/* default border radius */
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	border-radius: 5px;
+	margin: 2px 2px 2px 2px;
 	
 }
 /* for IE */
-*:first-child+html span.resource_type,
-*:first-child+html .resource_type span {
+*:first-child+html span.button_help,
+*:first-child+html .button_help span {
 	text-indent: 0;
 	line-height: 0;
 	font-size: 0;
 	overflow: hidden;
 }
 
+.button_help {
+	margin: 0;
+	padding: 0;
+}
+
+
+
+/* underlines */
+
+span.button_underline,
+.button_underline span {
+	width: auto;
+	height: 2px;
+	line-height: 100%;
+	display: table-cell;
+	background-color:gray;
+	
+}
+/* for IE */
+*:first-child+html span.button_underline,
+*:first-child+html .button_underline span {
+	text-indent: 0;
+	line-height: 0;
+	font-size: 0;
+	overflow: hidden;
+}
+
+/* RESOURCE TYPES */
+
+/*  resource type details
+Based on:
+CSS Social Icons
+By: Nick La (@nickla)
+http://webdesignerwall.com/tutorials/css-social-buttons
+*/
 
 /* circle style */
 span.resource_type.circle,

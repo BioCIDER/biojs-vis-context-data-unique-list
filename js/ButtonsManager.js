@@ -11,24 +11,31 @@
  *    Identifier of the DIV tag where the component should be displayed.
  * @option {boolean} [helpText]
  *    True if you want to show a help text over the buttons.
+ * @option {string} [buttonsStyle='SQUARED_3D' or 'ROUND_FLAT'. SQUARED_3D by default.]
+ *    Identifier of the buttons visualisation type.
+ * @option {boolean} [pressedUnderlines]
+ *    True if you want to show underlines when you press a button.
  */
 function ButtonsManager (contextDataList, options) {
-	var consts = {
-	};
 	var default_options_values = {
-		helpText: true
+		helpText: true,
+		buttonsStyle: ButtonsManager.SQUARED_3D,
+		pressedUnderlines: false
 	};
 	for(var key in default_options_values){
-		this[key] = default_options_values[key];
+		this[key] = default_options_values[key];	
 	}
 	for(var key in options){
 		this[key] = options[key];
 	}
-	
-	for(var key in consts){
-		this[key] = consts[key];
-	}
         this.contextDataList = contextDataList;
+	this.buttonsBasicData = [];
+	// BASIC BUTTON'S DATA: LABEL, INTERNAL CLASS NAME, AND INTERNAL NAME
+	this.buttonsBasicData.push(['Database','database','database'],
+				   ['Events','events','Event'],
+				   ['Tools','tools','Tool'],
+				   ['Training materials','training_material','Training Material']
+	);
 	this.contextDataList.registerOnLoadedFunction(this, this.updateButtonsStatus);
 }
 
@@ -41,8 +48,7 @@ function ButtonsManager (contextDataList, options) {
 ButtonsManager.prototype = {
 	constructor: ButtonsManager,
         buttons : [],
-        
-        
+	
 
         /**
          * Update buttons status having into account ContextDataList status
@@ -71,7 +77,7 @@ ButtonsManager.prototype = {
 		if (target == undefined || target == null){
 			return;	
 		}
-		
+		console.log(this.buttonsStyle);
 		if (this.helpText){
 			var helpTextContainer = this.createButtonsHelpText();
 			target.appendChild(helpTextContainer);
@@ -79,39 +85,35 @@ ButtonsManager.prototype = {
 		var rowContainer = document.createElement('div');
 		rowContainer.classList.add('buttons_row_container');
 		
-                var databaseButton = this.createEmbossedButton('Database','database','database');
-		var databaseButtonContainer = document.createElement('div');
-		databaseButtonContainer.classList.add('buttons_cell_container');
-		databaseButtonContainer.appendChild(databaseButton);
-                rowContainer.appendChild(databaseButtonContainer);
+		if (this.buttonsBasicData.length>0) {
+			this.contextDataList.totalFilters = [];
+		}
 		
-                var eventsButton = this.createEmbossedButton('Events','events','Event');
-		var eventsButtonContainer = document.createElement('div');
-		eventsButtonContainer.classList.add('buttons_cell_container');
-		eventsButtonContainer.appendChild(eventsButton);
-                rowContainer.appendChild(eventsButtonContainer);
-		
-                var toolsButton = this.createEmbossedButton('Tools','tools','Tool');
-		var toolsButtonContainer = document.createElement('div');
-		toolsButtonContainer.classList.add('buttons_cell_container');
-                toolsButtonContainer.appendChild(toolsButton);
-		rowContainer.appendChild(toolsButtonContainer);
-		
-                var trainingMaterialButton = this.createEmbossedButton('Training materials','training_material','Training Material');
-                var trainingMaterialButtonContainer = document.createElement('div');
-		trainingMaterialButtonContainer.classList.add('buttons_cell_container');
-		trainingMaterialButtonContainer.appendChild(trainingMaterialButton);
-		rowContainer.appendChild(trainingMaterialButtonContainer);
+		for(var i=0;i<this.buttonsBasicData.length;i++){
+			var buttonData = this.buttonsBasicData[i];
+			var myButton = null;
+			if (ButtonsManager.ROUND_FLAT == this.buttonsStyle) {
+				myButton = this.createRoundFlatButton(buttonData[0],buttonData[1],buttonData[2]);
+			}else{
+				myButton = this.createSquared3DdButton(buttonData[0],buttonData[1],buttonData[2]);
+			}
+			var myButtonContainer = document.createElement('div');
+			myButtonContainer.classList.add('buttons_cell_container');
+			myButtonContainer.appendChild(myButton);
+			rowContainer.appendChild(myButtonContainer);
+
+			this.buttons.push(myButton);
+			this.contextDataList.totalFilters.push(buttonData[2]);
+		}
 		
                 target.appendChild(rowContainer);
 		
-		this.buttons.push(databaseButton);
-                this.buttons.push(eventsButton);
-                this.buttons.push(toolsButton);
-                this.buttons.push(trainingMaterialButton);
-                
+		if (this.pressedUnderlines){
+			var underlinesContainer = this.createButtonsUnderlineContainer();
+			target.appendChild(underlinesContainer);
+		}
+		
                 this.contextDataList.currentFilters = this.getPresentFiltersByButtons();
-		this.contextDataList.totalFilters = ['database','Event','Tool','Training Material'];
 	},
         
         /**
@@ -127,14 +129,16 @@ ButtonsManager.prototype = {
             this.contextDataList.currentFilters = this.getPresentFiltersByButtons();
 
         },
-        
+	
+	
         /**
-        * Function that creates one button with 'embossed' aspect.
+        * Function that creates one button with 'ROUND_FLAT' aspect.
         * @param label {String} - Title to be used into the ANCHOR element.
         * @param internalClass {String} - Specific className to be used into the ANCHOR element.
         * @param internalName {String} - Name to be used into the ANCHOR element. It should be a filter name.
         */  
-        createEmbossedButton : function(label, internalClass, internalName){
+        createRoundFlatButton : function(label, internalClass, internalName){
+		console.log('createFlatButton');
             var button = document.createElement('a');
             var linkText = document.createTextNode(label);
             button.appendChild(linkText);
@@ -148,7 +152,34 @@ ButtonsManager.prototype = {
                 return false;
             }
             button.classList.add('button');
-            button.classList.add('embossed');
+	    button.classList.add('round_flat');
+            button.classList.add('unpressed');
+            button.classList.add(internalClass);
+            return button;    
+        },
+        
+        /**
+        * Function that creates one button with 'SQUARED_3D' aspect.
+        * @param label {String} - Title to be used into the ANCHOR element.
+        * @param internalClass {String} - Specific className to be used into the ANCHOR element.
+        * @param internalName {String} - Name to be used into the ANCHOR element. It should be a filter name.
+        */  
+        createSquared3DdButton : function(label, internalClass, internalName){
+            var button = document.createElement('a');
+            var linkText = document.createTextNode(label);
+            button.appendChild(linkText);
+            button.title = label;
+            button.name = internalName;
+	    button.id = internalName;
+            button.href = "#";
+            var myButtonsManager = this;
+            button.onclick = function (){
+                myButtonsManager.filter(this);
+                return false;
+            }
+            button.classList.add('button');
+	    button.classList.add('squared_3d');
+            button.classList.add('unpressed');
             button.classList.add(internalClass);
             return button;    
         },
@@ -165,8 +196,9 @@ ButtonsManager.prototype = {
         },
 	
 	/**
-        * Function that changes the aspect of one button from pressed to embossed, or vice versa.
-        * @param myButton {Button} - Button to be pressed/unpressed.
+        * Function that changes the aspect of one button depending on if it has any associated result or not.
+        * @param myButton {Button} - Button to be modified.
+        * @param numberResults {Integer} - Number of occurrences associated to the button.
         */ 
         setButtonAspectAsResults: function (myButton, numberResults){
 		if (myButton == undefined || myButton == null) {
@@ -188,12 +220,24 @@ ButtonsManager.prototype = {
         },
         
         /**
-        * Function that changes the aspect of one button from pressed to embossed, or vice versa.
+        * Function that changes the aspect of one button from pressed to unpressed, or vice versa.
         * @param myButton {Button} - Button to be pressed/unpressed.
         */ 
         showButtonClick: function (myButton){
-            myButton.classList.toggle("embossed");
-            myButton.classList.toggle("pressed");
+		myButton.classList.toggle("unpressed");
+		myButton.classList.toggle("pressed");
+		console.log('showButtonClick: '+myButton);
+		if (this.pressedUnderlines) {
+			var underline = document.getElementById(myButton.id+"_underline");
+			console.log(underline);
+			if (this.isButtonPressed(myButton)) {
+				underline.style.display = 'block';
+			}else{
+				underline.style.display = 'none';
+			}
+		}
+		
+		
         },
         
         /**
@@ -236,35 +280,61 @@ ButtonsManager.prototype = {
 	
 	/**
         * Function that returns a paragraph element with specific text about each resource type button
-	*   {HTML Object} - P element with help related to each resource type buttons.
+	*   {HTML Object} - div element with help related to each resource type buttons.
         */
 	createButtonsHelpText : function(){
 		var help_container = document.createElement('div');
 		help_container.classList.add('buttons_row_container');
 		
-		var databaseText = document.createElement('span');
-		databaseText.innerHTML = 'Database';
-		databaseText.classList.add('button_help');
-		help_container.appendChild(databaseText);
-		
-		var eventsText = document.createElement('span');
-		eventsText.innerHTML = 'Events';
-		eventsText.classList.add('button_help');
-		help_container.appendChild(eventsText);
-		
-		var toolsText = document.createElement('span');
-		toolsText.innerHTML = 'Tools';
-		toolsText.classList.add('button_help');
-		help_container.appendChild(toolsText);
-		
-		var trainingText = document.createElement('span');
-		trainingText.innerHTML = 'Training materials';
-		trainingText.classList.add('button_help');
-		help_container.appendChild(trainingText);
+		for(var i=0;i<this.buttonsBasicData.length;i++){
+			var buttonData = this.buttonsBasicData[i];
+			
+			var myText = document.createElement('span');
+			myText.innerHTML = buttonData[2];
+			myText.classList.add('button_help');
+			help_container.appendChild(myText);	
+		}
 		
 		return help_container;
+	},
+	
+	
+	/**
+        * Function that returns a paragraph element with specific text about each resource type button
+	*   {HTML Object} - div element with help related to each resource type buttons.
+        */
+	createButtonsUnderlineContainer : function(){
+		var underlines_container = document.createElement('div');
+		underlines_container.classList.add('buttons_row_container');
+		
+		for(var i=0;i<this.buttonsBasicData.length;i++){
+			var buttonData = this.buttonsBasicData[i];
+			var myText = document.createElement('span');
+			myText.id = buttonData[2]+"_underline";
+			myText.classList.add('button_underline');
+			
+			var myUnderlineContainer = document.createElement('div');
+			myUnderlineContainer.classList.add('buttons_underline_cell_container');
+			myUnderlineContainer.appendChild(myText);
+			underlines_container.appendChild(myUnderlineContainer);
+		}
+		
+		return underlines_container;
 	}
 }
+
+// STATIC ATTRIBUTES
+
+var CONSTS = {
+	//style of visualization
+	SQUARED_3D:"SQUARED_3D",
+	ROUND_FLAT:"ROUND_FLAT",
+};
+
+for(var key in CONSTS){
+     ButtonsManager[key] = CONSTS[key];
+}
+
       
       
   
