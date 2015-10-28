@@ -109,6 +109,7 @@ div.button_container{
     text-align:center;
     display:table;
     margin: 0 auto;
+    
     border-spacing: 5px;
     border-collapse: separate;
 }
@@ -118,6 +119,14 @@ div.buttons_row_container {
 }
 div.buttons_cell_container {
     display : table-cell;
+    /* default size */
+    width: 42px;
+    height: 42px;
+}
+
+div.buttons_underline_cell_container {
+    display : table-cell;
+    height: 5px;
 }
 
 a.button,
@@ -246,7 +255,7 @@ a.button.round_flat,
 	-moz-border-radius: 10em;
 	border-radius: 10em;
 	
-	border: solid 1px #b8b8b9;
+	border: solid 2px #b8b8b9;
 
 	/* no shadow*/
 	-webkit-box-shadow: none;
@@ -258,13 +267,13 @@ a.button.round_flat,
 /* unpressed style */
 a.button.round_flat.unpressed,
 .button.round_flat.unpressed a {
-	border-width: 1px;
+    border: solid 2px #E8E8E8;
 }
 
 /* pressed style */
 a.button.round_flat.pressed,
 .button.round_flat.pressed a {
-	border-width: 3px;
+    border: solid 2px #B0B0B0;
 }
 
 /* END ROUND FLAT STYLE */
@@ -340,20 +349,34 @@ span.button_help,
 	overflow: hidden;
 }
 
-
-/* helps */
-/*p.button_help_container{
-    text-align:center;
-    margin: 2px 5px 0px 5px;
-    display: inline-block;
-}*/
-
 .button_help {
 	margin: 0;
 	padding: 0;
 }
 
 
+
+/* underlines */
+
+span.button_underline,
+.button_underline span {
+	width: auto;
+	height: 2px;
+	line-height: 100%;
+	display: table-cell;
+	background-color:gray;
+	
+}
+/* for IE */
+*:first-child+html span.button_underline,
+*:first-child+html .button_underline span {
+	text-indent: 0;
+	line-height: 0;
+	font-size: 0;
+	overflow: hidden;
+}
+
+/* RESOURCE TYPES */
 
 /*  resource type details
 Based on:

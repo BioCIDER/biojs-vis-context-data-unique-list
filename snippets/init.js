@@ -27,7 +27,8 @@ document.addEventListener("DOMContentLoaded", function(e) {
     var buttonsInstance = new ButtonsManager(contextDataListInstance,{
       targetId: 'buttons_manager_container',
       helpText: true,
-      buttonsStyle:ButtonsManager.SQUARED_3D
+      buttonsStyle:ButtonsManager.SQUARED_3D,
+      pressedUnderlines:true
     });
     
     buttonsInstance.buildPressedButtons();

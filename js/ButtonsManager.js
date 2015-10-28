@@ -13,11 +13,14 @@
  *    True if you want to show a help text over the buttons.
  * @option {string} [buttonsStyle='SQUARED_3D' or 'ROUND_FLAT'. SQUARED_3D by default.]
  *    Identifier of the buttons visualisation type.
+ * @option {boolean} [pressedUnderlines]
+ *    True if you want to show underlines when you press a button.
  */
 function ButtonsManager (contextDataList, options) {
 	var default_options_values = {
 		helpText: true,
-		buttonsStyle: ButtonsManager.SQUARED_3D
+		buttonsStyle: ButtonsManager.SQUARED_3D,
+		pressedUnderlines: false
 	};
 	for(var key in default_options_values){
 		this[key] = default_options_values[key];	
@@ -105,6 +108,11 @@ ButtonsManager.prototype = {
 		
                 target.appendChild(rowContainer);
 		
+		if (this.pressedUnderlines){
+			var underlinesContainer = this.createButtonsUnderlineContainer();
+			target.appendChild(underlinesContainer);
+		}
+		
                 this.contextDataList.currentFilters = this.getPresentFiltersByButtons();
 	},
         
@@ -188,8 +196,9 @@ ButtonsManager.prototype = {
         },
 	
 	/**
-        * Function that changes the aspect of one button from pressed to non pressed, or vice versa.
-        * @param myButton {Button} - Button to be pressed/unpressed.
+        * Function that changes the aspect of one button depending on if it has any associated result or not.
+        * @param myButton {Button} - Button to be modified.
+        * @param numberResults {Integer} - Number of occurrences associated to the button.
         */ 
         setButtonAspectAsResults: function (myButton, numberResults){
 		if (myButton == undefined || myButton == null) {
@@ -217,6 +226,18 @@ ButtonsManager.prototype = {
         showButtonClick: function (myButton){
 		myButton.classList.toggle("unpressed");
 		myButton.classList.toggle("pressed");
+		console.log('showButtonClick: '+myButton);
+		if (this.pressedUnderlines) {
+			var underline = document.getElementById(myButton.id+"_underline");
+			console.log(underline);
+			if (this.isButtonPressed(myButton)) {
+				underline.style.display = 'block';
+			}else{
+				underline.style.display = 'none';
+			}
+		}
+		
+		
         },
         
         /**
@@ -275,6 +296,30 @@ ButtonsManager.prototype = {
 		}
 		
 		return help_container;
+	},
+	
+	
+	/**
+        * Function that returns a paragraph element with specific text about each resource type button
+	*   {HTML Object} - div element with help related to each resource type buttons.
+        */
+	createButtonsUnderlineContainer : function(){
+		var underlines_container = document.createElement('div');
+		underlines_container.classList.add('buttons_row_container');
+		
+		for(var i=0;i<this.buttonsBasicData.length;i++){
+			var buttonData = this.buttonsBasicData[i];
+			var myText = document.createElement('span');
+			myText.id = buttonData[2]+"_underline";
+			myText.classList.add('button_underline');
+			
+			var myUnderlineContainer = document.createElement('div');
+			myUnderlineContainer.classList.add('buttons_underline_cell_container');
+			myUnderlineContainer.appendChild(myText);
+			underlines_container.appendChild(myUnderlineContainer);
+		}
+		
+		return underlines_container;
 	}
 }
 
