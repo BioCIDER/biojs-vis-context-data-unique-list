@@ -279,6 +279,41 @@ a.button.round_flat.pressed,
 /* END ROUND FLAT STYLE */
 
 
+/* ICONS ONLY STYLE */
+
+a.button.icons_only,
+.button.icons_only a {
+	display: inline-block;
+	position: relative;
+	vertical-align: middle;
+	background-repeat: no-repeat;
+	background-position: center center;
+	text-indent: -900em;
+	color: #333;
+	text-decoration: none;
+	line-height: 100%;
+	white-space: nowrap;
+	
+	/* no shadow*/
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+}
+
+
+/* unpressed style */
+a.button.icons_only.unpressed,
+.button.icons_only.unpressed a {
+}
+
+/* pressed style */
+a.button.icons_only.pressed,
+.button.icons_only.pressed a {
+}
+
+/* END ICONS ONLY STYLE */
+
+
 /* default hover */
 a.button:hover:after,
 .button a:button:after {
