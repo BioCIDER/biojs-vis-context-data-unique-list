@@ -11,7 +11,7 @@
  *    Identifier of the DIV tag where the component should be displayed.
  * @option {boolean} [helpText]
  *    True if you want to show a help text over the buttons.
- * @option {string} [buttonsStyle='SQUARED_3D' or 'ROUND_FLAT'. SQUARED_3D by default.]
+ * @option {string} [buttonsStyle='SQUARED_3D' , 'ROUND_FLAT' or 'ICONS_ONLY'. SQUARED_3D by default.]
  *    Identifier of the buttons visualisation type.
  * @option {boolean} [pressedUnderlines]
  *    True if you want to show underlines when you press a button.
@@ -94,6 +94,8 @@ ButtonsManager.prototype = {
 			var myButton = null;
 			if (ButtonsManager.ROUND_FLAT == this.buttonsStyle) {
 				myButton = this.createRoundFlatButton(buttonData[0],buttonData[1],buttonData[2]);
+			}else if (ButtonsManager.ICONS_ONLY == this.buttonsStyle){
+				myButton = this.createIconOnlyButton(buttonData[0],buttonData[1],buttonData[2]);
 			}else{
 				myButton = this.createSquared3DdButton(buttonData[0],buttonData[1],buttonData[2]);
 			}
@@ -138,7 +140,6 @@ ButtonsManager.prototype = {
         * @param internalName {String} - Name to be used into the ANCHOR element. It should be a filter name.
         */  
         createRoundFlatButton : function(label, internalClass, internalName){
-		console.log('createFlatButton');
             var button = document.createElement('a');
             var linkText = document.createTextNode(label);
             button.appendChild(linkText);
@@ -183,6 +184,32 @@ ButtonsManager.prototype = {
             button.classList.add(internalClass);
             return button;    
         },
+	
+	/**
+        * Function that creates one button with 'ICON_ONLY' aspect.
+        * @param label {String} - Title to be used into the ANCHOR element.
+        * @param internalClass {String} - Specific className to be used into the ANCHOR element.
+        * @param internalName {String} - Name to be used into the ANCHOR element. It should be a filter name.
+        */  
+        createIconOnlyButton : function(label, internalClass, internalName){
+		var button = document.createElement('a');
+		var linkText = document.createTextNode(label);
+		button.appendChild(linkText);
+		button.title = label;
+		button.name = internalName;
+		button.id = internalName;
+		button.href = "#";
+		var myButtonsManager = this;
+		button.onclick = function (){
+		    myButtonsManager.filter(this);
+		    return false;
+		}
+		button.classList.add('button');
+		button.classList.add('icons_only');
+		button.classList.add('unpressed');
+		button.classList.add(internalClass);
+		return button;    
+        },
         
         /**
         * Function that changes the status of the button and executes the redrawn of the ContextDataList
@@ -226,7 +253,6 @@ ButtonsManager.prototype = {
         showButtonClick: function (myButton){
 		myButton.classList.toggle("unpressed");
 		myButton.classList.toggle("pressed");
-		console.log('showButtonClick: '+myButton);
 		if (this.pressedUnderlines) {
 			var underline = document.getElementById(myButton.id+"_underline");
 			console.log(underline);
@@ -329,6 +355,7 @@ var CONSTS = {
 	//style of visualization
 	SQUARED_3D:"SQUARED_3D",
 	ROUND_FLAT:"ROUND_FLAT",
+	ICONS_ONLY:"ICONS_ONLY"
 };
 
 for(var key in CONSTS){
