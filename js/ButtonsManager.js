@@ -255,7 +255,6 @@ ButtonsManager.prototype = {
 		myButton.classList.toggle("pressed");
 		if (this.pressedUnderlines) {
 			var underline = document.getElementById(myButton.id+"_underline");
-			console.log(underline);
 			if (this.isButtonPressed(myButton)) {
 				underline.style.display = 'block';
 			}else{
