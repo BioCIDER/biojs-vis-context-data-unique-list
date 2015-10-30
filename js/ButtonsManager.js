@@ -30,11 +30,11 @@ function ButtonsManager (contextDataList, options) {
 	}
         this.contextDataList = contextDataList;
 	this.buttonsBasicData = [];
-	// BASIC BUTTON'S DATA: LABEL, INTERNAL CLASS NAME, AND INTERNAL NAME
-	this.buttonsBasicData.push(['Database','database','database'],
-				   ['Events','events','Event'],
-				   ['Tools','tools','Tool'],
-				   ['Training materials','training_material','Training Material']
+	// BASIC BUTTON'S DATA: LABEL, INTERNAL CLASS NAME, INTERNAL NAME AND HELP TEXT
+	this.buttonsBasicData.push(['Database','database','database','Databases'],
+				   ['Events','events','Event','Events'],
+				   ['Tools','tools','Tool','Tools'],
+				   ['Training materials','training_material','Training Material','Training materials']
 	);
 	this.contextDataList.registerOnLoadedFunction(this, this.updateButtonsStatus);
 }
@@ -290,7 +290,7 @@ ButtonsManager.prototype = {
 			var buttonData = this.buttonsBasicData[i];
 			
 			var myText = document.createElement('span');
-			myText.innerHTML = buttonData[2];
+			myText.innerHTML = buttonData[3];
 			myText.classList.add('button_help');
 			help_container.appendChild(myText);	
 		}
