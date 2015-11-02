@@ -22,6 +22,8 @@
  *    Class name that contains user's text to search.
  * @option {string} [userTextTagContainer=One stablished tag name, for example h1. It's not used if userTextClassContainer is defined ]
  *    Tag name that contains user's text to search.
+ * @option {string} [userDescriptionClassContainer=Your own class name ]
+ *    Class name that contains user's description to help filter same results that user is seeing.
  * @option {string} [userHelpClassContainer=Your own class name ]
  *    Class name that will contains help icon.
  * @option {int} [numberResults=number ]
@@ -82,8 +84,9 @@ ContextDataList.prototype = {
 		this.currentStatus = ContextDataList.LOADING;
 		//this.updateGlobalStatus(this.LOADING);
 		var userText = this.getUserSearch();
+		var userDescription = this.getUserContentDescription();
 		var maxRows = this.getMaxRows();
-		var newUrl = this._getNewUrl(userText, this.currentFilters, this.currentStartResult, maxRows);
+		var newUrl = this._getNewUrl(userText, userDescription, this.currentFilters, this.currentStartResult, maxRows);
 		this.processDataFromUrl(newUrl);	
 	},
 	
@@ -118,6 +121,28 @@ ContextDataList.prototype = {
 		return userText;
 	},
 	
+	/**
+	 * Returns User's description to help filter same results than user is seeing.
+         * {String} - Text found into the client document.
+	 */
+	getUserContentDescription : function() {
+		var description = '';
+		var elementsContainer = null;
+		if (this.userDescriptionClassContainer != undefined && this.userDescriptionClassContainer != null) {
+			elementsContainer = document.getElementsByClassName(this.userDescriptionClassContainer);
+		}/*else{
+			elementsContainer = document.getElementsByTagName(this.userDescriptionTagContainer);
+		}*/
+		
+		if (elementsContainer != null && elementsContainer.length > 0) {
+			var myFirstElement = elementsContainer[0];
+			description = myFirstElement.innerText;
+			if (description == undefined || description == null) {
+				description = myFirstElement.innerHTML;
+			}
+		}
+		return description;
+	},
 	
 	/**
 	 * Retrieves the maximum number of results that can be shown into the widget.
@@ -135,14 +160,15 @@ ContextDataList.prototype = {
 
 
 	/**
-	 * Create a url to the SolR database with all parameters generated from these arguments.
+	 * Create a url to the SolR database with all dynamic parameters generated from these arguments.
 	 * @param fieldText {string} Text to search.
+	 * @param descriptionText {string} Associated description of the content.
 	 * @param filters {Array} Array of filters - Only results with one of these resource types will be get.
 	 * @param start {integer} Position of the first result to retrieve.
 	 * @param rowsNumber {integer} Indicates the maximum number of results that will be shown on the screen;
 	 */
-	_getNewUrl : function(fieldText, filters, start, rowsNumber){
-		//console.log('_getNewUrl, fieldText: '+fieldText+', filters: '+filters+', start: '+start+', rowsNumber: '+rowsNumber);
+	_getNewUrl : function(fieldText, descriptionText, filters, start, rowsNumber){
+		//console.log('_getNewUrl, fieldText: '+fieldText+', descriptionText: '+descriptionText+', filters: '+filters+', start: '+start+', rowsNumber: '+rowsNumber);
 		var count = 0;
 		var url = "";
 		
@@ -192,7 +218,25 @@ ContextDataList.prototype = {
 			}
 
 		}
-	      
+	        
+		// If we have description, we can try to filter undesired results (i.e., results that are the same than user's current page)
+		if (descriptionText != null) {
+			if (fq==null) {
+				fq = "*:*";
+			}
+			
+			var descUsed = descriptionText;
+			if (descUsed.length>ContextDataList.NUM_WORDS_FILTERING_DESCRIPTION) {
+				descUsed = descUsed.split(" ").slice(0,ContextDataList.NUM_WORDS_FILTERING_DESCRIPTION).join(" ");
+			}
+			// we remove weird characters and "
+			descUsed = descUsed.replace(/\"/g,'');
+			descUsed = encodeURIComponent(descUsed);
+			
+			var descriptionField = new CommonData(null).DESCRIPTION_FIELD;
+			fq = fq+" AND -"+descriptionField+":\""+descUsed+"\"";	
+		}
+		
 		if (fq!=null) {
 			url = url+"&fq="+fq;
 		}
@@ -267,6 +311,7 @@ ContextDataList.prototype = {
 		var contextualisedData = [];
 		if(data.response != undefined){
 			if(data.response.docs != undefined){
+				
 				this.currentTotalResults = data.response.numFound;
 				
 				this.numResultsByResourceType = this.getNumResultsByResourceType(data);
@@ -290,6 +335,20 @@ ContextDataList.prototype = {
 			
 		return contextualisedData;
 	},
+	/*
+	filterSameDataResults : function(data, mainText, contentDescription){
+		var filtered_data = data;
+		
+		data.response.docs.forEach(function(entry) {
+			var typedData = myContextDataList.dataManager.getDataEntity(entry);
+			contextualisedData.push(typedData);
+		});
+		
+		CommonData.TITLE_FIELD
+		CommonData.DESCRIPTION_FIELD
+		
+		return filtered_data;
+	},*/
 	
 	/**
 	 * Returns the number of data of each resource type.
@@ -524,6 +583,8 @@ var CONSTS = {
 	COMMON_STYLE:"COMMON_STYLE",
 	//max number of rows to retrieve from the server, whatever 'numberResults' can be
 	MAX_ROWS:100,
+	//maximum length to be used from the description to filter same results
+	NUM_WORDS_FILTERING_DESCRIPTION:50,
 	//Events 
 	EVT_ON_RESULTS_LOADED: "onResultsLoaded",
 	EVT_ON_REQUEST_ERROR: "onRequestError",

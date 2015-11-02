@@ -77,7 +77,7 @@ ButtonsManager.prototype = {
 		if (target == undefined || target == null){
 			return;	
 		}
-		console.log(this.buttonsStyle);
+		
 		if (this.helpText){
 			var helpTextContainer = this.createButtonsHelpText();
 			target.appendChild(helpTextContainer);
