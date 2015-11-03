@@ -253,10 +253,9 @@ CommonData.prototype = {
                         link.classList.add("expandable_div_title");
                         link.setAttribute('href',"#");
                         link.setAttribute('id',"expandable_div_title_"+randomIntNumber);
-                        //var toexpandsignal = "[+]";
-                        //var tohidesignal = "[-]";
-                        //link.innerHTML = shortText+" "+toexpandsignal;
-                        link.innerHTML = shortText;
+                        var toexpandsignal = "[+]";
+                        var tohidesignal = "[-]";
+                        link.innerHTML = shortText+" "+toexpandsignal;
                         link.title = "Click here to see more information";
                         
                         link.onclick = function (){
@@ -264,11 +263,11 @@ CommonData.prototype = {
                             var expandableDiv = document.getElementById('expandable_div_internaldiv_'+randomIntNumber);
                             if (expandableDiv.style.display == 'none') {
                                     expandableDiv.style.display = 'block';
-                                    //expandableTitle.innerHTML =expandableTitle.innerHTML.replace(toexpandsignal,tohidesignal);
+                                    expandableTitle.innerHTML =expandableTitle.innerHTML.replace(toexpandsignal,tohidesignal);
                                     expandableTitle.title = "Click here to hide the information";
                             }else{
                                     expandableDiv.style.display = 'none';
-                                    //expandableTitle.innerHTML = expandableTitle.innerHTML.replace(tohidesignal,toexpandsignal);
+                                    expandableTitle.innerHTML = expandableTitle.innerHTML.replace(tohidesignal,toexpandsignal);
                                     expandableTitle.title = "Click here to see more information";
                             }
                             return false;
@@ -408,9 +407,9 @@ ElixirRegistryData.prototype.getFullDrawableObject = function(){
             if (description != undefined && description != null) {
                         var expandableDescription = "";
                         if (description.length>CommonData.MIN_LENGTH_LONG_DESCRIPTION) {
-                                    expandableDescription = this.getExpandableText("More...",description.substring(0, CommonData.MIN_LENGTH_LONG_DESCRIPTION)+" [...]",['elixir_registry']);
+                                    expandableDescription = this.getExpandableText("More ",description.substring(0, CommonData.MIN_LENGTH_LONG_DESCRIPTION)+" [...]",['elixir_registry']);
                         }else{
-                                    expandableDescription = this.getExpandableText("More...",description,['elixir_registry']);
+                                    expandableDescription = this.getExpandableText("More ",description,['elixir_registry']);
                         }
                         leftContainer.appendChild(expandableDescription);
             }
@@ -467,9 +466,9 @@ ElixirTrainingData.prototype.getFullDrawableObject = function(){
             if (description != undefined && description != null) {
                         var expandableDescription = "";
                         if (description.length>CommonData.MIN_LENGTH_LONG_DESCRIPTION) {
-                                    expandableDescription = this.getExpandableText("More...",description.substring(0, CommonData.MIN_LENGTH_LONG_DESCRIPTION)+" [...]",['training_material']);
+                                    expandableDescription = this.getExpandableText("More ",description.substring(0, CommonData.MIN_LENGTH_LONG_DESCRIPTION)+" [...]",['training_material']);
                         }else{
-                                    expandableDescription = this.getExpandableText("More...",description,['training_material']);           
+                                    expandableDescription = this.getExpandableText("More ",description,['training_material']);           
                         }
                         leftContainer.appendChild(expandableDescription);
             }
@@ -716,7 +715,7 @@ ElixirEventData.prototype.getExpandableDetails = function(){
                         detailsArray.push(spanDates);
             }
             // maybe we can add later 'category' or 'keywords'
-            var expandableDetails = this.getExpandableText("More...",detailsArray);
+            var expandableDetails = this.getExpandableText("More ",detailsArray);
             return expandableDetails;
 };
 
