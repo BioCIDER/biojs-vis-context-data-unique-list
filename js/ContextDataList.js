@@ -258,7 +258,7 @@ ContextDataList.prototype = {
 		}
 		
 		// qf
-		url = url+"&qf=title^10.0+field^10.0+description^1.0";
+		url = url+"&qf=title^2.0+field^2.0+description^1.0";
 		
 		// start row
 		if (start !== "undefined" && start!=null && !isNaN(start) && typeof start === 'number' && (start % 1 === 0) ) {
