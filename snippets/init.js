@@ -12,22 +12,19 @@ document.addEventListener("DOMContentLoaded", function(e) {
       numberResults: 5,
       //displayStyle: ContextDataList.COMMON_STYLE
       displayStyle: ContextDataList.FULL_STYLE,
-      userHelpClassContainer: 'contex_help_container'
+      //userHelpClassContainer: 'contex_help_container',
+      userDescriptionClassContainer: 'context_description_container'
       //userHelpTagContainer: 'h1'
       //includeSameSiteResults: false
       
-      // ADD TEXT LEGENT BY DEFAULT?
-      // CHANGE BUTTONS STYLES TO UNDERLINED 
-      // CONVERT WORKFLOWS TO TOOLS - OK
       // CREATE A SUMMARY OF THE DOCUMENTATION TO LINK FROM THE
-      // TRANSLUCID BUTTONS WHEN THERE ARE NO RESULTS OF THEIR TYPE - OK
     });
     
     // before initialising the main component, we should initialise its 'plugins'.
     var buttonsInstance = new ButtonsManager(contextDataListInstance,{
       targetId: 'buttons_manager_container',
       helpText: true,
-      buttonsStyle:ButtonsManager.SQUARED_3D,
+      buttonsStyle:ButtonsManager.ICONS_ONLY,
       pressedUnderlines:true
     });
     
