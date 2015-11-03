@@ -187,15 +187,15 @@ ContextDataList.prototype = {
 			searchPhrase = "("+searchPhrase+excludingPhrase+")";
 		// we exclude only the same record than user is
 		}else{*/
-			
+		/*	
 		if (this.currentURL !== "undefined" && this.currentURL != null) {
 			var excludingPhrase = "";
 			// There are some characters that can break the full URL; we remove them.
 			var curatedURL = this.currentURL.replace('#','');
 			excludingPhrase = " NOT(\""+curatedURL+"\")";
 			searchPhrase = "("+searchPhrase+") AND "+excludingPhrase;
-		}
-			
+		}*/
+		searchPhrase = "("+searchPhrase+")";	
 		
 		//}	
 		
@@ -218,6 +218,17 @@ ContextDataList.prototype = {
 			}
 
 		}
+		
+		
+		if (this.currentURL !== "undefined" && this.currentURL != null) {
+			if (fq==null) {
+				fq = "*:*";
+			}
+			// There are some characters that can break the full URL; we remove them.
+			var curatedURL = this.currentURL.replace('#','');
+			var linkField = new CommonData(null).LINK_FIELD;
+			fq = fq+" AND -"+linkField+":\""+curatedURL+"\"";	
+		}
 	        
 		// If we have description, we can try to filter undesired results (i.e., results that are the same than user's current page)
 		if (descriptionText != null) {
@@ -234,8 +245,13 @@ ContextDataList.prototype = {
 			descUsed = encodeURIComponent(descUsed);
 			
 			var descriptionField = new CommonData(null).DESCRIPTION_FIELD;
-			fq = fq+" AND -"+descriptionField+":\""+descUsed+"\"";	
+			fq = fq+" AND -"+descriptionField+":\""+descUsed+"\"";
+			
+			var titleField = new CommonData(null).TITLE_FIELD;
+			fq = fq+" AND -"+titleField+":\""+fieldText+"\"";
+			
 		}
+		
 		
 		if (fq!=null) {
 			url = url+"&fq="+fq;
