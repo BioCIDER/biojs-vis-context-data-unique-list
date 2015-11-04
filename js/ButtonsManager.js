@@ -11,7 +11,7 @@
  *    Identifier of the DIV tag where the component should be displayed.
  * @option {boolean} [helpText]
  *    True if you want to show a help text over the buttons.
- * @option {string} [buttonsStyle='SQUARED_3D' , 'ROUND_FLAT' or 'ICONS_ONLY'. SQUARED_3D by default.]
+ * @option {string} [buttonsStyle='SQUARED_3D' , 'ROUND_FLAT' or 'ICONS_ONLY'. ICONS_ONLY by default.]
  *    Identifier of the buttons visualisation type.
  * @option {boolean} [pressedUnderlines]
  *    True if you want to show underlines when you press a button.
