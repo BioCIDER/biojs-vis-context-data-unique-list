@@ -1,20 +1,9 @@
-/** 
- * Resource contextualisation widget.
- *
- * Purpose of this widget is showing to the user, without any direct action by himself,
- * information of his interest related with the content that is being shown currently to him .
- * To achieve this, we collect in a Solr system information of different repositories
- * (Elixir Service Registry, Elixir Training Portal, and Elixir Events Portal, until now), so
- * we can search into this information which is related with content accesed by user.
- * 
- */
-
 
 /** 
- * Resource contextualisation Constructor.
+ * ContextDataList Constructor.
  * 
  * @param {Object} options An object with the options for ContextDataList component.
- * @option {string} [target='YourOwnDivId']
+ * @option {string} [targetId='YourOwnDivId']
  *    Identifier of the DIV tag where the component should be displayed.
  * @option {string} [displayStyle= ContextDataList.FULL_STYLE, ContextDataList.COMMON_STYLE]
  *    Type of rows visualisation.
@@ -87,7 +76,7 @@ ContextDataList.prototype = {
 		var userDescription = this.getUserContentDescription();
 		var maxRows = this.getMaxRows();
 		var newUrl = this._getNewUrl(userText, userDescription, this.currentFilters, this.currentStartResult, maxRows);
-		this.processDataFromUrl(newUrl);	
+		this.processDataFromUrl(newUrl);
 	},
 	
 	/**
