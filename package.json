@@ -27,7 +27,7 @@
 		"build": "gulp build",
 		"build-browser": "gulp build-browser",
 		"build-browser-min": "gulp build-browser-gzip",
-		"install": "gulp build && npm run css_folder && npm run css",
+		"prepublish": "gulp build && npm run css_folder && npm run css",
 		"watch": "gulp watch",
 		"test-watch": "gulp test-watch",
 		"w": "prunner \"npm run sniper\" \"npm run watch\" \"npm run watch-css\"",
