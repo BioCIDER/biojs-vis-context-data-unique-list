@@ -1,3 +1,7 @@
+var constants = require("./constants.js");
+var DataManager = require("./DataManager.js");
+var CommonData = require("./CommonData.js");
+var reqwest = require("reqwest");
 
 /** 
  * ContextDataList Constructor.
@@ -19,10 +23,11 @@
  *    Integer that restricts the results number that should be shown.
  * @option {boolean} [includeSameSiteResults=If you want to see records of your present site. Temporary disabled. ]
  *    Boolean that avoids or not results from the same site you are seeing. */
-function ContextDataList (options) {
-	
+//function ContextDataList (options) {
+var ContextDataList = function(options) {
+
 	var default_options_values = {        
-	     displayStyle: ContextDataList.COMMON_STYLE,
+	     displayStyle: constants.ContextDataList_COMMON_STYLE,
 	     includeSameSiteResults : true
 	};
 	for(var key in default_options_values){
@@ -39,7 +44,7 @@ function ContextDataList (options) {
 	this.currentTotalResults= null;
 	this.currentStartResult= null;
 	this.currentNumberLoadedResults= null;
-	this.currentStatus= ContextDataList.LOADING;
+	this.currentStatus= constants.ContextDataList_LOADING;
 	this.currentFilters= null;
 	this.totalFilters=null;
 	this.numInitialResultsByResourceType= null;
@@ -55,6 +60,8 @@ function ContextDataList (options) {
       
 }
 
+
+
 /** 
  * Resource contextualisation widget.
  * 
@@ -65,12 +72,13 @@ function ContextDataList (options) {
 ContextDataList.prototype = {
 	constructor: ContextDataList,
 	
-	
 	/**
 	 * Shows the contextualised data into the widget.
 	 */
 	drawContextDataList : function (){
-		this.currentStatus = ContextDataList.LOADING;
+		console.log('ContextDataList.LOADING,'+constants.ContextDataList_LOADING);
+		console.log('ContextDataList.COMMON_STYLE,'+constants.ContextDataList_COMMON_STYLE);
+		this.currentStatus = constants.ContextDataList_LOADING;
 		//this.updateGlobalStatus(this.LOADING);
 		var userText = this.getUserSearch();
 		var userDescription = this.getUserContentDescription();
@@ -83,7 +91,7 @@ ContextDataList.prototype = {
 	 * Shows the contextualised data into the widget, updating the whole internal status of the widget.
 	 */
 	totalDrawContextDataList : function (){
-		this.updateGlobalStatus(ContextDataList.LOADING);
+		this.updateGlobalStatus(constants.ContextDataList_LOADING);
 		this.drawContextDataList();
 	},
 	
@@ -138,9 +146,9 @@ ContextDataList.prototype = {
          * {Integer} - Maximum amount of results that can be shown at the same time.
 	 */
 	getMaxRows : function(){
-		var maxRows = ContextDataList.MAX_ROWS;
+		var maxRows = constants.ContextDataList_MAX_ROWS;
 		if (this.numberResults != "undefined" && !isNaN(this.numberResults) && typeof this.numberResults === 'number' && (this.numberResults % 1 === 0) ) {
-			if (this.numberResults < ContextDataList.MAX_ROWS) {
+			if (this.numberResults < constants.ContextDataList_MAX_ROWS) {
 				maxRows = this.numberResults;
 			}
 		}
@@ -226,8 +234,8 @@ ContextDataList.prototype = {
 			}
 			
 			var descUsed = descriptionText;
-			if (descUsed.length>ContextDataList.NUM_WORDS_FILTERING_DESCRIPTION) {
-				descUsed = descUsed.split(" ").slice(0,ContextDataList.NUM_WORDS_FILTERING_DESCRIPTION).join(" ");
+			if (descUsed.length>constants.ContextDataList_NUM_WORDS_FILTERING_DESCRIPTION) {
+				descUsed = descUsed.split(" ").slice(0,constants.ContextDataList_NUM_WORDS_FILTERING_DESCRIPTION).join(" ");
 			}
 			// we remove weird characters and "
 			descUsed = descUsed.replace(/\"/g,'');
@@ -296,7 +304,7 @@ ContextDataList.prototype = {
 			
 			error: function (err) {
 				myContextDataList.processError(err);
-				myContextDataList.updateGlobalStatus(myContextDataList.ERROR);
+				myContextDataList.updateGlobalStatus(constants.ContextDataList_ERROR);
 			} ,
 			success: function (resp) {
 				var contextualisedData = myContextDataList.processContextualisedData(resp);
@@ -331,11 +339,11 @@ ContextDataList.prototype = {
 			}
 			else {
 				myContextDataList.processError("data.response.docs undefined");
-				myContextDataList.changeCurrentStatus(myContextDataList.ERROR);
+				myContextDataList.changeCurrentStatus(constants.ContextDataList_ERROR);
 			}
 		} else {
 			myContextDataList.processError("data.response undefined");
-			myContextDataList.changeCurrentStatus(myContextDataList.ERROR);
+			myContextDataList.changeCurrentStatus(constants.ContextDataList_ERROR);
 		}
 			
 		return contextualisedData;
@@ -432,7 +440,7 @@ ContextDataList.prototype = {
 		}
 		
 		this.currentNumberLoadedResults = contextualisedData.length;
-		this.updateGlobalStatus(ContextDataList.LOADED);
+		this.updateGlobalStatus(constants.ContextDataList_LOADED);
 		/*
 		console.log('currentTotalResults');
 		console.log(this.currentTotalResults);
@@ -471,16 +479,18 @@ ContextDataList.prototype = {
 	 */
 	updateGlobalStatus : function(newStatus){
 		// new status must be one of the posible status
-		if (newStatus != ContextDataList.LOADING && newStatus != ContextDataList.ERROR && newStatus != ContextDataList.LOADED ){
+		if (newStatus != constants.ContextDataList_LOADING &&
+		    newStatus != constants.ContextDataList_ERROR &&
+		    newStatus != constants.ContextDataList_LOADED ){
 			return;
 		}
 		this.currentStatus = newStatus;
 		
-		if (this.currentStatus == ContextDataList.LOADING){
+		if (this.currentStatus == constants.ContextDataList_LOADING){
 			this.currentTotalResults = null;
 			this.currentStartResult = null;
 			this.currentNumberLoadedResults = null;
-		}else if (this.currentStatus == ContextDataList.ERROR){
+		}else if (this.currentStatus == constants.ContextDataList_ERROR){
 			this.currentTotalResults = null;
 			this.currentStartResult = null;
 			this.currentNumberLoadedResults = null;
@@ -492,7 +502,8 @@ ContextDataList.prototype = {
 		}*/
 		
 		// Finally we execute registered 'onLoaded' functions
-		if (this.currentStatus == ContextDataList.LOADED || this.currentStatus == ContextDataList.ERROR ){
+		if (this.currentStatus == constants.ContextDataList_LOADED ||
+		    this.currentStatus == constants.ContextDataList_ERROR ){
 			this.executeOnLoadedFunctions();
 		}
 	},
@@ -573,11 +584,12 @@ ContextDataList.prototype = {
 	processError : function(error) {
 	    console.log("ERROR:" + error);
 	}
-      
 
 }
 
+
 // STATIC ATTRIBUTES
+/*
 var CONSTS = {
 	//List of possible context data sources 
 	SOURCE_ELIXIR_REGISTRY:"ESR",
@@ -601,8 +613,7 @@ var CONSTS = {
 
 for(var key in CONSTS){
      ContextDataList[key] = CONSTS[key];
-}
+}*/
 
 
-
-  
+module.exports = ContextDataList;

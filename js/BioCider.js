@@ -1,4 +1,7 @@
-
+var constants = require("./constants.js");
+var ContextDataList = require("./ContextDataList.js");
+var ButtonsManager = require("./ButtonsManager.js");
+var PageManager = require("./PageManager.js");
 
 /** 
  * BioCIDER Component.
@@ -47,7 +50,8 @@
  * 	@option {string} [targetClass='YourOwnClass']
  *    		Class name of the DIV where the PageManager object should be displayed.  
  */
-function BioCider (targetId, contextDataListOptions, buttonsManagerOptions,pageManagerOptions) {
+//function BioCider (targetId, contextDataListOptions, buttonsManagerOptions,pageManagerOptions) {
+var BioCider = function (targetId, contextDataListOptions, buttonsManagerOptions,pageManagerOptions) {
 	
 	this.targetId = targetId;
 	this.contextDataListOptions = {};
@@ -59,7 +63,7 @@ function BioCider (targetId, contextDataListOptions, buttonsManagerOptions,pageM
 		targetClass: 'context_data_list',
 		userTextTagContainer: 'h1',
 		numberResults: 5,
-		displayStyle: ContextDataList.FULL_STYLE,
+		displayStyle: constants.ContextDataList_FULL_STYLE,
 		userDescriptionClassContainer: 'context_description_container'
 	};
 	
@@ -67,7 +71,7 @@ function BioCider (targetId, contextDataListOptions, buttonsManagerOptions,pageM
 		targetId: 'buttons_manager_container',
 		targetClass: 'button_container',
 		helpText: true,
-		buttonsStyle:ButtonsManager.ICONS_ONLY,
+		buttonsStyle:constants.ButtonsManager_ICONS_ONLY,
 		pressedUnderlines:true
 	};
 	
@@ -102,14 +106,8 @@ function BioCider (targetId, contextDataListOptions, buttonsManagerOptions,pageM
         
 }
 
-/** 
- * PageManager functionality.
- * 
- * @class PageManager
- * 
- */
 BioCider.prototype = {
-	constructor: PageManager,
+	constructor: BioCider,
 	
         
         
@@ -119,7 +117,7 @@ BioCider.prototype = {
 	draw : function (){
 			
 		this.initContainers();
-				
+						
 		var contextDataListInstance = new ContextDataList(this.contextDataListOptions);
 		
 		// before initialising the main component, we should initialise its 'plugins'.
@@ -206,6 +204,6 @@ BioCider.prototype = {
         
         
 }
-      
-      
+          
+module.exports = BioCider;
   

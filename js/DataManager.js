@@ -1,9 +1,14 @@
 
+var CommonData = require("./CommonData.js");
+var ElixirTrainingData = require("./ElixirTrainingData.js");
+var ElixirEventData = require("./ElixirEventData.js");
+var ElixirRegistryData = require("./ElixirRegistryData.js");
+
 /** 
  * Data managment constructor.
  * @param {Array} options An object with the options for DataManager component. For future improvements.
  */
-function DataManager (options) {
+var DataManager = function(options) {
  
     var default_options_values = {      
     };
@@ -63,10 +68,5 @@ DataManager.prototype = {
     }
 
 }
-/*
-var consts = {       
-};
 
-for(var key in consts){
-    this[key] = consts[key];
-}*/
+module.exports = DataManager;

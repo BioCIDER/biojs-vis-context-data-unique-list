@@ -61,6 +61,7 @@ gulp.task('default', [  'build']);
 
 // will remove everything in build
 gulp.task('clean', function(cb) {
+  del([buildDir+'/img']);
   del([buildDir+'/**/*'], cb);
 });
 
