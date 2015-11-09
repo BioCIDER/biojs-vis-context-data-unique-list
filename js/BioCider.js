@@ -103,13 +103,13 @@ function BioCider (targetId, contextDataListOptions, buttonsManagerOptions,pageM
 }
 
 /** 
- * PageManager functionality.
+ * BioCider functionality.
  * 
- * @class PageManager
+ * @class BioCider
  * 
  */
 BioCider.prototype = {
-	constructor: PageManager,
+	constructor: BioCider,
 	
         
         

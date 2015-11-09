@@ -31,7 +31,7 @@ function ContextDataList (options) {
 	for(var key in options){
 	     this[key] = options[key];
 	}
-	this.contextDataServer = "http://176.58.119.235:8983/solr/contextData";
+	this.contextDataServer = "http://www.biocider.org:8983/solr/contextData";
 	this.dataManager = new DataManager();
 	
 	
