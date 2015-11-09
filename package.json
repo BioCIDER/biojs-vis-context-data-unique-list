@@ -1,7 +1,7 @@
 {
   "name": "biocider",
   "description": "",
-  "version": "0.5.4-alpha",
+  "version": "0.5.5-alpha",
   "homepage": "https://github.com/BioCIDER/biojs-vis-context-data-unique-list",
   "author": {
     "name": "Carlos Horro",
@@ -20,6 +20,7 @@
       "url": "https://github.com/BioCIDER/biojs-vis-context-data-unique-list/blob/master/LICENSE"
     }
   ],
+  "private":"private",
   "main": "js/index.js",
   "style": "css/*.css", 
   "scripts": {
