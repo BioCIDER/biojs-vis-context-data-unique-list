@@ -1,6 +1,6 @@
 {
   "name": "biocider",
-  "description": "",
+  "description": "Visualisation of ELIXIR training materials, events and registries in a unique list. ALPHA COMPONENT, TESTING PHASE.",
   "version": "0.5.5-alpha",
   "homepage": "https://github.com/BioCIDER/biojs-vis-context-data-unique-list",
   "author": {
@@ -20,7 +20,6 @@
       "url": "https://github.com/BioCIDER/biojs-vis-context-data-unique-list/blob/master/LICENSE"
     }
   ],
-  "private":"private",
   "main": "js/index.js",
   "style": "css/*.css", 
   "scripts": {
