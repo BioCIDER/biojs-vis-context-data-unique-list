@@ -1,7 +1,7 @@
 {
   "name": "biocider",
   "description": "Visualisation of ELIXIR training materials, events and registries in a unique list. ALPHA COMPONENT, TESTING PHASE.",
-  "version": "0.5.11-alpha",
+  "version": "0.5.12-alpha",
   "homepage": "https://github.com/BioCIDER/biojs-vis-context-data-unique-list",
   "author": {
     "name": "Carlos Horro",
@@ -25,7 +25,7 @@
   "scripts": {
 		"test": "gulp test",
 		"build": "gulp build",
-		"install": "gulp build && npm run css_folder && npm run css",
+		"build-install": "gulp build && npm run css_folder && npm run css",
 		"build-browser": "gulp build-browser",
 		"build-browser-min": "gulp build-browser-gzip",		
 		"watch": "gulp watch",
