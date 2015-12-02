@@ -1,5 +1,5 @@
 {
-  "name": "biocider",
+  "name": "BioCider",
   "description": "Visualisation of ELIXIR training materials, events and registries in a unique list. ALPHA COMPONENT, TESTING PHASE.",
   "version": "0.5.12-alpha",
   "homepage": "https://github.com/BioCIDER/biojs-vis-context-data-unique-list",
@@ -20,12 +20,11 @@
       "url": "https://github.com/BioCIDER/biojs-vis-context-data-unique-list/blob/master/LICENSE"
     }
   ],
-  "main": "js/index.js",
+  "main": "js/BioCider.js",
   "style": "css/*.css", 
   "scripts": {
 		"test": "gulp test",
-		"build": "gulp build",
-		"build-install": "gulp build && npm run css_folder && npm run css",
+		"build": "gulp build && npm run css_folder && npm run css",
 		"build-browser": "gulp build-browser",
 		"build-browser-min": "gulp build-browser-gzip",		
 		"watch": "gulp watch",
