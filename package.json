@@ -1,7 +1,7 @@
 {
   "name": "BioCider",
   "description": "Visualisation of ELIXIR training materials, events and registries in a unique list. ALPHA COMPONENT, TESTING PHASE.",
-  "version": "0.5.12-alpha",
+  "version": "0.5.13-alpha",
   "homepage": "https://github.com/BioCIDER/biojs-vis-context-data-unique-list",
   "author": {
     "name": "Carlos Horro",
