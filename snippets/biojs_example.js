@@ -1,9 +1,12 @@
 
 
-var app = require("biojs-vis-context-data-unique-list");
+var app = require("BioCider");
 
+var divSearch = document.createElement('div');
+divSearch.innerHTML = 'Bioinformatics';
+document.body.appendChild(divSearch);
 
-var bioCiderInstance = new app.BioCider('global_context_container',{},{},{});
+var bioCiderInstance = new app.BioCider('snippetDiv',{},{},{});
 
 bioCiderInstance.draw();
 
