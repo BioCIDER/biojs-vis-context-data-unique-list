@@ -9,7 +9,7 @@
 
 // browserify build config
 var buildDir = "build";
-var outputFile = "biojsviscontextdatauniquelist";
+var outputFile = "biocider";
 
 var imagesDir = "img";
 
@@ -87,6 +87,8 @@ gulp.task('copy-images', function(cb) {
 .pipe(gulp.dest(buildDir+'/'+imagesDir));
 });
 
+
+
 // browserify debug
 gulp.task('build-browser',['init'], function() {
   var b = browserify({debug: true,hasExports: true});
@@ -96,6 +98,8 @@ gulp.task('build-browser',['init'], function() {
     .pipe(chmod(644))
     .pipe(gulp.dest(buildDir));
 });
+
+
 
 // browserify min
 gulp.task('build-browser-min',['init'], function() {
