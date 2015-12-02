@@ -1,7 +1,7 @@
 {
   "name": "biocider",
   "description": "Visualisation of ELIXIR training materials, events and registries in a unique list. ALPHA COMPONENT, TESTING PHASE.",
-  "version": "0.5.13-alpha",
+  "version": "0.5.14-alpha",
   "homepage": "https://github.com/BioCIDER/biojs-vis-context-data-unique-list",
   "author": {
     "name": "Carlos Horro",
@@ -58,7 +58,7 @@
     "watchify": "^1.0.6"			
   }, 
   "sniper": {
-    "js": [ "/build/biojsviscontextdatauniquelist.js"],
+    "js": [ "/build/biocider.js"],
     "css": ["/build/css/bundle.css"], 
     "snippets": ["snippets"],
     "first": "biojs_example"
