@@ -51,7 +51,7 @@ var PageManager = require("./PageManager.js");
  *    		Class name of the DIV where the PageManager object should be displayed.  
  */
 //function BioCider (targetId, contextDataListOptions, buttonsManagerOptions,pageManagerOptions) {
-var BioCider = function (targetId, contextDataListOptions, buttonsManagerOptions,pageManagerOptions) {
+var biocider = function (targetId, contextDataListOptions, buttonsManagerOptions,pageManagerOptions) {
 	
 	this.targetId = targetId;
 	this.contextDataListOptions = {};
@@ -106,8 +106,8 @@ var BioCider = function (targetId, contextDataListOptions, buttonsManagerOptions
         
 }
 
-BioCider.prototype = {
-	constructor: BioCider,
+biocider.prototype = {
+	constructor: biocider,
 	
         
         
@@ -205,5 +205,5 @@ BioCider.prototype = {
         
 }
           
-module.exports = BioCider;
+module.exports = biocider;
   
