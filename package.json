@@ -1,5 +1,5 @@
 {
-  "name": "BioCider",
+  "name": "biocider",
   "description": "Visualisation of ELIXIR training materials, events and registries in a unique list. ALPHA COMPONENT, TESTING PHASE.",
   "version": "0.5.13-alpha",
   "homepage": "https://github.com/BioCIDER/biojs-vis-context-data-unique-list",
