@@ -5,11 +5,12 @@
 <link href="../css/common.css" rel="stylesheet">
 
 <body>
+<div class="userTextContainer">Bioinformatics</div>
 <div id="snippetDiv"> </div>
 
 <script src="../build/biocider.js"></script>
 <script>
 BioCider = require("biocider");
-var bioCiderInstance = new BioCider('snippetDiv',{},{},{});
+var bioCiderInstance = new BioCider('snippetDiv',{'userTextClassContainer':'userTextContainer'},{},{});
 bioCiderInstance.draw();</script>
 </body>
