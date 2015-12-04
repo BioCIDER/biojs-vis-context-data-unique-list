@@ -332,12 +332,12 @@ a.button:button:after,
 
 a.button.database,
 .button a.database {
-	background-image:   url(https://raw.githubusercontent.com/BioCIDER/biojs-vis-context-data-unique-list/development/build/img/data_base_gray_s.png);
+	background-image:   url('https://raw.githubusercontent.com/BioCIDER/biojs-vis-context-data-unique-list/development/build/img/data_base_gray_s.png');
 }
 
 a.button.events,
 .button a.events {
-	background-image: url(https://raw.githubusercontent.com/BioCIDER/biojs-vis-context-data-unique-list/development/build/img/events_gray_s.png);
+	background-image: url('https://raw.githubusercontent.com/BioCIDER/biojs-vis-context-data-unique-list/development/build/img/events_gray_s.png');
 }
 
 a.button.tools,
