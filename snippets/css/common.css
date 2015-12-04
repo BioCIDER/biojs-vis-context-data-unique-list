@@ -439,7 +439,7 @@ span.resource_type.circle:after,
 
 span.resource_type.database,
 .resource_type span.database {
-	background-image: var(img-location)+'data_base_gray_s.png';
+	background-image: url(../img/data_base_gray_s.png);
 }
 
 span.resource_type.events,
@@ -494,7 +494,7 @@ span.flat_resource_type,
 
 span.flat_resource_type.database,
 .flat_resource_type span.database {
-	background-image: var(img-location)+'data_base_gray_s.png';
+	background-image: url(../img/data_base_gray_s.png);
 }
 
 span.flat_resource_type.events,
