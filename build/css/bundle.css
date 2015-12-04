@@ -332,7 +332,7 @@ a.button:button:after,
 
 a.button.database,
 .button a.database {
-	background-image:   url('https://raw.githubusercontent.com/BioCIDER/biojs-vis-context-data-unique-list/development/build/img/data_base_gray_s.png');
+	background-image: url('https://raw.githubusercontent.com/BioCIDER/biojs-vis-context-data-unique-list/development/build/img/data_base_gray_s.png');
 }
 
 a.button.events,
@@ -342,17 +342,17 @@ a.button.events,
 
 a.button.tools,
 .button a.tools {
-	background-image: url(../img/tools_gray_s.png);
+	background-image: url('https://raw.githubusercontent.com/BioCIDER/biojs-vis-context-data-unique-list/development/build/img/tools_gray_s.png');
 }
 
 a.button.training_material,
 .button a.training_material {
-	background-image: url(../img/training_material_gray_s.png);
+	background-image: url('https://raw.githubusercontent.com/BioCIDER/biojs-vis-context-data-unique-list/development/build/img/training_material_gray_s.png');
 }
 
 a.button.workflow,
 .button a.workflow {
-	background-image: url(../img/workflow_gray_s.png);
+	background-image: url('https://raw.githubusercontent.com/BioCIDER/biojs-vis-context-data-unique-list/development/build/img/workflow_gray_s.png');
 }
 
 
@@ -439,27 +439,27 @@ span.resource_type.circle:after,
 
 span.resource_type.database,
 .resource_type span.database {
-	background-image: url(../img/data_base_gray_s.png);
+	background-image: url('https://raw.githubusercontent.com/BioCIDER/biojs-vis-context-data-unique-list/development/build/img/data_base_gray_s.png');
 }
 
 span.resource_type.events,
 .resource_type span.events {
-	background-image: url(../img/events_gray_s.png);
+	background-image: url('https://raw.githubusercontent.com/BioCIDER/biojs-vis-context-data-unique-list/development/build/img/events_gray_s.png');
 }
 
 span.resource_type.tools,
 .resource_type span.tools {
-	background-image: url(../img/tools_gray_s.png);
+	background-image: url('https://raw.githubusercontent.com/BioCIDER/biojs-vis-context-data-unique-list/development/build/img/tools_gray_s.png');
 }
 
 span.resource_type.training_material,
 .resource_type span.training_material {
-	background-image: url(../img/training_material_gray_s.png);
+	background-image: url('https://raw.githubusercontent.com/BioCIDER/biojs-vis-context-data-unique-list/development/build/img/training_material_gray_s.png');
 }
 
 span.resource_type.workflow,
 .resource_type span.workflow {
-	background-image: url(../img/workflow_gray_s.png);
+	background-image: url('https://raw.githubusercontent.com/BioCIDER/biojs-vis-context-data-unique-list/development/build/img/workflow_gray_s.png');
 }
 
 
@@ -494,27 +494,27 @@ span.flat_resource_type,
 
 span.flat_resource_type.database,
 .flat_resource_type span.database {
-	background-image: url(../img/data_base_gray_s.png);
+	background-image: url('https://raw.githubusercontent.com/BioCIDER/biojs-vis-context-data-unique-list/development/build/img/data_base_gray_s.png');
 }
 
 span.flat_resource_type.events,
 .flat_resource_type span.events {
-	background-image: url(../img/events_gray_s.png);
+	background-image: url('https://raw.githubusercontent.com/BioCIDER/biojs-vis-context-data-unique-list/development/build/img/events_gray_s.png');
 }
 
 span.flat_resource_type.tools,
 .flat_resource_type span.tools {
-	background-image: url(../img/tools_gray_s.png);
+	background-image: url('https://raw.githubusercontent.com/BioCIDER/biojs-vis-context-data-unique-list/development/build/img/tools_gray_s.png');
 }
 
 span.flat_resource_type.training_material,
 .flat_resource_type span.training_material {
-	background-image: url(../img/training_material_gray_s.png);
+	background-image: url('https://raw.githubusercontent.com/BioCIDER/biojs-vis-context-data-unique-list/development/build/img/training_material_gray_s.png');
 }
 
 span.flat_resource_type.workflow,
 .flat_resource_type span.workflow {
-	background-image: url(../img/workflow_gray_s.png);
+	background-image: url('https://raw.githubusercontent.com/BioCIDER/biojs-vis-context-data-unique-list/development/build/img/workflow_gray_s.png');
 }
 
 /*  Gray filters
