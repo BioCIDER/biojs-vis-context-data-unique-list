@@ -1,3 +1,4 @@
+
 /*  Containers */
 
 .global_container{
@@ -12,7 +13,7 @@
     padding-top:3px;
     float:left;
 }
-\
+
 .context_data_container_row {
     display:table-row;
 }
@@ -331,12 +332,12 @@ a.button:button:after,
 
 a.button.database,
 .button a.database {
-	background-image: url(../img/data_base_gray_s.png);
+	background-image:   url('https://raw.githubusercontent.com/BioCIDER/biojs-vis-context-data-unique-list/development/build/img/data_base_gray_s.png');
 }
 
 a.button.events,
 .button a.events {
-	background-image: url(../img/events_gray_s.png);
+	background-image: url('https://raw.githubusercontent.com/BioCIDER/biojs-vis-context-data-unique-list/development/build/img/events_gray_s.png');
 }
 
 a.button.tools,
