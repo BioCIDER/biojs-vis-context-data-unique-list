@@ -80,7 +80,7 @@ BioCider supports many different initialization options. Some of them have defau
 There are 4 different main parameters:
 
 1. BioCider container id (mandatory).
-2. ContextDataList parameters object. You should provide a valid reference to the user's text container, providing *userTextClassContainer* or *userTextTagContainer* values.
+2. ContextDataList parameters object. You should provide a valid reference to the user's text container, providing *userTextIdContainer*, *userTextClassContainer* or *userTextTagContainer* values.
 3. ButtonsManager parameters object.
 4. PageManager parameters object.
 
