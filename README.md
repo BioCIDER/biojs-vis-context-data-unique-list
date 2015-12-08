@@ -95,8 +95,9 @@ new BioCider(id_biocider_container,{ContextDataList parameters},{ButtonsManager 
  * `targetId`: Identifier of the container where the ContextDataList object should be displayed.
  * 	`targetClass`: Class name of the container where the ContextDataList object should be displayed.  
  * 	`displayStyle`: Type of rows visualisation. This can take 2 discrete values: *ContextDataList.FULL_STYLE* or *ContextDataList.COMMON_STYLE*. *ContextDataList.FULL_STYLE* by default.
- * **`userTextClassContainer`**: Class name that contains user's text to search.
- * 	**`userTextTagContainer`**: Tag name that contains user's text to search. It is one stablished tag name, for example `h1`. It's not used if *userTextClassContainer* is defined.
+ * **`userTextIdContainer`**: Tag id that contains user's text to search.
+ * **`userTextClassContainer`**: Class name that contains user's text to search. It's not used if *userTextIdContainer* is defined.
+ * 	**`userTextTagContainer`**: Tag name that contains user's text to search. It is one stablished tag name, for example `h1`. It's not used if *userTextIdContainer* or *userTextClassContainer* is defined.
  * 	`userDescriptionClassContainer`: Class name that contains user's description to help filter same results that user is seeing.
  * 	`userHelpClassContainer`: Class name that will contain help icon.
  * 	`numberResults`: Integer that restricts the results number that should be shown.

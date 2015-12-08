@@ -21,6 +21,8 @@ var PageManager = require("./PageManager.js");
  *    		Class name of the DIV where the ContextDataList object should be displayed.  
  * 	@option {string} [displayStyle= ContextDataList.FULL_STYLE, ContextDataList.COMMON_STYLE]
  *    		Type of rows visualisation.
+ * 	@option {string} [userTextIdContainer=Your own tag id ]
+ *    		Tag id that contains user's text to search.
  * 	@option {string} [userTextClassContainer=Your own class name ]
  *    		Class name that contains user's text to search.
  * 	@option {string} [userTextTagContainer=One stablished tag name, for example h1. It's not used if userTextClassContainer is defined ]
