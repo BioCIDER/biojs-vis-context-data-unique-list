@@ -80,8 +80,8 @@ ContextDataList.prototype = {
 	 * Shows the contextualised data into the widget.
 	 */
 	drawContextDataList : function (){
-		console.log('ContextDataList.LOADING,'+constants.ContextDataList_LOADING);
-		console.log('ContextDataList.COMMON_STYLE,'+constants.ContextDataList_COMMON_STYLE);
+		//console.log('ContextDataList.LOADING,'+constants.ContextDataList_LOADING);
+		//console.log('ContextDataList.COMMON_STYLE,'+constants.ContextDataList_COMMON_STYLE);
 		this.currentStatus = constants.ContextDataList_LOADING;
 		//this.updateGlobalStatus(this.LOADING);
 		var userText = this.getUserSearch();
