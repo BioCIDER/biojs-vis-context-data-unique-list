@@ -11,9 +11,13 @@ var reqwest = require("reqwest");
  *    Identifier of the DIV tag where the component should be displayed.
  * @option {string} [displayStyle= ContextDataList.FULL_STYLE, ContextDataList.COMMON_STYLE]
  *    Type of rows visualisation.
+ * @option {string} [userTextIdContainer=Your own tag id ]
+ *    Tag id that contains user's text to search.
  * @option {string} [userTextClassContainer=Your own class name ]
+ *    It's not used if userTextIdContainer is defined.
  *    Class name that contains user's text to search.
- * @option {string} [userTextTagContainer=One stablished tag name, for example h1. It's not used if userTextClassContainer is defined ]
+ * @option {string} [userTextTagContainer=One stablished tag name, for example h1. ]
+ *    It's not used if userTextIdContainer or userTextClassContainer is defined.
  *    Tag name that contains user's text to search.
  * @option {string} [userDescriptionClassContainer=Your own class name ]
  *    Class name that contains user's description to help filter same results that user is seeing.
@@ -102,7 +106,11 @@ ContextDataList.prototype = {
 	getUserSearch : function() {
 		var userText = '';
 		var elementsContainer = null;
-		if (this.userTextClassContainer != undefined && this.userTextClassContainer != null) {
+                
+                if (this.userTextIdContainer != undefined && this.userTextIdContainer != null) {
+                    elementsContainer = [];
+		    elementsContainer[0] = document.getElementById(this.userTextIdContainer);
+		}else if (this.userTextClassContainer != undefined && this.userTextClassContainer != null) {
 			elementsContainer = document.getElementsByClassName(this.userTextClassContainer);
 		}else{
 			elementsContainer = document.getElementsByTagName(this.userTextTagContainer);

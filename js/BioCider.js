@@ -87,7 +87,6 @@ var biocider = function (targetId, contextDataListOptions, buttonsManagerOptions
 	for(var key in contextDataListOptions){
 	     this.contextDataListOptions[key] = contextDataListOptions[key];
 	}
-	console.log(this.contextDataListOptions['targetId'] );
 	for(var key in defaultButtonsManagerOptions){
 	     this.buttonsManagerOptions[key] = defaultButtonsManagerOptions[key];
 	}
