@@ -27,7 +27,7 @@ var reqwest = require("reqwest");
 var ContextDataList = function(options) {
 
 	var default_options_values = {        
-	     displayStyle: constants.ContextDataList_COMMON_STYLE,
+	     displayStyle: constants.ContextDataList_FULL_STYLE,
 	     includeSameSiteResults : true
 	};
 	for(var key in default_options_values){
