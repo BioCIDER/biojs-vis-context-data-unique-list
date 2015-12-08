@@ -41,7 +41,6 @@ var ContextDataList = function(options) {
 	     this[key] = options[key];
 	}
 	this.contextDataServer = "http://www.biocider.org:8983/solr/contextData";
-	this.dataManager = new DataManager();
 	
 	
 	// global current status
@@ -58,6 +57,8 @@ var ContextDataList = function(options) {
 	this.currentDomain = window.location.hostname;
 	
 	this._onLoadedFunctions= [];
+        
+        this.dataManager = new DataManager({'currentDomain':this.currentDomain});
 	
 	//this.drawHelpImage();
 	

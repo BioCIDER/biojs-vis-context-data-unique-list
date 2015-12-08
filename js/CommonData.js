@@ -4,9 +4,22 @@ var constants = require("./constants.js");
 /**
  *          CommonData constructor
  *          jsonData {Object} JSON data structure with the original data retrieved by our data server.
- *
+ *          @param {Object} options An object with the options for this structure.
+ *                      @option {string} [currentDomain='url']
+ *                      URL with the user's page domain.
  */
-var CommonData = function(jsonData) {
+var CommonData = function(jsonData, options) {
+            
+            var default_options_values = {
+                        currentDomain: null
+            };
+            for(var key in default_options_values){
+                        this[key] = default_options_values[key];
+            }
+            for(var key in options){
+                        this[key] = options[key];
+            }
+            
             this.jsonData = jsonData;
 };
 
@@ -170,6 +183,9 @@ CommonData.prototype = {
             getLabelTitle: function(){
                         var element = document.createElement('a');
                         element.classList.add("context_data_title");
+                        if (!this.isLocalUrl(this.getLinkValue())) {
+                               element.classList.add("external_link");     
+                        }
                         element.setAttribute('href',this.getLinkValue());
                         element.innerHTML = this.getTitleValue();
                         // Sometimes description have long values and it seems more like errors!
@@ -360,6 +376,23 @@ CommonData.prototype = {
                         
                         container.appendChild(link);
                         return container;
+            },
+            /**
+             *          Auxiliary function that returns if one URL belong to the current user's page domain.
+             *          @param url {String} - link to analyse.
+             *          {Boolean} - True if the URL belongs to the main user's page domain.
+             */
+            isLocalUrl: function(url){
+                        var result = false;
+                        if (this.currentDomain != null && this.currentDomain.length > 0){
+                                    if (url != null){
+                                                var pos = url.indexOf(this.currentDomain);
+                                                if (pos == 0) {
+                                                            result = true;
+                                                }
+                                    }
+                        }
+                        return result;
             }
          
 };

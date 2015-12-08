@@ -3,9 +3,23 @@ var CommonData = require("./CommonData.js");
 /**
  *          ElixirRegistryData constructor
  *          @param jsonData {Object} JSON data structure with the original data retrieved by our data server.
+ *          @param {Object} options An object with the options for this structure.
+ *                      @option {string} [currentDomain='url']
+ *                      URL with the user's page domain.
  *
  */
-var ElixirRegistryData = function(jsonData) {            
+var ElixirRegistryData = function(jsonData, options) {
+            
+            var default_options_values = {
+                        currentDomain: null
+            };
+            for(var key in default_options_values){
+                        this[key] = default_options_values[key];
+            }
+            for(var key in options){
+                        this[key] = options[key];
+            }
+            
             this.jsonData = jsonData;
             this.SOURCE_FIELD_VALUE = "elixir_registry" ;   
 };
