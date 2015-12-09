@@ -14,11 +14,19 @@ var reqwest = require("reqwest");
  * @option {string} [userTextIdContainer=Your own tag id ]
  *    Tag id that contains user's text to search.
  * @option {string} [userTextClassContainer=Your own class name ]
- *    It's not used if userTextIdContainer is defined.
  *    Class name that contains user's text to search.
+ *    It's not used if userTextIdContainer is defined.
  * @option {string} [userTextTagContainer=One stablished tag name, for example h1. ]
  *    It's not used if userTextIdContainer or userTextClassContainer is defined.
  *    Tag name that contains user's text to search.
+ * @option {string} [userKeywordsIdContainer=Your own tag id ]
+ *    Tag id that contains user's keywords to improve search results.
+ * @option {string} [userKeywordsClassContainer=Your own class name ]
+ *    Class name that contains user's keywords to improve search results.
+ *    It's not used if userKeywordsIdContainer is defined.
+ * @option {string} [userKeywordsTagContainer=One stablished tag name, for example h1. ]
+ *    Tag name that contains user's keywords to improve search results.
+ *    It's not used if userKeywordsIdContainer or userKeywordsClassContainer is defined.
  * @option {string} [userDescriptionClassContainer=Your own class name ]
  *    Class name that contains user's description to help filter same results that user is seeing.
  * @option {string} [userHelpClassContainer=Your own class name ]
@@ -86,6 +94,13 @@ ContextDataList.prototype = {
 		this.currentStatus = constants.ContextDataList_LOADING;
 		//this.updateGlobalStatus(this.LOADING);
 		var userText = this.getUserSearch();
+                var userKeywords = this.getUserKeywords();
+                // if we have keywords, we can join them to the userText.
+                if (userKeywords!=null && userKeywords.length > 0) {
+                    for(var i=0;i<userKeywords.length;i++){
+                         userText = userText +" "+userKeywords[i];
+                    }
+                }
 		var userDescription = this.getUserContentDescription();
 		var maxRows = this.getMaxRows();
 		var newUrl = this._getNewUrl(userText, userDescription, this.currentFilters, this.currentStartResult, maxRows);
@@ -127,6 +142,35 @@ ContextDataList.prototype = {
 		return userText;
 	},
 	
+        
+	/**
+	 * Returns User's keywords in order to improve search results, if they exist.
+         * {Array} - List of keywords found into the client document that can help to improve search results.
+	 */
+	getUserKeywords : function() {
+		var userKeywords = [];
+		var elementsContainer = null;
+                
+                if (this.userKeywordsIdContainer != undefined && this.userKeywordsIdContainer != null) {
+                    elementsContainer = [];
+		    elementsContainer[0] = document.getElementById(this.userKeywordsIdContainer);
+		}else if (this.userKeywordsClassContainer != undefined && this.userKeywordsClassContainer != null) {
+			elementsContainer = document.getElementsByClassName(this.userKeywordsClassContainer);
+		}else{
+			elementsContainer = document.getElementsByTagName(this.userKeywordsTagContainer);
+		}
+		
+		if (elementsContainer != null && elementsContainer.length > 0) {
+			var myFirstElement = elementsContainer[0];
+                        var content = myFirstElement.innerText || myFirstElement.textContent;
+                        console.log('content: '+Object.prototype.toString.call(content));
+			userKeywords = content.split(" ");
+			console.log('userKeywords: '+userKeywords);
+		}
+		return userKeywords;
+	},
+        
+        
 	/**
 	 * Returns User's description to help filter same results than user is seeing.
          * {String} - Text found into the client document.

@@ -27,6 +27,14 @@ var PageManager = require("./PageManager.js");
  *    		Class name that contains user's text to search. It's not used if userTextIdContainer is defined.
  * 	@option {string} [userTextTagContainer=One stablished tag name, for example h1. ]
  *    		Tag name that contains user's text to search. It's not used if userTextIdContainer or userTextClassContainer is defined
+ * 	@option {string} [userKeywordsIdContainer=Your own tag id ]
+ *    		Tag id that contains user's keywords to improve search results.
+ * 	@option {string} [userKeywordsClassContainer=Your own class name ]
+ *    		Class name that contains user's keywords to improve search results.
+ *    		It's not used if userKeywordsIdContainer is defined.
+ * 	@option {string} [userKeywordsTagContainer=One stablished tag name, for example h1. ]
+ *    		Tag name that contains user's keywords to improve search results.
+ *    		It's not used if userKeywordsIdContainer or userKeywordsClassContainer is defined.
  * 	@option {string} [userDescriptionClassContainer=Your own class name ]
  *    		Class name that contains user's description to help filter same results that user is seeing.
  * 	@option {string} [userHelpClassContainer=Your own class name ]
