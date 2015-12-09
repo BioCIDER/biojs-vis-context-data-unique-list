@@ -98,6 +98,9 @@ new BioCider(id_biocider_container,{ContextDataList parameters},{ButtonsManager 
  * **`userTextIdContainer`**: Tag id that contains user's text to search.
  * **`userTextClassContainer`**: Class name that contains user's text to search. It's not used if *userTextIdContainer* is defined.
  * 	**`userTextTagContainer`**: Tag name that contains user's text to search. It is one stablished tag name, for example `h1`. It's not used if *userTextIdContainer* or *userTextClassContainer* is defined.
+ * `userKeywordsIdContainer`: Tag id that contains user's keywords to improve search results.
+ * `userKeywordsClassContainer`: Class name that contains user's keywords to improve search results. It's not used if userKeywordsIdContainer is defined.
+ * `userKeywordsTagContainer`: Tag name that contains user's keywords to improve search results. It's not used if userKeywordsIdContainer or userKeywordsClassContainer is defined.
  * 	`userDescriptionClassContainer`: Class name that contains user's description to help filter same results that user is seeing.
  * 	`userHelpClassContainer`: Class name that will contain help icon.
  * 	`numberResults`: Integer that restricts the results number that should be shown.

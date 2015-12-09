@@ -22,6 +22,7 @@ listElement2.appendChild(keywordBlock2);
 list.appendChild(listElement1);
 list.appendChild(listElement2);
 divKeywords.appendChild(list);
+document.body.appendChild(divKeywords);
 
 var bioCiderInstance = new biocider('snippetDiv',{'userTextClassContainer':'userTextContainer','userKeywordsClassContainer':'userKeywordsContainer'},{},{});
 
