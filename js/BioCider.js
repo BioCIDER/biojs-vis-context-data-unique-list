@@ -115,21 +115,17 @@ var biocider = function (targetId, contextDataListOptions, buttonsManagerOptions
         
 }
 
-<<<<<<< HEAD
+
 /** 
  * BioCider functionality.
  * 
  * @class BioCider
  * 
  */
-BioCider.prototype = {
-	constructor: BioCider,
-=======
 biocider.prototype = {
 	constructor: biocider,
->>>>>>> development
-	
-        
+
+	      
         
 	/**
 	 * Creates the different objects and draw them.
