@@ -163,9 +163,7 @@ ContextDataList.prototype = {
 		if (elementsContainer != null && elementsContainer.length > 0) {
 			var myFirstElement = elementsContainer[0];
                         var content = myFirstElement.innerText || myFirstElement.textContent;
-                        console.log('content: '+Object.prototype.toString.call(content));
 			userKeywords = content.split(" ");
-			console.log('userKeywords: '+userKeywords);
 		}
 		return userKeywords;
 	},
