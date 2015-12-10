@@ -22,7 +22,7 @@ BioCider uses [npm](https://www.npmjs.com) as package manager. If you already ha
 
 `npm install biocider`
 
-And use the `require` function to use it:
+And then use `require` function into your javascript code to import BioCider component:
 
 `var BioCider = require('biocider');`
 
@@ -77,13 +77,16 @@ bioCiderInstance.draw();
 ### Component parameters
 
 
-BioCider supports many different initialization options. Some of them have default values, but others are mandatory.
+BioCider supports many different initialization options, many of them are containe into single objects oriented to contain information to specific BioCider subcomponents.
+
 There are 4 different main parameters:
 
-1. BioCider container id (mandatory).
-2. ContextDataList parameters object. You should provide a valid reference to the user's text container, providing *userTextIdContainer*, *userTextClassContainer* or *userTextTagContainer* values.
-3. ButtonsManager parameters object.
-4. PageManager parameters object.
+1. **BioCider main container id** (mandatory).
+2. **ContextDataList parameters object**. You should provide a valid reference to the user's text container, providing *userTextIdContainer*, *userTextClassContainer* or *userTextTagContainer* values.
+3. **ButtonsManager parameters object**.
+4. **PageManager parameters object**.
+
+In a schematic way:
 
 ```
 new BioCider(id_biocider_container,{ContextDataList parameters},{ButtonsManager parameters},{PageManager parameters});
@@ -93,8 +96,8 @@ new BioCider(id_biocider_container,{ContextDataList parameters},{ButtonsManager 
 #### ContextDataList parameters
 
 
- * `targetId`: Identifier of the container where the ContextDataList object should be displayed.
- * 	`targetClass`: Class name of the container where the ContextDataList object should be displayed.  
+ * `targetId`: Identifier of the container where the ContextDataList object should be displayed. Useful if you want to put ContextDataList into a different container than BioCider main container.
+ * 	`targetClass`: Class name of the container where the ContextDataList object should be displayed. Useful if you want to put ContextDataList into a different container than BioCider main container.
  * 	`displayStyle`: Type of rows visualisation. This can take 2 discrete values: *ContextDataList.FULL_STYLE* or *ContextDataList.COMMON_STYLE*. *ContextDataList.FULL_STYLE* by default.
  * **`userTextIdContainer`**: Tag id that contains user's text to search.
  * **`userTextClassContainer`**: Class name that contains user's text to search. It's not used if *userTextIdContainer* is defined.
@@ -111,24 +114,24 @@ new BioCider(id_biocider_container,{ContextDataList parameters},{ButtonsManager 
 #### ButtonsManager parameters
 
 
- * 	`targetId`: Identifier of the container where the ButtonsManager object should be displayed.
- * 	`targetClass`: Class name of the container where the ButtonsManager object should be displayed.  
- * `helpText`: boolean, *true* if you want to show a help text over the buttons.
+ * 	`targetId`: Identifier of the container where the ButtonsManager object should be displayed. Useful if you want to put ButtonsManager into a different container than BioCider main container.
+ * 	`targetClass`: Class name of the container where the ButtonsManager object should be displayed. Useful if you want to put ButtonsManager into a different container than BioCider main container. 
+ * `helpText`: boolean, *true* if you want to show a help text over the buttons. *true* by default.
  * 	`buttonsStyle`: Buttons visualisation type. This can take 3 discrete values: *SQUARED_3D* , *ROUND_FLAT* or *ICONS_ONLY*. *ICONS_ONLY* by default.
- * `pressedUnderlines`: Boolean. True if you want to show underlines when you press a button.
+ * `pressedUnderlines`: boolean, *true* if you want to show underlines when you press a button. *true* by default.
 
 
 #### PageManager parameters
 
  
- *	`targetId`: Identifier of the container where the PageManager object should be displayed.
- * 	`targetClass`: Class name of the container where the PageManager object should be displayed.  
+ *	`targetId`: Identifier of the container where the PageManager object should be displayed. Useful if you want to put PageManager into a different container than BioCider main container.
+ * 	`targetClass`: Class name of the container where the PageManager object should be displayed. Useful if you want to put PageManager into a different container than BioCider main container.
  
 ## Using BioCider
 
 BioCider interface consists of two main areas:
 
-1. Control panel.
+1. Control panel (at the top).
 2. Results viewer.
 
 ### Control panel
