@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+
+<link href="../css/common.css" rel="stylesheet">
+
+<body>
+    
+<div style="display:table;width:100px;">
+		<div style="display:table-row;">
+				<div style="display:table-cell">Title: </div>
+				<div style="display:table-cell" class="userTextContainer">Bioinformatics</div>
+
+                </div>
+                <div style="display:table-row;">
+				<div style="display:table-cell">Keywords: </div>
+				<div style="display:table-cell" class="userKeywordsContainer"><ul><li>Sequencing</li><li>ngs</li></ul></div>
+
+                </div>
+	
+</div>
+<div style="display:table;">	
+	<div style="display:table-row;" id="snippetDiv"> </div>	
+</div>
+    
+
+
+<script src="../build/biocider.js"></script>
+<script>
+BioCider = require("biocider");
+var bioCiderInstance = new BioCider('snippetDiv',{'userTextClassContainer':'userTextContainer','userKeywordsClassContainer':'userKeywordsContainer'},{},{});
+bioCiderInstance.draw();</script>
+</body>

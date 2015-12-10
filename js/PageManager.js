@@ -1,4 +1,5 @@
-
+var ContextDataList = require("./ContextDataList.js");
+var constants = require("./constants.js");
 
 /** 
  * PageManager constructor.
@@ -8,7 +9,7 @@
  * @option {string} [target='YourOwnDivId']
  *    Identifier of the DIV tag where the component should be displayed.
  */
-function PageManager (contextDataList, options) {
+var PageManager = function(contextDataList, options) {
 	var consts = {
 	};
 	var default_options_values = {        
@@ -50,13 +51,13 @@ PageManager.prototype = {
 			target.removeChild(target.firstChild);
 		}
 		
-		if (this.contextDataList.currentStatus == ContextDataList.LOADING){
+		if (this.contextDataList.currentStatus == constants.ContextDataList_LOADING){
 			var statusText = this.getCurrentStatus();
 			target.appendChild(statusText);
-		}else if (this.contextDataList.currentStatus == ContextDataList.ERROR){
+		}else if (this.contextDataList.currentStatus == constants.ContextDataList_ERROR){
 			var statusText = this.getCurrentStatus();
 			target.appendChild(statusText);
-		}else if (this.contextDataList.currentStatus == ContextDataList.LOADED){
+		}else if (this.contextDataList.currentStatus == constants.ContextDataList_LOADED){
 			var statusText = this.getCurrentStatus();
 			target.appendChild(statusText);
 			
@@ -209,9 +210,9 @@ PageManager.prototype = {
 		var totalResults = null;
 		var resultText = "";
 		
-		if (this.contextDataList.currentStatus == ContextDataList.LOADING){
+		if (this.contextDataList.currentStatus == constants.ContextDataList_LOADING){
 			resultText = "Loading resources...";
-		}else if (this.contextDataList.currentStatus == ContextDataList.ERROR){
+		}else if (this.contextDataList.currentStatus == constants.ContextDataList_ERROR){
 			resultText = "";
 		}else{
 			startingResult = this.contextDataList.currentStartResult;
@@ -234,5 +235,6 @@ PageManager.prototype = {
         
 }
       
+module.exports = PageManager;
       
   

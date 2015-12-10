@@ -1,4 +1,7 @@
-
+var constants = require("./constants.js");
+var ContextDataList = require("./ContextDataList.js");
+var ButtonsManager = require("./ButtonsManager.js");
+var PageManager = require("./PageManager.js");
 
 /** 
  * BioCIDER Component.
@@ -18,10 +21,20 @@
  *    		Class name of the DIV where the ContextDataList object should be displayed.  
  * 	@option {string} [displayStyle= ContextDataList.FULL_STYLE, ContextDataList.COMMON_STYLE]
  *    		Type of rows visualisation.
+ * 	@option {string} [userTextIdContainer=Your own tag id ]
+ *    		Tag id that contains user's text to search.
  * 	@option {string} [userTextClassContainer=Your own class name ]
- *    		Class name that contains user's text to search.
- * 	@option {string} [userTextTagContainer=One stablished tag name, for example h1. It's not used if userTextClassContainer is defined ]
- *    		Tag name that contains user's text to search.
+ *    		Class name that contains user's text to search. It's not used if userTextIdContainer is defined.
+ * 	@option {string} [userTextTagContainer=One stablished tag name, for example h1. ]
+ *    		Tag name that contains user's text to search. It's not used if userTextIdContainer or userTextClassContainer is defined
+ * 	@option {string} [userKeywordsIdContainer=Your own tag id ]
+ *    		Tag id that contains user's keywords to improve search results.
+ * 	@option {string} [userKeywordsClassContainer=Your own class name ]
+ *    		Class name that contains user's keywords to improve search results.
+ *    		It's not used if userKeywordsIdContainer is defined.
+ * 	@option {string} [userKeywordsTagContainer=One stablished tag name, for example h1. ]
+ *    		Tag name that contains user's keywords to improve search results.
+ *    		It's not used if userKeywordsIdContainer or userKeywordsClassContainer is defined.
  * 	@option {string} [userDescriptionClassContainer=Your own class name ]
  *    		Class name that contains user's description to help filter same results that user is seeing.
  * 	@option {string} [userHelpClassContainer=Your own class name ]
@@ -47,7 +60,8 @@
  * 	@option {string} [targetClass='YourOwnClass']
  *    		Class name of the DIV where the PageManager object should be displayed.  
  */
-function BioCider (targetId, contextDataListOptions, buttonsManagerOptions,pageManagerOptions) {
+//function BioCider (targetId, contextDataListOptions, buttonsManagerOptions,pageManagerOptions) {
+var biocider = function (targetId, contextDataListOptions, buttonsManagerOptions,pageManagerOptions) {
 	
 	this.targetId = targetId;
 	this.contextDataListOptions = {};
@@ -59,7 +73,7 @@ function BioCider (targetId, contextDataListOptions, buttonsManagerOptions,pageM
 		targetClass: 'context_data_list',
 		userTextTagContainer: 'h1',
 		numberResults: 5,
-		displayStyle: ContextDataList.FULL_STYLE,
+		displayStyle: constants.ContextDataList_FULL_STYLE,
 		userDescriptionClassContainer: 'context_description_container'
 	};
 	
@@ -67,7 +81,7 @@ function BioCider (targetId, contextDataListOptions, buttonsManagerOptions,pageM
 		targetId: 'buttons_manager_container',
 		targetClass: 'button_container',
 		helpText: true,
-		buttonsStyle:ButtonsManager.ICONS_ONLY,
+		buttonsStyle:constants.ButtonsManager_ICONS_ONLY,
 		pressedUnderlines:true
 	};
 	
@@ -83,7 +97,6 @@ function BioCider (targetId, contextDataListOptions, buttonsManagerOptions,pageM
 	for(var key in contextDataListOptions){
 	     this.contextDataListOptions[key] = contextDataListOptions[key];
 	}
-	console.log(this.contextDataListOptions['targetId'] );
 	for(var key in defaultButtonsManagerOptions){
 	     this.buttonsManagerOptions[key] = defaultButtonsManagerOptions[key];
 	}
@@ -102,6 +115,7 @@ function BioCider (targetId, contextDataListOptions, buttonsManagerOptions,pageM
         
 }
 
+<<<<<<< HEAD
 /** 
  * BioCider functionality.
  * 
@@ -110,6 +124,10 @@ function BioCider (targetId, contextDataListOptions, buttonsManagerOptions,pageM
  */
 BioCider.prototype = {
 	constructor: BioCider,
+=======
+biocider.prototype = {
+	constructor: biocider,
+>>>>>>> development
 	
         
         
@@ -119,7 +137,7 @@ BioCider.prototype = {
 	draw : function (){
 			
 		this.initContainers();
-				
+						
 		var contextDataListInstance = new ContextDataList(this.contextDataListOptions);
 		
 		// before initialising the main component, we should initialise its 'plugins'.
@@ -206,6 +224,6 @@ BioCider.prototype = {
         
         
 }
-      
-      
+          
+module.exports = biocider;
   

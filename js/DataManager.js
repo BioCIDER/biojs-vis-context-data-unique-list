@@ -1,17 +1,25 @@
 
+var CommonData = require("./CommonData.js");
+var ElixirTrainingData = require("./ElixirTrainingData.js");
+var ElixirEventData = require("./ElixirEventData.js");
+var ElixirRegistryData = require("./ElixirRegistryData.js");
+
 /** 
  * Data managment constructor.
- * @param {Array} options An object with the options for DataManager component. For future improvements.
+ * @param {Array} options An object with the options for DataManager component.
+ *      @option {string} [currentDomain='YourOwnDomain'].
+ *      URL that identifies user's page domain.
  */
-function DataManager (options) {
+var DataManager = function(options) {
  
-    var default_options_values = {      
+    var default_options_values = {
+        currentDomain: null
     };
     for(var key in default_options_values){
         this[key] = default_options_values[key];
     }
     for(var key in options){
-     this[key] = options[key];
+        this[key] = options[key];
     }
     
 }
@@ -46,15 +54,17 @@ DataManager.prototype = {
     getDataEntity : function (jsonEntry){
         var sourceFieldValue = this.getSourceField(jsonEntry);
         var commonData = null;
+        var options = {};
+        options['currentDomain'] = this.currentDomain;
         switch(sourceFieldValue){
             case new ElixirRegistryData(null).SOURCE_FIELD_VALUE:
-                commonData = new ElixirRegistryData(jsonEntry);
+                commonData = new ElixirRegistryData(jsonEntry, options);
                 break;
             case new ElixirTrainingData(null).SOURCE_FIELD_VALUE:
-                commonData = new ElixirTrainingData(jsonEntry);
+                commonData = new ElixirTrainingData(jsonEntry, options);
                 break;
             case new ElixirEventData(null).SOURCE_FIELD_VALUE:
-                commonData = new ElixirEventData(jsonEntry);
+                commonData = new ElixirEventData(jsonEntry, options);
                 break;
             default:
                 console.log("ERROR: Unknown source field value: " + sourceFieldValue);
@@ -63,10 +73,5 @@ DataManager.prototype = {
     }
 
 }
-/*
-var consts = {       
-};
 
-for(var key in consts){
-    this[key] = consts[key];
-}*/
+module.exports = DataManager;

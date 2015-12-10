@@ -1,4 +1,4 @@
-
+var constants = require("./constants.js");
 
 /** 
  * Buttons' filtering constructor.
@@ -16,10 +16,10 @@
  * @option {boolean} [pressedUnderlines]
  *    True if you want to show underlines when you press a button.
  */
-function ButtonsManager (contextDataList, options) {
+var ButtonsManager = function(contextDataList, options) {
 	var default_options_values = {
 		helpText: true,
-		buttonsStyle: ButtonsManager.SQUARED_3D,
+		buttonsStyle: constants.ButtonsManager_SQUARED_3D,
 		pressedUnderlines: false
 	};
 	for(var key in default_options_values){
@@ -92,9 +92,9 @@ ButtonsManager.prototype = {
 		for(var i=0;i<this.buttonsBasicData.length;i++){
 			var buttonData = this.buttonsBasicData[i];
 			var myButton = null;
-			if (ButtonsManager.ROUND_FLAT == this.buttonsStyle) {
+			if (constants.ButtonsManager_ROUND_FLAT == this.buttonsStyle) {
 				myButton = this.createRoundFlatButton(buttonData[0],buttonData[1],buttonData[2]);
-			}else if (ButtonsManager.ICONS_ONLY == this.buttonsStyle){
+			}else if (constants.ButtonsManager_ICONS_ONLY == this.buttonsStyle){
 				myButton = this.createIconOnlyButton(buttonData[0],buttonData[1],buttonData[2]);
 			}else{
 				myButton = this.createSquared3DdButton(buttonData[0],buttonData[1],buttonData[2]);
@@ -349,7 +349,7 @@ ButtonsManager.prototype = {
 }
 
 // STATIC ATTRIBUTES
-
+/*
 var CONSTS = {
 	//style of visualization
 	SQUARED_3D:"SQUARED_3D",
@@ -360,7 +360,8 @@ var CONSTS = {
 for(var key in CONSTS){
      ButtonsManager[key] = CONSTS[key];
 }
-
+*/    
       
+module.exports = ButtonsManager;
       
   

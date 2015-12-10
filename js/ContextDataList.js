@@ -1,3 +1,7 @@
+var constants = require("./constants.js");
+var DataManager = require("./DataManager.js");
+var CommonData = require("./CommonData.js");
+var reqwest = require("reqwest");
 
 /** 
  * ContextDataList Constructor.
@@ -7,10 +11,22 @@
  *    Identifier of the DIV tag where the component should be displayed.
  * @option {string} [displayStyle= ContextDataList.FULL_STYLE, ContextDataList.COMMON_STYLE]
  *    Type of rows visualisation.
+ * @option {string} [userTextIdContainer=Your own tag id ]
+ *    Tag id that contains user's text to search.
  * @option {string} [userTextClassContainer=Your own class name ]
  *    Class name that contains user's text to search.
- * @option {string} [userTextTagContainer=One stablished tag name, for example h1. It's not used if userTextClassContainer is defined ]
+ *    It's not used if userTextIdContainer is defined.
+ * @option {string} [userTextTagContainer=One stablished tag name, for example h1. ]
+ *    It's not used if userTextIdContainer or userTextClassContainer is defined.
  *    Tag name that contains user's text to search.
+ * @option {string} [userKeywordsIdContainer=Your own tag id ]
+ *    Tag id that contains user's keywords to improve search results.
+ * @option {string} [userKeywordsClassContainer=Your own class name ]
+ *    Class name that contains user's keywords to improve search results.
+ *    It's not used if userKeywordsIdContainer is defined.
+ * @option {string} [userKeywordsTagContainer=One stablished tag name, for example h1. ]
+ *    Tag name that contains user's keywords to improve search results.
+ *    It's not used if userKeywordsIdContainer or userKeywordsClassContainer is defined.
  * @option {string} [userDescriptionClassContainer=Your own class name ]
  *    Class name that contains user's description to help filter same results that user is seeing.
  * @option {string} [userHelpClassContainer=Your own class name ]
@@ -19,10 +35,11 @@
  *    Integer that restricts the results number that should be shown.
  * @option {boolean} [includeSameSiteResults=If you want to see records of your present site. Temporary disabled. ]
  *    Boolean that avoids or not results from the same site you are seeing. */
-function ContextDataList (options) {
-	
+//function ContextDataList (options) {
+var ContextDataList = function(options) {
+
 	var default_options_values = {        
-	     displayStyle: ContextDataList.COMMON_STYLE,
+	     displayStyle: constants.ContextDataList_FULL_STYLE,
 	     includeSameSiteResults : true
 	};
 	for(var key in default_options_values){
@@ -32,14 +49,17 @@ function ContextDataList (options) {
 	     this[key] = options[key];
 	}
 	this.contextDataServer = "http://www.biocider.org:8983/solr/contextData";
+<<<<<<< HEAD
 	this.dataManager = new DataManager();
+=======
+>>>>>>> development
 	
 	
 	// global current status
 	this.currentTotalResults= null;
 	this.currentStartResult= null;
 	this.currentNumberLoadedResults= null;
-	this.currentStatus= ContextDataList.LOADING;
+	this.currentStatus= constants.ContextDataList_LOADING;
 	this.currentFilters= null;
 	this.totalFilters=null;
 	this.numInitialResultsByResourceType= null;
@@ -49,11 +69,15 @@ function ContextDataList (options) {
 	this.currentDomain = window.location.hostname;
 	
 	this._onLoadedFunctions= [];
+        
+        this.dataManager = new DataManager({'currentDomain':this.currentDomain});
 	
 	//this.drawHelpImage();
 	
       
 }
+
+
 
 /** 
  * Resource contextualisation widget.
@@ -65,14 +89,22 @@ function ContextDataList (options) {
 ContextDataList.prototype = {
 	constructor: ContextDataList,
 	
-	
 	/**
 	 * Shows the contextualised data into the widget.
 	 */
 	drawContextDataList : function (){
-		this.currentStatus = ContextDataList.LOADING;
+		//console.log('ContextDataList.LOADING,'+constants.ContextDataList_LOADING);
+		//console.log('ContextDataList.COMMON_STYLE,'+constants.ContextDataList_COMMON_STYLE);
+		this.currentStatus = constants.ContextDataList_LOADING;
 		//this.updateGlobalStatus(this.LOADING);
 		var userText = this.getUserSearch();
+                var userKeywords = this.getUserKeywords();
+                // if we have keywords, we can join them to the userText.
+                if (userKeywords!=null && userKeywords.length > 0) {
+                    for(var i=0;i<userKeywords.length;i++){
+                         userText = userText +" "+userKeywords[i];
+                    }
+                }
 		var userDescription = this.getUserContentDescription();
 		var maxRows = this.getMaxRows();
 		var newUrl = this._getNewUrl(userText, userDescription, this.currentFilters, this.currentStartResult, maxRows);
@@ -83,7 +115,7 @@ ContextDataList.prototype = {
 	 * Shows the contextualised data into the widget, updating the whole internal status of the widget.
 	 */
 	totalDrawContextDataList : function (){
-		this.updateGlobalStatus(ContextDataList.LOADING);
+		this.updateGlobalStatus(constants.ContextDataList_LOADING);
 		this.drawContextDataList();
 	},
 	
@@ -94,7 +126,11 @@ ContextDataList.prototype = {
 	getUserSearch : function() {
 		var userText = '';
 		var elementsContainer = null;
-		if (this.userTextClassContainer != undefined && this.userTextClassContainer != null) {
+                
+                if (this.userTextIdContainer != undefined && this.userTextIdContainer != null) {
+                    elementsContainer = [];
+		    elementsContainer[0] = document.getElementById(this.userTextIdContainer);
+		}else if (this.userTextClassContainer != undefined && this.userTextClassContainer != null) {
 			elementsContainer = document.getElementsByClassName(this.userTextClassContainer);
 		}else{
 			elementsContainer = document.getElementsByTagName(this.userTextTagContainer);
@@ -110,6 +146,33 @@ ContextDataList.prototype = {
 		return userText;
 	},
 	
+        
+	/**
+	 * Returns User's keywords in order to improve search results, if they exist.
+         * {Array} - List of keywords found into the client document that can help to improve search results.
+	 */
+	getUserKeywords : function() {
+		var userKeywords = [];
+		var elementsContainer = null;
+                
+                if (this.userKeywordsIdContainer != undefined && this.userKeywordsIdContainer != null) {
+                    elementsContainer = [];
+		    elementsContainer[0] = document.getElementById(this.userKeywordsIdContainer);
+		}else if (this.userKeywordsClassContainer != undefined && this.userKeywordsClassContainer != null) {
+			elementsContainer = document.getElementsByClassName(this.userKeywordsClassContainer);
+		}else{
+			elementsContainer = document.getElementsByTagName(this.userKeywordsTagContainer);
+		}
+		
+		if (elementsContainer != null && elementsContainer.length > 0) {
+			var myFirstElement = elementsContainer[0];
+                        var content = myFirstElement.innerText || myFirstElement.textContent;
+			userKeywords = content.split(" ");
+		}
+		return userKeywords;
+	},
+        
+        
 	/**
 	 * Returns User's description to help filter same results than user is seeing.
          * {String} - Text found into the client document.
@@ -138,9 +201,9 @@ ContextDataList.prototype = {
          * {Integer} - Maximum amount of results that can be shown at the same time.
 	 */
 	getMaxRows : function(){
-		var maxRows = ContextDataList.MAX_ROWS;
+		var maxRows = constants.ContextDataList_MAX_ROWS;
 		if (this.numberResults != "undefined" && !isNaN(this.numberResults) && typeof this.numberResults === 'number' && (this.numberResults % 1 === 0) ) {
-			if (this.numberResults < ContextDataList.MAX_ROWS) {
+			if (this.numberResults < constants.ContextDataList_MAX_ROWS) {
 				maxRows = this.numberResults;
 			}
 		}
@@ -226,8 +289,8 @@ ContextDataList.prototype = {
 			}
 			
 			var descUsed = descriptionText;
-			if (descUsed.length>ContextDataList.NUM_WORDS_FILTERING_DESCRIPTION) {
-				descUsed = descUsed.split(" ").slice(0,ContextDataList.NUM_WORDS_FILTERING_DESCRIPTION).join(" ");
+			if (descUsed.length>constants.ContextDataList_NUM_WORDS_FILTERING_DESCRIPTION) {
+				descUsed = descUsed.split(" ").slice(0,constants.ContextDataList_NUM_WORDS_FILTERING_DESCRIPTION).join(" ");
 			}
 			// we remove weird characters and "
 			descUsed = descUsed.replace(/\"/g,'');
@@ -296,7 +359,7 @@ ContextDataList.prototype = {
 			
 			error: function (err) {
 				myContextDataList.processError(err);
-				myContextDataList.updateGlobalStatus(myContextDataList.ERROR);
+				myContextDataList.updateGlobalStatus(constants.ContextDataList_ERROR);
 			} ,
 			success: function (resp) {
 				var contextualisedData = myContextDataList.processContextualisedData(resp);
@@ -331,11 +394,11 @@ ContextDataList.prototype = {
 			}
 			else {
 				myContextDataList.processError("data.response.docs undefined");
-				myContextDataList.changeCurrentStatus(myContextDataList.ERROR);
+				myContextDataList.changeCurrentStatus(constants.ContextDataList_ERROR);
 			}
 		} else {
 			myContextDataList.processError("data.response undefined");
-			myContextDataList.changeCurrentStatus(myContextDataList.ERROR);
+			myContextDataList.changeCurrentStatus(constants.ContextDataList_ERROR);
 		}
 			
 		return contextualisedData;
@@ -432,7 +495,7 @@ ContextDataList.prototype = {
 		}
 		
 		this.currentNumberLoadedResults = contextualisedData.length;
-		this.updateGlobalStatus(ContextDataList.LOADED);
+		this.updateGlobalStatus(constants.ContextDataList_LOADED);
 		/*
 		console.log('currentTotalResults');
 		console.log(this.currentTotalResults);
@@ -471,16 +534,18 @@ ContextDataList.prototype = {
 	 */
 	updateGlobalStatus : function(newStatus){
 		// new status must be one of the posible status
-		if (newStatus != ContextDataList.LOADING && newStatus != ContextDataList.ERROR && newStatus != ContextDataList.LOADED ){
+		if (newStatus != constants.ContextDataList_LOADING &&
+		    newStatus != constants.ContextDataList_ERROR &&
+		    newStatus != constants.ContextDataList_LOADED ){
 			return;
 		}
 		this.currentStatus = newStatus;
 		
-		if (this.currentStatus == ContextDataList.LOADING){
+		if (this.currentStatus == constants.ContextDataList_LOADING){
 			this.currentTotalResults = null;
 			this.currentStartResult = null;
 			this.currentNumberLoadedResults = null;
-		}else if (this.currentStatus == ContextDataList.ERROR){
+		}else if (this.currentStatus == constants.ContextDataList_ERROR){
 			this.currentTotalResults = null;
 			this.currentStartResult = null;
 			this.currentNumberLoadedResults = null;
@@ -492,7 +557,8 @@ ContextDataList.prototype = {
 		}*/
 		
 		// Finally we execute registered 'onLoaded' functions
-		if (this.currentStatus == ContextDataList.LOADED || this.currentStatus == ContextDataList.ERROR ){
+		if (this.currentStatus == constants.ContextDataList_LOADED ||
+		    this.currentStatus == constants.ContextDataList_ERROR ){
 			this.executeOnLoadedFunctions();
 		}
 	},
@@ -573,11 +639,12 @@ ContextDataList.prototype = {
 	processError : function(error) {
 	    console.log("ERROR:" + error);
 	}
-      
 
 }
 
+
 // STATIC ATTRIBUTES
+/*
 var CONSTS = {
 	//List of possible context data sources 
 	SOURCE_ELIXIR_REGISTRY:"ESR",
@@ -601,8 +668,7 @@ var CONSTS = {
 
 for(var key in CONSTS){
      ContextDataList[key] = CONSTS[key];
-}
+}*/
 
 
-
-  
+module.exports = ContextDataList;
