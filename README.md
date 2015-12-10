@@ -1,6 +1,7 @@
-# BioCider: biojs-vis-context-data-unique-list
+# BioCider: a Contextualisation InDEx for biological Resources discovery
+## biojs-vis-context-data-unique-list
 
-Contextualised visualisation of ELIXIR training materials, events and registries in a unique list.
+Contextualised visualisation of ELIXIR training materials, events and computing tools in a unique list.
 BETA VERSION.
 
 Purpose of this widget is to show the user, without any direct action by himself, information of his interest related with the content that is being shown currently to him .
@@ -15,7 +16,7 @@ BioCider consists of 3 different subcomponents that work together:
 2. **ButtonsManager**. It allows filtering contents by its type.
 3. **PageManager**. It allows navigating by all results.
 
-## Using BioCider
+## Including BioCider in your site
 
 BioCider uses [npm](https://www.npmjs.com) as package manager. If you already have it, to download BioCider you only need to execute
 
@@ -123,3 +124,39 @@ new BioCider(id_biocider_container,{ContextDataList parameters},{ButtonsManager 
  *	`targetId`: Identifier of the container where the PageManager object should be displayed.
  * 	`targetClass`: Class name of the container where the PageManager object should be displayed.  
  
+## Using BioCider
+
+BioCider interface consists of two main areas:
+
+1. Control panel.
+2. Results viewer.
+
+### Control panel
+
+On one hand, BioCider control panel allows you to change the type of the results that should be shown. These types are:
+
+* Databases
+* Events
+* Tools
+* Training materials
+
+By default, BioCider shows all of them, but anytime you can uncheck any of them to see only results type of your interest.
+
+On the other hand, the control panel allows you to navigate into all results related with the page main content. They are sorted by relevance, so first results should be more relevant than later ones; but you can see them by clicking on 'Next' button.
+
+Control panel aspect can be customised in different ways with options like *buttonsStyle* or *pressedUnderlines*.
+
+
+### Results viewer
+
+This panel show results in different ways depending on the value of *displayStyle* ContextDataList parameter. 
+
+* *ContextDataList.COMMON_STYLE* shows only basic information shared among all different data sources.
+* *ContextDataList.FULL_STYLE* (used by default) shows also specific information of each data source. This style will be explained below.
+
+
+*ContextDataList.FULL_STYLE* shows results in two columns: the right one shows an icon representing the result resource type (in correspondence with the same button filters of the control panel), and the left one shows detailed content information:
+
+1. **Title**: the result title with a link to the original resource. It also shows a special icon if this link targets to an external site (most frequent). 
+2. **Topics**: EDAM tags that categorises the content.
+3. **More link**: many resources offer different types of extra information, and this expandable link can show and hide it. *Events* usually show dates and location of the event, whilst others often provide detailed descriptions.
