@@ -49,10 +49,6 @@ var ContextDataList = function(options) {
 	     this[key] = options[key];
 	}
 	this.contextDataServer = "http://www.biocider.org:8983/solr/contextData";
-<<<<<<< HEAD
-	this.dataManager = new DataManager();
-=======
->>>>>>> development
 	
 	
 	// global current status
