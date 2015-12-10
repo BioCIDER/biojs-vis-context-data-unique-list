@@ -80,7 +80,7 @@ gulp.task('init', ['clean'], function() {
 //});
 
 // copy images from source locations to build location
-gulp.task('copy-images', function(cb) {
+gulp.task('copy-images',['init'], function(cb) {
   gulp.src([
     imagesDir+'/**'
 ])
