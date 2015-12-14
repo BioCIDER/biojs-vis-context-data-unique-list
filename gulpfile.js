@@ -103,7 +103,7 @@ gulp.task('build-browser',['init'], function() {
 
 // browserify min
 gulp.task('build-browser-min',['init'], function() {
-  var b = browserify({hasExports: true, standalone: "biojs-vis-context-data-unique-list"});
+  var b = browserify({hasExports: true});
   exposeBundles(b);
   return b.bundle()
     .pipe(source(outputFile + ".min.js"))
