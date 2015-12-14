@@ -46,7 +46,13 @@ div.context_data_topics{
     font-size: 85%;
 }
 
-a.context_data_title{ 
+a.context_data_title{
+}
+
+.external_link{
+    background: url('https://raw.githubusercontent.com/BioCIDER/biojs-vis-context-data-unique-list/development/build/img/link_external.png') center right no-repeat;
+    background-size: 10px;
+    padding-right: 15px;
 }
 
 /* DATA ASPECT  */
