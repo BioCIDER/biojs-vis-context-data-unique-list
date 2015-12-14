@@ -2,6 +2,14 @@
 
 var biocider = require("biocider");
 
+
+var divTableContainer = document.createElement('div');
+divTableContainer.style.display = "table";
+
+var divTableRowContainer1 = document.createElement('div');
+divTableRowContainer1.style.display = "table-row";
+
+
 var divTable1 = document.createElement('div');
 divTable1.style.display = "table";
 
@@ -21,7 +29,13 @@ divSearch.innerHTML = 'Bioinformatics';
 divTableRow1.appendChild(divTableCell11);
 divTableRow1.appendChild(divSearch);
 divTable1.appendChild(divTableRow1);
-document.body.appendChild(divTable1);
+divTableRowContainer1.appendChild(divTable1);
+divTableContainer.appendChild(divTableRowContainer1);
+
+
+
+var divTableRowContainer2 = document.createElement('div');
+divTableRowContainer2.style.display = "table-row";
 
 
 var divTable2 = document.createElement('div');
@@ -33,6 +47,12 @@ divTableRow2.id = "snippetDiv";
 
 divTable2.appendChild(divTableRow2);
 document.body.appendChild(divTable2);
+divTableRowContainer2.appendChild(divTable2);
+divTableContainer.appendChild(divTableRowContainer2);
+
+
+document.body.appendChild(divTableContainer);
+
 
 var bioCiderInstance = new biocider('snippetDiv',{'userTextClassContainer':'userTextContainer'},{},{});
 
