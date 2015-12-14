@@ -30,7 +30,6 @@ divTableRow1.appendChild(divTableCell11);
 divTableRow1.appendChild(divSearch);
 divTable1.appendChild(divTableRow1);
 divTableRowContainer1.appendChild(divTable1);
-divTableContainer.appendChild(divTableRowContainer1);
 
 
 
@@ -46,8 +45,8 @@ divTableRow2.style.display = "table-row";
 divTableRow2.id = "snippetDiv";
 
 divTable2.appendChild(divTableRow2);
-document.body.appendChild(divTable2);
 divTableRowContainer2.appendChild(divTable2);
+divTableContainer.appendChild(divTableRowContainer1);
 divTableContainer.appendChild(divTableRowContainer2);
 
 
