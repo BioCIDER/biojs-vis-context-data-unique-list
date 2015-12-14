@@ -184,7 +184,8 @@ CommonData.prototype = {
                         var element = document.createElement('a');
                         element.classList.add("context_data_title");
                         if (!this.isLocalUrl(this.getLinkValue())) {
-                               element.classList.add("external_link");     
+                               element.classList.add("external_link");
+                               element.title = 'External link';     
                         }
                         element.setAttribute('href',this.getLinkValue());
                         element.innerHTML = this.getTitleValue();
