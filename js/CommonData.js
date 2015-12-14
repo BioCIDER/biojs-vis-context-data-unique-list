@@ -387,7 +387,7 @@ CommonData.prototype = {
                         if (this.currentDomain != null && this.currentDomain.length > 0){
                                     if (url != null){
                                                 var pos = url.indexOf(this.currentDomain);
-                                                if (pos == 0) {
+                                                if (pos >= 0) {
                                                             result = true;
                                                 }
                                     }
