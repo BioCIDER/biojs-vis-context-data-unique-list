@@ -1,5 +1,5 @@
 /*
- * biojs-vis-context-data-unique-list
+ * BioCIDER: biojs-vis-context-data-unique-list
  * https://github.com/BioCIDER/biojs-vis-context-data-unique-list
  *
  * Copyright (c) 2015 Carlos Horro
