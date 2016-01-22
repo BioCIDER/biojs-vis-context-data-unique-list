@@ -12,6 +12,7 @@ var buildDir = "build";
 var outputFile = "biocider";
 
 var imagesDir = "img";
+var cssDir = "css";
 
 // packages
 var gulp   = require('gulp');
@@ -48,11 +49,8 @@ var outputFileMin = join(buildDir,outputFile + ".min.js");
 var packageConfig = require('./package.json');
 
 // a failing test breaks the whole build chain
-gulp.task('build', ['build-browser', 'build-browser-gzip','copy-images']);
+gulp.task('build', ['build-browser', 'build-browser-gzip','copy-images','copy-css']);
 gulp.task('default', [  'build']);
-
-
-
 
 
 
@@ -87,7 +85,14 @@ gulp.task('copy-images',['init'], function(cb) {
 .pipe(gulp.dest(buildDir+'/'+imagesDir));
 });
 
-
+// copy images from source locations to build location
+gulp.task('copy-css',['init'], function(cb) {
+  gulp.src([
+    cssDir+'/common.css'
+])
+.pipe(rename("bundle.css"))
+.pipe(gulp.dest(buildDir+'/'+cssDir));
+});
 
 // browserify debug
 gulp.task('build-browser',['init'], function() {
