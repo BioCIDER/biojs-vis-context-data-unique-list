@@ -1,7 +1,7 @@
 {
   "name": "biocider",
   "description": "Contextualisation InDEx for biological Resources discovery: Contextualised visualisation of ELIXIR training materials, events and computing tools in a unique list.",
-  "version": "0.7.8",
+  "version": "0.7.9",
   "homepage": "https://github.com/BioCIDER/biojs-vis-context-data-unique-list",
   "author": {
     "name": "Carlos Horro",
@@ -16,7 +16,6 @@
   },
   "license": "MIT",
   "main": "js/BioCider.js",
-  "style": "css/*.css", 
   "scripts": {
 		"test": "gulp test",
 		"build": "gulp build && npm run css_folder",
