@@ -18,6 +18,10 @@ BioCider consists of 3 different subcomponents that work together:
 
 ## Including BioCider in your site
 
+### Installing procedure...
+#### ... as a BioJS component (the most frequent)
+
+
 BioCider uses [npm](https://www.npmjs.com) as package manager. If you already have it, to download BioCider you only need to execute
 
 `npm install biocider`
@@ -26,7 +30,41 @@ And then use `require` function into your javascript code to import BioCider com
 
 `var BioCider = require('biocider');`
 
-### Starting
+Next steps on this guide frequently will do reference to this kind of installation.
+
+#### ... as a normal javascript library
+
+If you don't need to use BioCider as a BioJS component, you can download some of its files and use it as a normal javascript library.
+To do this, download the entire *build* folder and include *biocider.js* and *bundle.css* files in your HTML:
+
+```
+<link href="build/css/bundle.css" rel="stylesheet">
+<script src="build/biocider.js"></script>
+``` 
+
+#### ... as a Drupal library
+
+You can also use BioCider as a Drupal library (tested on Drupal 7).
+In order to do that, you must:
+
+1. Upload the *build* folder into the *sites/all/libraries* directory and change its name to a more proper one (ex. *biocider*).
+2. Create a Drupal module with *text format* set to **PHP Code**.
+3. Introduce a similar code to this in order to import properly javascript and css files:
+
+
+```
+<?php 
+$sLibraryPath = libraries_get_path('biocider');      
+drupal_add_css($sLibraryPath . '/css/bundle.css', array('group' => CSS_THEME, 'type' => 'file'));
+drupal_add_js($sLibraryPath . '/biocider.js');
+?>
+<script language="JavaScript" type="text/javascript">
+jQuery(document).ready(function () { 
+    -- normal component initialization --
+}); 
+``` 
+
+### Starting (as a BioJS component)
 
 BioCider adopts the appeareance of the main page in which it will be embedded, but it needs a minimum set of its own styles in order to be shown properly.
 
