@@ -1300,7 +1300,7 @@ ContextDataList.prototype = {
 		trContainer.classList.add("context_data_container_row");
 		
 		var spanText = document.createElement('span');
-		var text = 'Cannot be found any related result';
+		var text = 'No results found';
 		spanText.innerHTML = text;
 		trContainer.appendChild(spanText);
 		mainContainer.appendChild(trContainer);
