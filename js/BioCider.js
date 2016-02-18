@@ -35,6 +35,9 @@ var PageManager = require("./PageManager.js");
  * 	@option {string} [userKeywordsTagContainer=One stablished tag name, for example h1. ]
  *    		Tag name that contains user's keywords to improve search results.
  *    		It's not used if userKeywordsIdContainer or userKeywordsClassContainer is defined.
+ * 	@option {HTML object} [userKeywordsContainer=The html keywords container itself. ]
+ *    		HTML object that contains user's keywords to improve search results.
+ *    		It's not used if userKeywordsIdContainer, userKeywordsClassContainer or userKeywordsIdContainer is defined.
  * 	@option {string} [userDescriptionClassContainer=Your own class name ]
  *    		Class name that contains user's description to help filter same results that user is seeing.
  * 	@option {string} [userHelpClassContainer=Your own class name ]
