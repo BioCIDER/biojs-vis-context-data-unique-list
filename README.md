@@ -2,7 +2,6 @@
 ## biojs-vis-context-data-unique-list
 
 Contextualised visualisation of ELIXIR training materials, events and computing tools in a unique list.
-BETA VERSION.
 
 Purpose of this widget is to show the user, without any direct action by himself, information of his interest related with the content that is being shown currently to him .
 
@@ -127,7 +126,7 @@ There are 4 different main parameters:
 In a schematic way:
 
 ```
-new BioCider(id_biocider_container,{ContextDataList parameters},{ButtonsManager parameters},{PageManager parameters});
+new BioCider(id_biocider_container,{[ContextDataListParameter1: ContextDataListValue1,...]},{[ButtonsManagerParameter1: ButtonsManagerValue1,...]},{[PageManagerParameter1: PageManagerValue1,...]});
 ```
 
 
@@ -165,14 +164,78 @@ new BioCider(id_biocider_container,{ContextDataList parameters},{ButtonsManager 
  *	`targetId`: Identifier of the container where the PageManager object should be displayed. Useful if you want to put PageManager into a different container than BioCider main container.
  * 	`targetClass`: Class name of the container where the PageManager object should be displayed. Useful if you want to put PageManager into a different container than BioCider main container.
  
+
+ 
+#### Examples
+
+##### Using keywords
+
+
+One common use case is when you have a div with the text to analyse, but results are not as relevant as desired (maybe because that text is not enough significant, too short, etc.). However, your content is  also labeled properly and it would be great if you could reuse those labels in order to improve your results: this is entirely possible and easy to do.
+
+If we have an HTML file like this:
+
+```
+<div>Title: </div>
+<div class="userTextContainer">Bioinformatics</div>
+                
+<div>Keywords: </div>
+<div class="userKeywordsContainer"><ul><li>Sequencing</li><li>ngs</li></ul></div>
+
+<div id="containerDiv"></div>
+```
+
+We could initialise our component using keywords as easy as:
+
+```
+var bioCiderInstance = new BioCider('containerDiv',{'userTextClassContainer':'userTextContainer','userKeywordsClassContainer':'userKeywordsContainer'},{},{});
+bioCiderInstance.draw();
+```
+
+BioCider internally removes all HTML stuff from keywords container and it will only use relevant words for its searchs.
+
+
+##### Dividing BioCider
+
+BioCider is highly configurable, and it allows even put its internal components in different places. This can be useful if you don't like its default structure and/or you prefer to show it in a total different way.
+
+For example, if we want to put BioCider control panel at the top of the page, but results panel must be kept on the lower area, we could have an HTML like:
+
+```
+<div id="biociderButtonsContainerDiv"></div>
+<div id="biociderPageManagerContainerDiv"></div>
+
+
+<div>Title: </div>
+<div class="userTextContainer">Bioinformatics</div>
+
+<!-- other page content -->
+
+<div id="biociderMainContainerDiv"></div>
+
+```
+
+To initialise BioCider using these custom structures, we could initialise it in this way:
+
+```
+var bioCiderInstance = new BioCider('biociderMainContainerDiv',{'userTextClassContainer':'userTextContainer'},{'targetId':'biociderButtonsContainerDiv'},{'targetId':'biociderPageManagerContainerDiv'});
+bioCiderInstance.draw();
+```
+
+ 
 ## Using BioCider
+BioCider is intended to show relevant information related with the topic read by the user in that moment. Because of that, BioCider gives better information in pages about one specific issue, instead of pages with multiple entries or topics.
+
+Moreover, if your results are too similar, you can try to give BioCider extra information like keywords in order to differenciate them as much as possible.
+
+### BioCider structure
 
 BioCider interface consists of two main areas:
 
 1. Control panel (at the top).
 2. Results viewer.
 
-### Control panel
+#### Control panel
 
 On one hand, BioCider control panel allows you to change the type of the results that should be shown. These types are:
 
@@ -185,10 +248,10 @@ By default, BioCider shows all of them, but anytime you can uncheck any of them 
 
 On the other hand, the control panel allows you to navigate into all results related with the page main content. They are sorted by relevance, so first results should be more relevant than later ones; but you can see them by clicking on 'Next' button.
 
-Control panel aspect can be customised in different ways with options like *buttonsStyle* or *pressedUnderlines*.
+Control panel aspect can be customised in different ways with parameters like *buttonsStyle* or *pressedUnderlines*.
 
 
-### Results viewer
+#### Results viewer
 
 This panel show results in different ways depending on the value of *displayStyle* ContextDataList parameter. 
 
