@@ -14,7 +14,17 @@
                 </div>
                 <div style="display:table-row;">
 				<div style="display:table-cell">Keywords: </div>
-				<div style="display:table-cell" class="userKeywordsContainer"><ul><li>Sequencing</li><li>ngs</li></ul></div>
+				<div style="display:table-cell" id="userKeywordsContainer" class="field field-name-field-topic field-type-taxonomy-term-reference field-label-above topic-value-class">
+						<div class="field-label">Topic:&nbsp;</div>
+						<div id="field-items" class="field-items">
+								<div class="field-item even">
+										<a href="/topic-tags/sequence-alignment" typeof="skos:Concept" property="rdfs:label skos:prefLabel" datatype="" tabindex="-1">Sequence alignment</a>
+								</div>
+								<div class="field-item odd">
+										<a href="/topic-tags/sequence-alignment" typeof="skos:Concept" property="rdfs:label skos:prefLabel" datatype="" tabindex="-1">ngs</a>
+								</div>
+						</div>
+				</div>
 
                 </div>
 	
@@ -27,7 +37,8 @@
 
 <script src="../build/biocider.js"></script>
 <script>
+console.log('document.getElementById(field-items): '+document.getElementById('field-items'));
 BioCider = require("biocider");
-var bioCiderInstance = new BioCider('snippetDiv',{'userTextClassContainer':'userTextContainer','userKeywordsClassContainer':'userKeywordsContainer'},{},{});
+var bioCiderInstance = new BioCider('snippetDiv',{'userTextClassContainer':'userTextContainer','userKeywordsContainer':document.getElementById('field-items')},{},{});
 bioCiderInstance.draw();</script>
 </body>
