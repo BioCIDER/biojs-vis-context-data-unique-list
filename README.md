@@ -47,7 +47,7 @@ You can also use BioCider as a Drupal library (tested on Drupal 7).
 In order to do that, you must:
 
 1. Upload the *build* folder into the *sites/all/libraries* directory and change its name to a more proper one (ex. *biocider*).
-2. Create a Drupal module with *text format* set to **PHP Code**.
+2. Create a Drupal block with *text format* set to **PHP Code**.
 3. Introduce a similar code to this in order to import properly javascript and css files:
 
 
@@ -139,9 +139,10 @@ new BioCider(id_biocider_container,{[ContextDataListParameter1: ContextDataListV
  * **`userTextIdContainer`**: Tag id that contains user's text to search.
  * **`userTextClassContainer`**: Class name that contains user's text to search. It's not used if *userTextIdContainer* is defined.
  * 	**`userTextTagContainer`**: Tag name that contains user's text to search. It is one stablished tag name, for example `h1`. It's not used if *userTextIdContainer* or *userTextClassContainer* is defined.
- * `userKeywordsIdContainer`: Tag id that contains user's keywords to improve search results.
- * `userKeywordsClassContainer`: Class name that contains user's keywords to improve search results. It's not used if userKeywordsIdContainer is defined.
- * `userKeywordsTagContainer`: Tag name that contains user's keywords to improve search results. It's not used if userKeywordsIdContainer or userKeywordsClassContainer is defined.
+ * `userKeywordsIdContainer`: Tag id of the HTML component that contains user's keywords to improve search results.
+ * `userKeywordsClassContainer`: Class name of the HTML component that contains user's keywords to improve search results. It's not used if userKeywordsIdContainer is defined.
+ * `userKeywordsTagContainer`: Tag name of the HTML component that contains user's keywords to improve search results. It's not used if userKeywordsIdContainer or userKeywordsClassContainer is defined.
+ * `userKeywordsContainer`: The HTML object that contains user's keywords to improve search results. It's not used if userKeywordsIdContainer, userKeywordsClassContainer or userKeywordsTagContainer.
  * 	`userDescriptionClassContainer`: Class name that contains user's description to help filter same results that user is seeing.
  * 	`userHelpClassContainer`: Class name that will contain help icon.
  * 	`numberResults`: Integer that restricts the results number that should be shown.
