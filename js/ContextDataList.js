@@ -98,15 +98,9 @@ ContextDataList.prototype = {
 		//this.updateGlobalStatus(this.LOADING);
 		var userText = this.getUserSearch();
                 var userKeywords = this.getUserKeywords();
-                // if we have keywords, we can join them to the userText.
-                if (userKeywords!=null && userKeywords.length > 0) {
-                    for(var i=0;i<userKeywords.length;i++){
-                         userText = userText +" "+userKeywords[i];
-                    }
-                }
 		var userDescription = this.getUserContentDescription();
 		var maxRows = this.getMaxRows();
-		var newUrl = this._getNewUrl(userText, userDescription, this.currentFilters, this.currentStartResult, maxRows);
+		var newUrl = this._getNewUrl(userText, userKeywords, userDescription, this.currentFilters, this.currentStartResult, maxRows);
 		this.processDataFromUrl(newUrl);
 	},
 	
@@ -216,17 +210,27 @@ ContextDataList.prototype = {
 	/**
 	 * Create a url to the SolR database with all dynamic parameters generated from these arguments.
 	 * @param fieldText {string} Text to search.
+	 * @param keywords {string} Associated keywords to the content.
 	 * @param descriptionText {string} Associated description of the content.
 	 * @param filters {Array} Array of filters - Only results with one of these resource types will be get.
 	 * @param start {integer} Position of the first result to retrieve.
 	 * @param rowsNumber {integer} Indicates the maximum number of results that will be shown on the screen;
 	 */
-	_getNewUrl : function(fieldText, descriptionText, filters, start, rowsNumber){
+	_getNewUrl : function(fieldText, keywords, descriptionText, filters, start, rowsNumber){
 		//console.log('_getNewUrl, fieldText: '+fieldText+', descriptionText: '+descriptionText+', filters: '+filters+', start: '+start+', rowsNumber: '+rowsNumber);
 		var count = 0;
 		var url = "";
 		
-		var words = fieldText.split(" ");
+                var fieldTextWithKeywords = fieldText;
+                // if we have keywords, we can join them to the userText in order to create the searchphrase.
+                if (keywords!=null && keywords.length > 0) {
+                    for(var i=0;i<keywords.length;i++){
+                         fieldTextWithKeywords = fieldTextWithKeywords +" "+keywords[i];
+                    }
+                }
+                
+                
+		var words = fieldTextWithKeywords.split(" ");
 		var searchPhrase = "";
                 var currentWord = "";
 		while (count < words.length) {
