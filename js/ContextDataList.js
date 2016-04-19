@@ -228,10 +228,19 @@ ContextDataList.prototype = {
 		
 		var words = fieldText.split(" ");
 		var searchPhrase = "";
+                var currentWord = "";
 		while (count < words.length) {
-			searchPhrase += words[count];
-			count++;
-			if(count < words.length){searchPhrase += '+'}
+                        currentWord = words[count];
+                        // 'and' word is problematic in the query
+                        if (currentWord != 'and') {
+                              searchPhrase += currentWord;
+                              count++;
+                              if(count < words.length){
+                                    searchPhrase += '+';
+                              }
+                        }else{
+                              count++;
+                        }
 		}
 		// we exclude all results from this domain: disabled until reindexing
 		/*if (!this.includeSameSiteResults) {
@@ -249,6 +258,8 @@ ContextDataList.prototype = {
 			excludingPhrase = " NOT(\""+curatedURL+"\")";
 			searchPhrase = "("+searchPhrase+") AND "+excludingPhrase;
 		}*/
+                
+                
 		searchPhrase = "("+searchPhrase+")";	
 		
 		//}	
@@ -302,13 +313,14 @@ ContextDataList.prototype = {
 			fq = fq+" AND -"+descriptionField+":\""+descUsed+"\"";
 			
 			var titleField = new CommonData(null).TITLE_FIELD;
-			fq = fq+" AND -"+titleField+":\""+fieldText+"\"";
+                        var curatedFieldText = fieldText.replace('&','');
+			fq = fq+" AND -"+titleField+":\""+curatedFieldText+"\"";
 			
 		}
 		
 		
 		if (fq!=null) {
-			url = url+"&fq="+fq;
+			url = url+" &fq="+fq;
 		}
 		
 		// qf
