@@ -51,7 +51,7 @@ var ContextDataList = function(options) {
 	for(var key in options){
 	     this[key] = options[key];
 	}
-	this.contextDataServer = "http://www.biocider.org:8983/solr/contextData";
+	this.contextDataServer = "https://www.biocider.org:8983/solr/contextData";
 	
 	
 	// global current status
