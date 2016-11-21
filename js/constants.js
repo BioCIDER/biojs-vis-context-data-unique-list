@@ -30,3 +30,7 @@ define("ButtonsManager_ROUND_FLAT", "ROUND_FLAT");
 define("ButtonsManager_ICONS_ONLY", "ICONS_ONLY");
 define("ButtonsManager_ELIXIR", "ELIXIR");
 
+// ResourceTypeSets constants
+define("ResourceTypeSets_FLAT", "FLAT");
+define("ResourceTypeSets_ELIXIR", "ELIXIR");
+
