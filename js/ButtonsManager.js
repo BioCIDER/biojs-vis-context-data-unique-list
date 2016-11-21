@@ -11,7 +11,7 @@ var constants = require("./constants.js");
  *    Identifier of the DIV tag where the component should be displayed.
  * @option {boolean} [helpText]
  *    True if you want to show a help text over the buttons.
- * @option {string} [buttonsStyle='SQUARED_3D' , 'ROUND_FLAT' or 'ICONS_ONLY'. ICONS_ONLY by default.]
+ * @option {string} [buttonsStyle='SQUARED_3D' , 'ROUND_FLAT', 'ICONS_ONLY' or 'ELIXIR'. ICONS_ONLY by default.]
  *    Identifier of the buttons visualisation type.
  * @option {boolean} [pressedUnderlines]
  *    True if you want to show underlines when you press a button.
@@ -31,11 +31,19 @@ var ButtonsManager = function(contextDataList, options) {
         this.contextDataList = contextDataList;
 	this.buttonsBasicData = [];
 	// BASIC BUTTON'S DATA: LABEL, INTERNAL CLASS NAME, INTERNAL NAME AND HELP TEXT
-	this.buttonsBasicData.push(['Database','database','database','Databases'],
+	if (constants.ButtonsManager_ELIXIR == this.buttonsStyle){
+		this.buttonsBasicData.push(['Data','database','database','Data'],
+				   ['Interoperability','events','Event','Interoperability'],
+				   ['Tools','tools','Tool','Tools'],
+				   ['Training','training_material','Training Material','Training']
+		);
+	}else{
+		this.buttonsBasicData.push(['Database','database','database','Databases'],
 				   ['Events','events','Event','Events'],
 				   ['Tools','tools','Tool','Tools'],
 				   ['Training materials','training_material','Training Material','Training materials']
-	);
+		);
+	}
 	this.contextDataList.registerOnLoadedFunction(this, this.updateButtonsStatus);
 }
 
@@ -96,6 +104,8 @@ ButtonsManager.prototype = {
 				myButton = this.createRoundFlatButton(buttonData[0],buttonData[1],buttonData[2]);
 			}else if (constants.ButtonsManager_ICONS_ONLY == this.buttonsStyle){
 				myButton = this.createIconOnlyButton(buttonData[0],buttonData[1],buttonData[2]);
+			}else if (constants.ButtonsManager_ELIXIR == this.buttonsStyle){
+				myButton = this.createElixirButton(buttonData[0],buttonData[1],buttonData[2]);
 			}else{
 				myButton = this.createSquared3DdButton(buttonData[0],buttonData[1],buttonData[2]);
 			}
@@ -209,6 +219,33 @@ ButtonsManager.prototype = {
 		button.classList.add('unpressed');
 		button.classList.add(internalClass);
 		return button;    
+        },
+	
+	
+        /**
+        * Function that creates one button with 'ELIXIR' aspect.
+        * @param label {String} - Title to be used into the ANCHOR element.
+        * @param internalClass {String} - Specific className to be used into the ANCHOR element.
+        * @param internalName {String} - Name to be used into the ANCHOR element. It should be a filter name.
+        */  
+        createElixirButton : function(label, internalClass, internalName){
+            var button = document.createElement('a');
+            var linkText = document.createTextNode(label);
+            button.appendChild(linkText);
+            button.title = label;
+            button.name = internalName;
+	    button.id = internalName;
+            button.href = "#";
+            var myButtonsManager = this;
+            button.onclick = function (){
+                myButtonsManager.filter(this);
+                return false;
+            }
+            button.classList.add('button');
+	    button.classList.add('elixir');
+            button.classList.add('unpressed');
+            button.classList.add(internalClass);
+            return button;    
         },
         
         /**

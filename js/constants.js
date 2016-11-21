@@ -28,4 +28,5 @@ define("CommonData_MIN_LENGTH_LONG_DESCRIPTION", 1000);
 define("ButtonsManager_SQUARED_3D", "SQUARED_3D");
 define("ButtonsManager_ROUND_FLAT", "ROUND_FLAT");
 define("ButtonsManager_ICONS_ONLY", "ICONS_ONLY");
+define("ButtonsManager_ELIXIR", "ELIXIR");
 
