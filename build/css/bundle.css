@@ -287,6 +287,75 @@ a.button.round_flat.pressed,
 /* END ROUND FLAT STYLE */
 
 
+
+/* ELIXIR STYLE */
+
+
+a.button.elixir,
+.button.elixir a {
+	display: inline-block;
+	position: relative;
+	vertical-align: middle;
+	background-repeat: no-repeat;
+	background-position: center center;
+	text-indent: -900em;
+	color: #333;
+	text-decoration: none;
+	line-height: 100%;
+	white-space: nowrap;
+	
+	/* no shadow*/
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+}
+
+
+/* unpressed style */
+a.button.elixir.unpressed,
+.button.elixir.unpressed a {
+}
+
+/* pressed style */
+a.button.elixir.pressed,
+.button.elixir.pressed a {
+}
+
+
+/* button icons */
+
+a.button.elixir.database,
+.button a.elixir.database {
+	background-image: url('https://raw.githubusercontent.com/BioCIDER/biojs-vis-context-data-unique-list/development/build/img/data_base_blue_s.png');
+}
+
+a.button.elixir.events,
+.button a.elixir.events {
+	background-image: url('https://raw.githubusercontent.com/BioCIDER/biojs-vis-context-data-unique-list/development/build/img/interoperability_s.png');
+}
+
+a.button.elixir.tools,
+.button a.elixir.tools {
+	background-image: url('https://raw.githubusercontent.com/BioCIDER/biojs-vis-context-data-unique-list/development/build/img/tools_blue_s.png');
+}
+
+a.button.elixir.training_material,
+.button a.elixir.training_material {
+	background-image: url('https://raw.githubusercontent.com/BioCIDER/biojs-vis-context-data-unique-list/development/build/img/training_material_blue_s.png');
+}
+
+a.button.elixir.workflow,
+.button a.elixir.workflow {
+	background-image: url('https://raw.githubusercontent.com/BioCIDER/biojs-vis-context-data-unique-list/development/build/img/workflow_gray_s.png');
+}
+
+
+
+
+/* END ELIXIR STYLE */
+
+
+
 /* ICONS ONLY STYLE */
 
 a.button.icons_only,
