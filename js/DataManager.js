@@ -56,6 +56,7 @@ DataManager.prototype = {
         var commonData = null;
         var options = {};
         options['currentDomain'] = this.currentDomain;
+        options['resourceTypeSet'] = this.resourceTypeSet;
         switch(sourceFieldValue){
             case new ElixirRegistryData(null).SOURCE_FIELD_VALUE:
                 commonData = new ElixirRegistryData(jsonEntry, options);

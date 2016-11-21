@@ -11,7 +11,8 @@ var constants = require("./constants.js");
 var CommonData = function(jsonData, options) {
             
             var default_options_values = {
-                        currentDomain: null
+                        currentDomain: null,
+                        resourceTypeSet: constants.ResourceTypeSets_FLAT,
             };
             for(var key in default_options_values){
                         this[key] = default_options_values[key];
@@ -241,8 +242,13 @@ CommonData.prototype = {
                                     var resource_type = resourceTypes[i];
                                     var element = document.createElement('span');
                                     element.title = resource_type;
+                                    if (constants.ResourceTypeSets_ELIXIR == this.resourceTypeSet) {
+                                          element.classList.add('elixir_resource_type');   
+                                    }else{
                                     // flat gray style
-                                    element.classList.add('flat_resource_type');
+                                          element.classList.add('flat_resource_type');      
+                                    }
+                                    
                                     element.classList.add('gray');
                                     // round style
                                     //element.classList.add('resource_type');

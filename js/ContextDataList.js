@@ -69,7 +69,7 @@ var ContextDataList = function(options) {
 	
 	this._onLoadedFunctions= [];
         
-        this.dataManager = new DataManager({'currentDomain':this.currentDomain});
+        this.dataManager = new DataManager({'currentDomain':this.currentDomain,'resourceTypeSet':this.resourceTypeSet});
 	
 	//this.drawHelpImage();
 	

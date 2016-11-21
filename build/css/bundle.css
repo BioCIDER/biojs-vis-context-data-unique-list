@@ -511,8 +511,6 @@ span.resource_type.circle:after,
 
 
 /* resource type icons */
-
-
 span.resource_type.database,
 .resource_type span.database {
 	background-image: url('https://raw.githubusercontent.com/BioCIDER/biojs-vis-context-data-unique-list/development/build/img/data_base_gray_s.png');
@@ -540,8 +538,6 @@ span.resource_type.workflow,
 
 
 /* flat resource type details */
-
-
 span.flat_resource_type,
 .flat_resource_type span {
 	width: 36px;
@@ -592,6 +588,62 @@ span.flat_resource_type.workflow,
 .flat_resource_type span.workflow {
 	background-image: url('https://raw.githubusercontent.com/BioCIDER/biojs-vis-context-data-unique-list/development/build/img/workflow_gray_s.png');
 }
+
+
+
+
+/* ELIXIR resource type details */
+span.elixir_resource_type,
+.elixir_resource_type span {
+	width: 36px;
+	height: 36px;
+	background-repeat: no-repeat;
+	background-position: center center;
+	text-indent: -900em;
+	color: #333;
+	text-decoration: none;
+	line-height: 100%;
+	white-space: nowrap;
+	display: inline-block;
+	position: relative;
+	vertical-align: middle;
+	margin: 0 2px 5px 0;
+	
+}
+/* for IE */
+*:first-child+html span.elixir_resource_type,
+*:first-child+html .elixir_resource_type span {
+	text-indent: 0;
+	line-height: 0;
+	font-size: 0;
+	overflow: hidden;
+}
+
+span.elixir_resource_type.database,
+.elixir_resource_type span.database {
+	background-image: url('https://raw.githubusercontent.com/BioCIDER/biojs-vis-context-data-unique-list/development/build/img/data_base_blue_s.png');
+}
+
+span.elixir_resource_type.events,
+.elixir_resource_type span.events {
+	background-image: url('https://raw.githubusercontent.com/BioCIDER/biojs-vis-context-data-unique-list/development/build/img/interoperability_s.png');
+}
+
+span.elixir_resource_type.tools,
+.elixir_resource_type span.tools {
+	background-image: url('https://raw.githubusercontent.com/BioCIDER/biojs-vis-context-data-unique-list/development/build/img/tools_blue_s.png');
+}
+
+span.elixir_resource_type.training_material,
+.elixir_resource_type span.training_material {
+	background-image: url('https://raw.githubusercontent.com/BioCIDER/biojs-vis-context-data-unique-list/development/build/img/training_material_blue_s.png');
+}
+
+span.elixir_resource_type.workflow,
+.elixir_resource_type span.workflow {
+	background-image: url('https://raw.githubusercontent.com/BioCIDER/biojs-vis-context-data-unique-list/development/build/img/workflow_gray_s.png');
+}
+
 
 /*  Gray filters
 Based on:
