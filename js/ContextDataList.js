@@ -135,6 +135,9 @@ ContextDataList.prototype = {
 			if (userText == undefined || userText == null) {
 				userText = myFirstElement.innerHTML;
 			}
+                        if (userText == undefined || userText == null) {
+				userText = myFirstElement.value;
+			}
 		}
 		return userText;
 	},
