@@ -169,7 +169,7 @@ biocider.prototype = {
 				this.contextDataListOptions['targetClass']);
 		
 		
-		
+		this.initAcknowledgementsContainer();
 	},
 	
 	/**
@@ -219,6 +219,17 @@ biocider.prototype = {
 			}
 		}
 		
+	},
+	
+	/**
+	 * Creates a container to show acknowledgements.
+	 */
+	initAcknowledgementsContainer : function(){
+		this.initContainer(this.targetId,
+				'acknowledgments_container',
+				'acknowledgments');
+		var container = document.getElementById('acknowledgments_container');
+		container.innerHTML = 'Powered by <a href="http://iann.pro/" target="_blank">iAnn</a> and <a href="https://tess.elixir-europe.org/" target="_blank">TeSS</a>'	
 	}
         
         

@@ -39,6 +39,13 @@ div.context_data_list{
     width: 100%;
 }
 
+div.acknowledgments{
+    margin: 1px 1px 1px 1px;
+    width: 85%;
+    font-size: 75%;
+    font-style: italic;
+    text-align: center;
+}
 
 /** Normal elements */
 
